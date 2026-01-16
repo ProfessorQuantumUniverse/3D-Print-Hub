@@ -1,411 +1,226 @@
 :root {
-    --primary-orange: #E98E68; /* Die exakte Farbe der Karte */
+    --primary-orange: #E98E68;
     --primary-bg: #f5f5f5;
     --text-color: #000000;
     --card-text: #000000;
     --pill-bg: #ffffff;
     --pill-text: #000000;
     --font-main: 'Montserrat', sans-serif;
-    --bg-overlay: rgba(255, 255, 255, 0.4);
+    --font-title: 'Orbitron', sans-serif; /* Für den 3D Titel */
 }
 
-/* Dark Mode Palette */
 body.darkmode {
-    --primary-orange: #C06C48; /* Etwas dunkler im Darkmode */
+    --primary-orange: #C06C48;
     --primary-bg: #121212;
     --text-color: #ffffff;
     --card-text: #ffffff;
     --pill-bg: #2a2a2a;
     --pill-text: #ffffff;
-    --bg-overlay: rgba(0, 0, 0, 0.6);
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-main); background-color: var(--primary-bg); color: var(--text-color); overflow-x: hidden; transition: 0.3s; }
 
-body {
-    font-family: var(--font-main);
-    background-color: var(--primary-bg);
-    color: var(--text-color);
-    overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Header - Floating Pill Style */
-.wix-header {
-    position: fixed;
-    top: 20px;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    padding: 0 40px;
-    display: flex;
-    justify-content: center;
-}
-
-.header-content {
-    width: 100%;
-    max-width: 1400px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header-left {
-    background: var(--pill-bg);
-    padding: 8px 20px;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    height: 60px;
-}
-
-.logo-box {
-    width: 40px;
-    height: 30px;
-    background: #f0f0f0;
-    border: 1px solid #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
-}
+/* --- HEADER (Unverändert gut) --- */
+.wix-header { position: fixed; top: 20px; left: 0; width: 100%; z-index: 1000; padding: 0 40px; display: flex; justify-content: center; }
+.header-content { width: 100%; max-width: 1400px; display: flex; justify-content: space-between; align-items: center; }
+.header-left { background: var(--pill-bg); padding: 8px 20px; border-radius: 50px; display: flex; align-items: center; gap: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); height: 60px; }
+.logo-box { width: 40px; height: 30px; background: #f0f0f0; border: 1px solid #ccc; display: flex; justify-content: center; align-items: center; border-radius: 4px; }
 .printer-icon { width: 24px; color: #333; }
-
 .separator { width: 1px; height: 25px; background: #ddd; }
-
 .brand-name { font-weight: 800; letter-spacing: 2px; font-size: 1.2rem; color: var(--pill-text); }
-
 .header-center { flex-grow: 1; display: flex; justify-content: center; }
-.player-pill {
-    background: rgba(100, 100, 100, 0.2);
-    padding: 10px 20px;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 200px;
-    backdrop-filter: blur(10px);
-}
+.player-pill { background: rgba(100, 100, 100, 0.2); padding: 10px 20px; border-radius: 50px; display: flex; align-items: center; gap: 10px; width: 200px; backdrop-filter: blur(10px); }
 .progress-bar { width: 100%; height: 4px; background: rgba(255,255,255,0.5); border-radius: 2px; }
-
-.header-right {
-    display: flex;
-    gap: 15px;
-}
-
-.lang-pill, .nav-pill {
-    background: var(--pill-bg);
-    border-radius: 50px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    display: flex;
-    align-items: center;
-    height: 60px;
-    color: var(--pill-text);
-}
-
+.header-right { display: flex; gap: 15px; }
+.lang-pill, .nav-pill { background: var(--pill-bg); border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); display: flex; align-items: center; height: 60px; color: var(--pill-text); }
 .lang-pill { padding: 0 15px; gap: 8px; cursor: pointer; }
 .flag { width: 20px; border-radius: 2px; }
-
 .nav-pill { padding: 0 10px; }
-.nav-item {
-    text-decoration: none;
-    color: var(--pill-text);
-    padding: 10px 15px;
-    font-weight: 500;
-    border-radius: 20px;
-    transition: background 0.3s;
-}
-.nav-item.active { background: #e0e0e0; color: #000; } /* Active ist immer hellgrau */
+.nav-item { text-decoration: none; color: var(--pill-text); padding: 10px 15px; font-weight: 500; border-radius: 20px; transition: background 0.3s; }
+.nav-item.active { background: #e0e0e0; color: #000; }
 .nav-arrow { padding: 0 15px; color: #888; text-decoration: none; }
 
-/* Hero Section */
+/* --- HERO SECTION --- */
 .hero-section {
     position: relative;
     height: 100vh;
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-end; /* Karte nach unten schieben */
     align-items: center;
     overflow: hidden;
+    padding-bottom: 100px;
 }
 
 .hero-bg-image {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 0;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
 }
-.hero-bg-image img {
-    width: 100%; height: 100%; object-fit: cover;
-    opacity: 0.8; /* Leicht gedimmt für Textlesbarkeit */
-}
+.hero-bg-image img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
 
-.hero-text-layer {
+/* Der 3D Effekt Titel */
+.hero-title-container {
     position: absolute;
-    z-index: 1;
+    top: 25%; /* Höher positioniert */
     width: 100%;
     text-align: center;
-    top: 30%; /* Etwas höher als die Mitte */
+    z-index: 5; /* Hinter der Karte (10) aber vor Hintergrund (0) */
 }
 
-.hero-text-layer h1 {
-    font-size: 10vw; /* Riesig und responsive wie im Original */
+.giant-3d-text {
+    font-family: var(--font-title);
+    font-size: 11vw;
     font-weight: 900;
-    color: rgba(255, 255, 255, 0.8);
-    text-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
     letter-spacing: -2px;
-    font-family: 'Montserrat', sans-serif;
+    text-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    /* Der Trick, damit es hinter der Karte verschwindet */
+    margin-bottom: -40px; 
 }
 
-/* The Main Orange Card */
+/* Main Card */
 .main-card {
     position: relative;
-    z-index: 10;
+    z-index: 10; /* Vor dem Text */
     background-color: var(--primary-orange);
     width: 90%;
     max-width: 600px;
     padding: 40px;
     border-radius: 40px;
     text-align: center;
-    margin-top: 15vh; /* Damit es die Schrift überlappt */
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    box-shadow: 0 -20px 50px rgba(0,0,0,0.2); /* Schatten nach oben für Tiefe */
     border: 1px solid rgba(255,255,255,0.1);
     color: var(--card-text);
-    transition: background-color 0.3s ease;
 }
 
-.card-arrow-top-left {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    transform: rotate(180deg); /* Pfeil zeigt nach innen */
-}
-
+.card-arrow-top-left { position: absolute; top: 30px; left: 30px; transform: rotate(180deg); }
 .welcome-text { font-size: 1.8rem; font-weight: 600; margin-bottom: 10px; line-height: 1.3; }
 .sub-text { font-size: 1.2rem; margin-bottom: 5px; }
 .tip-text { font-size: 0.9rem; font-weight: 700; margin-bottom: 20px; }
 
-.card-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.btn-pill {
-    background: #fff;
-    color: #000;
-    border: none;
-    padding: 15px 0;
-    width: 80%;
-    border-radius: 50px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-.btn-pill:hover { transform: scale(1.03); }
-
-/* Darkmode Toggle Switch */
-.darkmode-control {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin: 15px 0;
-    font-weight: 600;
-}
-
-.toggle-switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 28px;
-}
+.darkmode-control { display: flex; align-items: center; justify-content: center; gap: 15px; margin: 15px 0; font-weight: 600; }
+.toggle-switch { position: relative; display: inline-block; width: 50px; height: 28px; }
 .toggle-switch input { opacity: 0; width: 0; height: 0; }
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-color: #fff;
-    transition: .4s;
-    border-radius: 34px;
-}
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 20px; width: 20px;
-    left: 4px; bottom: 4px;
-    background-color: #ccc;
-    transition: .4s;
-    border-radius: 50%;
-}
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #fff; transition: .4s; border-radius: 34px; }
+.slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 4px; bottom: 4px; background-color: #ccc; transition: .4s; border-radius: 50%; }
 input:checked + .slider { background-color: #333; }
 input:checked + .slider:before { transform: translateX(22px); background-color: #fff; }
 
-.card-icon-bottom {
-    margin-top: 30px;
-    opacity: 0.8;
-    width: 60px;
-    height: 60px;
-    margin-left: auto;
-    margin-right: auto;
-    border: 2px solid currentColor;
-    border-radius: 10px;
-    padding: 10px;
-}
+.card-buttons { display: flex; flex-direction: column; gap: 12px; align-items: center; margin-top: 20px; }
+.btn-pill { background: #fff; color: #000; border: none; padding: 15px 0; width: 80%; border-radius: 50px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.btn-pill:hover { transform: scale(1.03); }
 
-/* Features Grid Section */
-.features-section {
-    padding: 20px;
-    background: var(--primary-bg);
+/* --- MATRIX SECTION (Videos) --- */
+.matrix-section { padding: 10px; background: var(--primary-bg); }
+.matrix-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; /* 2x2 Layout */
+    gap: 10px; 
+    max-width: 1600px; 
+    margin: 0 auto; 
 }
-
-.feature-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.grid-card {
+.matrix-card {
     position: relative;
+    aspect-ratio: 16/9; /* Video Format */
     border-radius: 20px;
     overflow: hidden;
-    height: 400px;
-    background: #e0e0e0;
+    background: #000;
 }
-
-.grid-card img {
+.matrix-card video {
     width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.5s ease;
 }
-.grid-card:hover img { transform: scale(1.05); }
-
-.grid-overlay {
-    position: absolute;
-    bottom: 20px; left: 20px;
-    z-index: 2;
-    color: #fff;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+.matrix-overlay {
+    position: absolute; bottom: 20px; left: 20px; z-index: 2; color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
-.grid-overlay h3 { font-size: 2.5rem; line-height: 1; font-weight: 800; }
+.matrix-overlay h3 { font-size: 2.5rem; line-height: 1; font-weight: 800; text-transform: uppercase; }
+.discover-pill { margin-top: 15px; background: var(--primary-orange); border: none; color: #fff; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; }
 
-.grid-text-content {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: rgba(0,0,0,0.2); /* Slight overlay */
-    color: #fff;
-    font-size: 2rem;
-    font-weight: 800;
-}
-
-.discover-pill {
-    margin-top: 15px;
-    background: var(--primary-orange);
-    border: none;
-    color: #fff;
-    padding: 8px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-/* About Section */
-.about-section {
-    background: var(--primary-orange);
-    color: var(--card-text);
-    padding: 80px 20px;
-    text-align: center;
-    border-radius: 40px 40px 0 0; /* Runde Ecken oben */
-    margin-top: 20px;
-}
-.about-content { max-width: 800px; margin: 0 auto; }
-.about-content h2 { font-size: 3rem; margin-bottom: 20px; font-weight: 800; }
-.about-list { margin-top: 20px; text-align: left; display: inline-block; }
-
-/* Team Section */
-.team-section {
+/* --- GALERIE SLIDER --- */
+.gallery-slider-section {
+    padding: 40px;
     background: var(--primary-bg);
-    padding: 80px 20px;
-    text-align: center;
-}
-.section-headline { font-size: 2.5rem; margin-bottom: 50px; }
-
-.team-container {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
 }
-
-.profile-card {
-    width: 350px;
-    border-radius: 30px;
-    padding: 40px 20px;
-    color: #000;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+.slider-btn {
+    background: var(--pill-bg); color: var(--pill-text); border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.1); font-size: 1.2rem;
 }
+.gallery-wrapper {
+    width: 100%; max-width: 1200px; position: relative; height: 500px; overflow: hidden; border-radius: 30px;
+}
+.gallery-slide {
+    display: none; width: 100%; height: 100%;
+}
+.gallery-slide.active { display: flex; }
 
+/* Split Layout für Slide */
+.slide-image { flex: 1; height: 100%; }
+.slide-image img { width: 100%; height: 100%; object-fit: cover; }
+.slide-text-box {
+    flex: 1; height: 100%;
+    background-size: cover; background-position: center;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+}
+/* Blur Effect on Right Side */
+.slide-text-box::before {
+    content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
+    background: rgba(255,255,255,0.2); backdrop-filter: blur(20px);
+}
+.glass-text-overlay {
+    position: relative; z-index: 2; padding: 40px; text-align: center; color: #000;
+}
+.glass-text-overlay h3 { font-size: 2.5rem; margin-bottom: 20px; font-weight: 800; }
+.glass-text-overlay p { font-size: 1.2rem; line-height: 1.6; }
+
+/* --- ABOUT SECTION (Alles Orange) --- */
+.about-section {
+    background-color: var(--primary-orange); /* Der ganze Hintergrund ist orange */
+    color: var(--card-text);
+    padding: 100px 40px;
+    display: flex;
+    justify-content: center;
+    border-radius: 40px; /* Leichte Rundung zum Trennen */
+    margin: 20px;
+}
+.about-content { max-width: 1200px; width: 100%; }
+.big-headline { font-size: 4rem; margin-bottom: 30px; font-weight: 900; letter-spacing: -1px; }
+.about-text-block { 
+    font-size: 1.4rem; line-height: 1.6; margin-bottom: 60px; font-weight: 500;
+    max-width: 900px;
+}
+.about-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;
+}
+.about-item h3 { font-size: 1.8rem; margin-bottom: 10px; border-bottom: 2px solid rgba(0,0,0,0.1); padding-bottom: 10px; display: inline-block; }
+.about-item p { font-size: 1.1rem; }
+
+/* --- TEAM --- */
+.team-section { background: var(--primary-bg); padding: 80px 20px; text-align: center; }
+.section-headline { font-size: 2.5rem; margin-bottom: 50px; }
+.team-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+.profile-card { width: 350px; border-radius: 30px; padding: 40px 20px; color: #000; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
 .gradient-blue { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); }
 .gradient-purple { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
-
-.avatar img {
-    width: 120px; height: 120px; border-radius: 50%;
-    object-fit: cover; border: 4px solid rgba(255,255,255,0.6);
-    margin-bottom: 15px;
-}
-
-.profile-card h3 { font-size: 1.5rem; margin-bottom: 5px; }
-.role { font-size: 0.9rem; margin-bottom: 20px; opacity: 0.8; }
-
-.profile-actions { display: flex; flex-direction: column; gap: 10px; }
-.pill-link {
-    background: #000; color: #fff;
-    padding: 12px; border-radius: 30px;
-    text-decoration: none; font-size: 0.9rem;
-    transition: opacity 0.3s;
-}
-.pill-link:hover { opacity: 0.8; }
+.avatar img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid rgba(255,255,255,0.6); margin-bottom: 15px; }
+.profile-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+.pill-link { background: #000; color: #fff; padding: 12px; border-radius: 30px; text-decoration: none; font-size: 0.9rem; transition: opacity 0.3s; }
 
 /* Footer */
-footer {
-    background: #000; color: #fff;
-    padding: 40px; text-align: center;
-    font-size: 0.9rem;
-}
+footer { background: #000; color: #fff; padding: 40px; text-align: center; font-size: 0.9rem; }
 .footer-links a { color: #fff; text-decoration: none; margin: 0 10px; }
+.chat-fab { position: fixed; bottom: 20px; right: 20px; background: var(--primary-orange); color: #fff; padding: 10px 25px; border-radius: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); font-weight: 600; cursor: pointer; z-index: 999; }
 
-/* Chat FAB */
-.chat-fab {
-    position: fixed;
-    bottom: 20px; right: 20px;
-    background: var(--primary-orange);
-    color: #fff;
-    padding: 10px 25px;
-    border-radius: 30px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-    font-weight: 600;
-    cursor: pointer;
-    z-index: 999;
-}
-
-/* Responsive Fixes */
+/* Mobile */
 @media (max-width: 768px) {
-    .feature-grid { grid-template-columns: 1fr; }
     .wix-header { padding: 0 10px; }
     .header-left .brand-name, .header-center, .nav-pill a:not(.active) { display: none; }
-    .hero-text-layer h1 { font-size: 15vw; }
+    .giant-3d-text { font-size: 18vw; margin-bottom: -20px; }
+    .matrix-grid { grid-template-columns: 1fr; }
+    .gallery-slide { flex-direction: column; }
+    .slide-text-box { padding: 20px; }
 }
