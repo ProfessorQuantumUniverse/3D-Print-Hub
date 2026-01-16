@@ -278,7 +278,6 @@ footer { background: #000; color: #fff; padding: 40px; text-align: center; font-
     
     /* Footer adjustments */
     footer { padding: 30px 20px; font-size: 0.85rem; }
-    .footer-inner { flex-direction: column; gap: 10px; }
     
     /* Chat FAB adjustments */
     .chat-fab { padding: 10px 20px; font-size: 0.9rem; bottom: 15px; right: 15px; }
