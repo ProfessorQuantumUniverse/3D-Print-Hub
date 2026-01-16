@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D-Print-Hub | Buchen</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="site-background"></div>
+
+    <!-- Header (Unverändert, da perfekt) -->
+    <header class="wix-header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo-box">
+                    <img src="https://static.wixstatic.com/media/1a2196_fbe9ff330b1346d9818a251995ddf4fa~mv2.png/v1/fill/w_333,h_201,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3d-printer-3308167_1920.png" alt="DE" class="logo-image">
+                </div>
+                <div class="separator"></div>
+                <span class="brand-name">BUCHEN</span>
+            </div>
+            <div class="header-center">
+                <div class="player-pill">
+                    <i class="fa-solid fa-play"></i>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="lang-pill">
+                    <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/de.svg" alt="DE" class="flag">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <nav class="nav-pill">
+                    <a href="#" class="nav-item">Home</a>
+                    <a href="#" class="nav-item active">Buchen</a>
+                    <a href="#" class="nav-item">Order Status</a>
+                    <a href="#" class="nav-item">Modell aussuchen</a>
+                    <a href="#" class="nav-item">Materialien</a>
+                    <a href="#" class="nav-item">Gallerie</a>
+                    <a href="#" class="nav-arrow">></a>
+                </nav>
+            </div>
+        </div>
+    </header>
+<main>
+    <!-- Buchungs-Sektion -->
+    <section class="booking-hero">
+        <div class="booking-card" id="booking-step-1">
+            <div class="form-group">
+                <label for="order-type">Bestellart *</label>
+                <div class="custom-select-wrapper">
+                    <select id="order-type">
+                        <option value="" disabled selected>Bitte wählen...</option>
+                        <option value="file">Ich habe eine Datei!</option>
+                        <option value="design">Ich möchte mit Text die Erstellung des Designs in Auftrag geben.</option>
+                        <option value="link">Ich habe einen Thingiverse / Makerworld Link</option>
+                    </select>
+                </div>
+                <p class="helper-text">Thingiverse und Makerworld ist eine online 3D-Modellplatform.</p>
+            </div>
+            <div class="button-row-right">
+                <button class="btn-blue" id="btn-to-step-2">Weiter</button>
+            </div>
+        </div>
+
+        <!-- Dynamisches Formular (initial ausgeblendet) -->
+        <div class="booking-card hidden" id="booking-step-2">
+            <h2 class="form-title">Order form</h2>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Vorname *</label>
+                    <input type="text" id="fname" required>
+                </div>
+                <div class="form-group">
+                    <label>Nachname *</label>
+                    <input type="text" id="lname" required>
+                </div>
+                <div class="form-group full-width">
+                    <label>Email *</label>
+                    <input type="email" id="email" required>
+                </div>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="shipping">
+                <label for="shipping">Postsendung</label>
+            </div>
+
+            <div id="address-field" class="form-group hidden">
+                <label>Adresse</label>
+                <input type="text" placeholder="Straße, Hausnummer, PLZ, Ort">
+            </div>
+
+            <!-- Bedingte Felder basierend auf Auswahl aus Step 1 -->
+            <div id="dynamic-fields">
+                <!-- Dateiupload -->
+                <div id="field-file" class="dynamic-content hidden">
+                    <label>Datei-Upload *</label>
+                    <div class="upload-box">
+                        <button class="btn-upload"><i class="fa-solid fa-plus"></i> Datei übermitteln</button>
+                        <p class="upload-note">Danke für die Daten!!!</p>
+                    </div>
+                    <p class="small-hint">Hinweis: Bitte komprimieren sie ihre Datei vor dem Upload zu einer Zip Datei!</p>
+                </div>
+
+                <!-- Design Beschreibung -->
+                <div id="field-design" class="dynamic-content hidden">
+                    <label>Beschreibung des Designs</label>
+                    <textarea rows="4"></textarea>
+                    <label>Fotos hochladen</label>
+                    <button class="btn-upload"><i class="fa-solid fa-plus"></i> Datei hochladen</button>
+                </div>
+
+                <!-- Link Feld -->
+                <div id="field-link" class="dynamic-content hidden">
+                    <label>Thingiverse-/Makerworldlink</label>
+                    <input type="text">
+                    <div class="external-links">
+                        <a href="https://www.thingiverse.com" target="_blank">Thingiverse - Digital Designs for Physical Objects</a>
+                        <a href="https://makerworld.com" target="_blank">MakerWorld: Download Free 3D Printing Models</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checkbox-group newsletter-opt">
+                <input type="checkbox" id="newsletter" checked>
+                <label for="newsletter">Ja, ich möchte den Newsletter abonnieren.</label>
+            </div>
+
+            <div class="button-row-between">
+                <button class="btn-back" id="btn-back-to-1">Back</button>
+                <button class="btn-blue">Next</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preis-Sektion (identisch zum Video-Scroll) -->
+    <section class="price-section">
+        <div class="price-container">
+            <h1 class="price-title-main">PREISE</h1>
+            
+            <div class="price-item">
+                <h3>1. Preis pro Gramm Druckvolumen</h3>
+                <div class="price-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2881/2881031.png" alt="10g">
+                </div>
+                <p class="price-calc">10 Gramm Druck Volumen = <br> <strong>70 ct Grundpreis</strong></p>
+            </div>
+
+            <div class="scroll-arrow">
+                <i class="fa-solid fa-arrow-down"></i>
+            </div>
+
+            <button class="material-pill"><i class="fa-solid fa-circle"></i> Materialien</button>
+
+            <div class="plus-divider">+</div>
+
+            <div class="price-item">
+                <h3>2. Preis pro Stunde Druckzeit</h3>
+                <div class="price-icon">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2784/2784459.png" alt="Clock">
+                </div>
+                <p class="price-calc">1 Stunde Druckzeit = <br> <strong>8 ct</strong></p>
+            </div>
+
+            <div class="plus-divider">+</div>
+
+            <div class="price-item">
+                <h3>3. Evtl. Kosten für Nachbearbeitung und Versand.</h3>
+                <p class="sub-info">Oder Modellierungskosten (ca. 30€)</p>
+                <p class="disclaimer">Hinweis: Preise können abweichen.</p>
+            </div>
+
+            <div class="example-box">
+                <h2 class="example-title">BEISPIEL:</h2>
+                <div class="example-image">
+                    <img src="https://static.wixstatic.com/media/1a2196_81f7c32759e64e529177114660a5e828~mv2.jpg" alt="Beispiel">
+                </div>
+                <p>Standard PLA 27 Gramm + <br> 3 Stunden Druckzeit = <br> <span class="final-price">3,41€</span></p>
+            </div>
+        </div>
+    </section>
+</main>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <span>© Copyright: Bahrian Novotny & Lorenzo Bay-Müller</span>
+            <div class="footer-links">
+                <a href="#">Impressum</a> | <a href="#">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chat Button Fixed -->
+    <div class="chat-fab">
+        <i class="fa-regular fa-comment"></i> Chat with us
+    </div>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

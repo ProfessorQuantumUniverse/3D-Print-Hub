@@ -306,3 +306,642 @@ footer { background: #000; color: #fff; padding: 40px; text-align: center; font-
     width: 100%;
     height: auto;
 }
+
+/* --- Hintergrunderweiterung --- */
+.site-background {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px);
+    background-size: 20px 20px; /* Erzeugt das Gitter aus dem Video */
+    background-color: var(--primary-bg);
+    z-index: -1;
+}
+
+/* --- Booking Section --- */
+.booking-hero {
+    padding: 150px 20px 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.booking-card {
+    background: #eef2f6;
+    width: 100%;
+    max-width: 900px;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.hidden { display: none !important; }
+
+/* Form Elements */
+.form-group { margin-bottom: 25px; display: flex; flex-direction: column; }
+.form-group label { font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.full-width { grid-column: span 2; }
+
+input[type="text"], input[type="email"], select, textarea {
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+}
+
+.helper-text { font-size: 0.8rem; color: #777; margin-top: 10px; }
+
+/* Buttons */
+.button-row-right { display: flex; justify-content: flex-end; }
+.button-row-between { display: flex; justify-content: space-between; margin-top: 30px; }
+
+.btn-blue {
+    background: #4A69FF;
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-back {
+    background: #e0e0e0;
+    color: #333;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Dynamische Bereiche */
+.upload-box { margin-top: 10px; }
+.btn-upload {
+    background: #4A69FF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.upload-note { color: #4A69FF; font-weight: bold; margin-top: 5px; font-size: 0.8rem; }
+.external-links { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+.external-links a { color: #4A69FF; text-decoration: none; font-size: 0.9rem; }
+
+/* --- Preis Sektion (Glassmorphism) --- */
+.price-section {
+    padding: 50px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.price-container {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(15px);
+    width: 100%;
+    max-width: 800px;
+    border-radius: 40px;
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.price-title-main {
+    font-family: var(--font-title);
+    font-size: 5rem;
+    font-weight: 900;
+    margin-bottom: 40px;
+    background: url('https://static.wixstatic.com/media/1a2196_81f7c32759e64e529177114660a5e828~mv2.jpg');
+    background-size: cover;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 5px;
+}
+
+.price-item h3 { font-size: 1.5rem; margin-bottom: 20px; }
+.price-icon img { width: 100px; margin-bottom: 15px; }
+.price-calc { font-size: 1.3rem; line-height: 1.4; }
+
+.scroll-arrow { font-size: 3rem; margin: 30px 0; }
+.plus-divider { font-size: 4rem; color: var(--primary-orange); font-weight: bold; margin: 20px 0; }
+
+.material-pill {
+    background: black;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 50px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.example-box { margin-top: 50px; border-top: 2px solid rgba(0,0,0,0.1); padding-top: 40px; }
+.example-title { color: var(--primary-orange); font-size: 2.5rem; margin-bottom: 20px; }
+.example-image img { width: 250px; border-radius: 10px; margin-bottom: 20px; }
+.final-price { font-size: 2rem; font-weight: 800; }
+
+/* --- Gallery Page Overrides & Reconstruction --- */
+
+.gallery-page {
+    min-height: 100vh;
+    padding-top: 120px; /* Platz für fixierten Header */
+    padding-bottom: 50px;
+    /* Rekonstruktion des strukturierten Hintergrunds aus dem Video */
+    background-color: #D37652; 
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.gallery-container {
+    width: 90%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+.gallery-headline {
+    font-family: var(--font-main); /* Laut Video eher Montserrat Bold */
+    font-size: 5rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 30px;
+    text-transform: none;
+}
+
+.slider-viewport {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 8; /* Video-Format */
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    border: 8px solid rgba(0,0,0,0.05);
+}
+
+.slides-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.slide {
+    min-width: 100%;
+    height: 100%;
+}
+
+.slide img, .slide video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Navigations-Pfeile exakt wie im Video */
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 3.5rem;
+    cursor: pointer;
+    z-index: 10;
+    padding: 20px;
+    transition: opacity 0.3s, scale 0.2s;
+    text-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.slider-nav:hover {
+    scale: 1.1;
+}
+
+.slider-nav.prev { left: 20px; }
+.slider-nav.next { right: 20px; }
+
+/* Caption Styling */
+.caption-container {
+    margin-top: 25px;
+}
+
+#slideCaption {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #000;
+    opacity: 0.9;
+}
+
+/* Mobile Anpassung */
+@media (max-width: 768px) {
+    .gallery-headline { font-size: 3rem; }
+    .slider-viewport { aspect-ratio: 4 / 3; }
+    .slider-nav { font-size: 2rem; }
+}
+
+/* --- MATERIALIEN PAGE SPEZIFISCH --- */
+
+.materials-page {
+    padding-top: 140px; /* Platz für Header */
+    padding-bottom: 80px;
+    min-height: 100vh;
+    /* Der markante strukturierte Hintergrund aus dem Video */
+    background-color: var(--primary-bg);
+    background-image: 
+        radial-gradient(var(--primary-orange) 0.5px, transparent 0.5px), 
+        radial-gradient(var(--primary-orange) 0.5px, var(--primary-bg) 0.5px);
+    background-size: 4px 4px;
+    background-position: 0 0, 2px 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.materials-main-title {
+    font-family: var(--font-main);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 50px;
+    color: #000;
+}
+
+.materials-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    width: 95%;
+}
+
+.material-card {
+    background: #fff;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 40px rgba(233, 142, 104, 0.4); /* Orange Glow Effekt */
+    transition: transform 0.3s ease;
+}
+
+.material-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Die schwarze Info-Box oben */
+.card-top-info {
+    background-color: #000;
+    color: #fff;
+    padding: 30px 20px;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-top-info h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.card-top-info p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    font-weight: 400;
+    opacity: 0.9;
+}
+
+.price-info {
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px !important;
+}
+
+.order-button-pill {
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    padding: 8px 25px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: 1px solid #fff;
+}
+
+.order-button-pill:hover {
+    background: transparent;
+    color: #fff;
+}
+
+/* Der untere Bildbereich */
+.card-bottom-image {
+    background-color: #f9f9f9; /* Ganz leichtes Off-White wie im Video */
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.card-bottom-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Zentrierung für die einzelne Karte in der zweiten Reihe */
+.centered-card {
+    grid-column: 2;
+}
+
+/* Mobile Anpassung */
+@media (max-width: 1024px) {
+    .materials-container {
+        grid-template-columns: 1fr 1fr;
+    }
+    .centered-card {
+        grid-column: span 2;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .materials-container {
+        grid-template-columns: 1fr;
+    }
+    .centered-card {
+        grid-column: 1;
+    }
+}
+
+/* --- REKONSTRUKTION MODELLE SEITE --- */
+
+.modelle-page {
+    min-height: 100vh;
+    padding-top: 140px; /* Platz für den Header */
+    padding-bottom: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Exakter Mesh-Hintergrund aus dem Video */
+    background-color: #B3714E; 
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.15) 1px, transparent 1px);
+    background-size: 3px 3px; /* Sehr feines Gitter */
+    position: relative;
+}
+
+.modelle-content-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+    z-index: 10;
+}
+
+.selection-title {
+    font-family: var(--font-main);
+    font-weight: 900;
+    font-size: 3.5rem;
+    line-height: 1.1;
+    color: #000;
+    margin-bottom: 60px;
+}
+
+.selection-grid {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    align-items: flex-start;
+    padding: 0 20px;
+}
+
+.selection-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Handgezeichnete Pfeile */
+.arrow-container {
+    width: 120px;
+    height: 80px;
+    margin-bottom: 20px;
+}
+
+.hand-arrow {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(2px 2px 0px rgba(255,255,255,0.3));
+}
+
+/* Die Karten-Struktur */
+.model-platform-card {
+    width: 320px;
+    height: 320px;
+    background: #fff;
+    border-radius: 40px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(255,255,255,0.4);
+    text-decoration: none;
+}
+
+.model-platform-card:hover {
+    transform: scale(1.05);
+}
+
+/* Glass-Effekt auf den Karten wie im Video */
+.card-glass-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+/* Spezielle Schatten/Glows für die Logos */
+.thingi-card {
+    background: radial-gradient(circle at center, #ffffff 0%, #e6f0ff 100%);
+}
+
+.maker-card {
+    background: radial-gradient(circle at center, #ffffff 0%, #f5f5f5 100%);
+}
+
+.platform-logo {
+    width: 70%;
+    height: auto;
+    object-fit: contain;
+    z-index: 2;
+    filter: contrast(1.1);
+}
+
+/* Mobile Optimierung */
+@media (max-width: 850px) {
+    .selection-grid {
+        flex-direction: column;
+        gap: 40px;
+        align-items: center;
+    }
+    .selection-title {
+        font-size: 2.5rem;
+    }
+    .model-platform-card {
+        width: 280px;
+        height: 280px;
+    }
+    .arrow-container {
+        display: none; /* Auf Mobile stören die Pfeile im vertikalen Layout */
+    }
+}
+
+/* --- STATUS PAGE RECONSTRUCTION --- */
+
+.status-page-content {
+    min-height: 100vh;
+    padding-top: 150px;
+    padding-bottom: 100px;
+    display: flex;
+    justify-content: center;
+    /* Exakter Mesh-Hintergrund aus dem Video */
+    background-color: #B16B4A; 
+    background-image: 
+        linear-gradient(rgba(0,0,0,0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.15) 1px, transparent 1px);
+    background-size: 3px 3px;
+}
+
+.status-hero {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+
+.search-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 450px;
+}
+
+.input-label {
+    color: #000;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    align-self: flex-start;
+    margin-left: 45px;
+}
+
+.input-wrapper {
+    width: 80%;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.status-input {
+    width: 100%;
+    padding: 15px 25px;
+    border-radius: 15px;
+    border: none;
+    font-size: 1.2rem;
+    color: #555;
+    background: white;
+    /* Der extrem starke weiße Glow-Effekt aus dem Video */
+    box-shadow: 0 0 25px 8px rgba(255, 255, 255, 0.9);
+    outline: none;
+}
+
+/* Entfernt die Standard-Arrows bei Number-Inputs für cleanen Look */
+.status-input::-webkit-outer-spin-button,
+.status-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.status-submit-btn {
+    background-color: #888; /* Dunkelgrau wie im Video */
+    color: white;
+    border: none;
+    padding: 10px 45px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.status-submit-btn:hover {
+    background-color: #666;
+}
+
+/* Tabellen-Rekonstruktion */
+.results-container {
+    width: 95%;
+    max-width: 1000px;
+    margin-top: 20px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.status-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    font-family: var(--font-main);
+}
+
+.status-table thead th {
+    background-color: #FDF1B8; /* Das spezifische Blassgelb aus dem Video */
+    padding: 20px;
+    font-weight: 500;
+    color: #333;
+    border-right: 2px solid white;
+}
+
+.status-table thead th:last-child {
+    border-right: none;
+}
+
+.status-table tbody td {
+    padding: 20px;
+    text-align: center;
+    border-right: 2px solid #FDF1B8; /* Trenner in Headerfarbe */
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+.status-table tbody td:last-child {
+    border-right: none;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

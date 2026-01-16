@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D-Print-Hub | Gallerie</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="site-background"></div>
+
+    <!-- Header (Unverändert, da perfekt) -->
+    <header class="wix-header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo-box">
+                    <img src="https://static.wixstatic.com/media/1a2196_fbe9ff330b1346d9818a251995ddf4fa~mv2.png/v1/fill/w_333,h_201,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3d-printer-3308167_1920.png" alt="DE" class="logo-image">
+                </div>
+                <div class="separator"></div>
+                <span class="brand-name">GALLERIE</span>
+            </div>
+            <div class="header-center">
+                <div class="player-pill">
+                    <i class="fa-solid fa-play"></i>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="lang-pill">
+                    <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/de.svg" alt="DE" class="flag">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <nav class="nav-pill">
+                    <a href="#" class="nav-item">Home</a>
+                    <a href="#" class="nav-item">Buchen</a>
+                    <a href="#" class="nav-item">Order Status</a>
+                    <a href="#" class="nav-item">Modell aussuchen</a>
+                    <a href="#" class="nav-item active">Gallerie</a>
+                    <a href="#" class="nav-item">Materialien</a>
+                    <a href="#" class="nav-arrow">></a>
+                </nav>
+            </div>
+        </div>
+    </header>
+<main class="gallery-page">
+    <div class="gallery-container">
+        <h1 class="gallery-headline">Galerie</h1>
+        
+        <div class="slider-viewport">
+            <!-- Navigations-Pfeile -->
+            <button class="slider-nav prev" onclick="changeSlide(-1)">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="slider-nav next" onclick="changeSlide(1)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <!-- Slides Container -->
+            <div class="slides-track" id="slidesTrack">
+                <!-- Slide 1: Video (Interface) -->
+                <div class="slide">
+                    <video autoplay muted loop playsinline>
+                        <source src="https://video.wixstatic.com/video/1a2196_de74421b18754668be2208e2f072719d/1080p/mp4/file.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <!-- Slide 2: Benchy -->
+                <div class="slide">
+                    <img src="https://static.wixstatic.com/media/1a2196_176e5d666d924151a65d0741279d0342~mv2.png" alt="Grünes Benchy">
+                </div>
+                <!-- Slide 3: Drucker Action -->
+                <div class="slide">
+                    <video autoplay muted loop playsinline>
+                        <source src="https://video.wixstatic.com/video/1a2196_87c2b545f47c473187211e1947e92383/1080p/mp4/file.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bildunterschrift (Caption) -->
+        <div class="caption-container">
+            <p id="slideCaption">Ein wunderbares grünes Benchy-Boot.</p>
+        </div>
+    </div>
+</main>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <span>© Copyright: Bahrian Novotny & Lorenzo Bay-Müller</span>
+            <div class="footer-links">
+                <a href="#">Impressum</a> | <a href="#">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chat Button Fixed -->
+    <div class="chat-fab">
+        <i class="fa-regular fa-comment"></i> Chat with us
+    </div>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

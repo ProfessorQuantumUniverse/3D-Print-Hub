@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D-Print-Hub | Modelle</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="site-background"></div>
+
+    <!-- Header (Unverändert, da perfekt) -->
+    <header class="wix-header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo-box">
+                    <img src="https://static.wixstatic.com/media/1a2196_fbe9ff330b1346d9818a251995ddf4fa~mv2.png/v1/fill/w_333,h_201,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3d-printer-3308167_1920.png" alt="DE" class="logo-image">
+                </div>
+                <div class="separator"></div>
+                <span class="brand-name">MODELLE</span>
+            </div>
+            <div class="header-center">
+                <div class="player-pill">
+                    <i class="fa-solid fa-play"></i>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="lang-pill">
+                    <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/de.svg" alt="DE" class="flag">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <nav class="nav-pill">
+                    <a href="#" class="nav-item">Home</a>
+                    <a href="#" class="nav-item">Buchen</a>
+                    <a href="#" class="nav-item">Order Status</a>
+                    <a href="#" class="nav-item active">Modell aussuchen</a>
+                    <a href="#" class="nav-item">Materialien</a>
+                    <a href="#" class="nav-item">Gallerie</a>
+                    <a href="#" class="nav-arrow">></a>
+                </nav>
+            </div>
+        </div>
+    </header>
+<main class="modelle-page">
+    <div class="modelle-content-wrapper">
+        <h1 class="selection-title">Suche dir ein Modell<br>aus:</h1>
+
+        <div class="selection-grid">
+            <!-- Linke Seite: Thingiverse -->
+            <div class="selection-item">
+                <div class="arrow-container arrow-left">
+                    <svg viewBox="0 0 100 100" class="hand-arrow">
+                        <path d="M80,20 C60,20 20,30 20,70 M20,70 L10,55 M20,70 L35,65" stroke="black" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <a href="https://www.thingiverse.com/" target="_blank" class="model-platform-card thingi-card">
+                    <div class="card-glass-overlay"></div>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Thingiverse_logo.svg/1200px-Thingiverse_logo.svg.png" alt="Thingiverse" class="platform-logo">
+                </a>
+            </div>
+
+            <!-- Rechte Seite: MakerWorld -->
+            <div class="selection-item">
+                <div class="arrow-container arrow-right">
+                    <svg viewBox="0 0 100 100" class="hand-arrow">
+                        <path d="M20,20 C40,20 80,30 80,70 M80,70 L90,55 M80,70 L65,65" stroke="black" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <a href="https://makerworld.com/" target="_blank" class="model-platform-card maker-card">
+                    <div class="card-glass-overlay"></div>
+                    <img src="https://bambulab.com/static/images/makerworld/logo-dark.png" alt="MakerWorld" class="platform-logo">
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <span>© Copyright: Bahrian Novotny & Lorenzo Bay-Müller</span>
+            <div class="footer-links">
+                <a href="#">Impressum</a> | <a href="#">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chat Button Fixed -->
+    <div class="chat-fab">
+        <i class="fa-regular fa-comment"></i> Chat with us
+    </div>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>
