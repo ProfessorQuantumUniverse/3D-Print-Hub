@@ -17,10 +17,7 @@
         <div class="header-content">
             <div class="header-left">
                 <div class="logo-box">
-                    <svg viewBox="0 0 24 24" class="printer-icon">
-                        <path fill="currentColor" d="M19 8h-1V3H6v5H5c-1.66 0-3 1.34-3 3v6h3v4h14v-4h3v-6c0-1.66-1.34-3-3-3zM8 5h8v3H8V5zm8 12v2H8v-2h8zm2-2v-2H6v2H4v-4c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v4h-2z"/>
-                        <circle cx="18" cy="11.5" r="1" fill="red"/> 
-                    </svg>
+                    <img src="https://static.wixstatic.com/media/1a2196_fbe9ff330b1346d9818a251995ddf4fa~mv2.png/v1/fill/w_333,h_201,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3d-printer-3308167_1920.png" alt="DE" class="logo-image">
                 </div>
                 <div class="separator"></div>
                 <span class="brand-name">HOME</span>
@@ -46,94 +43,71 @@
             </div>
         </div>
     </header>
+<main>
+    <!-- Hero Section -->
+    <section class="hero-section1">
+        
+        <!-- NEU: 2x2 Video Matrix Background -->
+        <!-- (Ersetzt dein altes .hero-bg-image div) -->
+        <div class="video-matrix-bg">
+            <!-- Video 1: Oben Links -->
+            <div class="matrix-cell">
+                <video src="https://cdn.pixabay.com/video/2025/12/21/323513_tiny.mp4" autoplay muted loop playsinline></video>
+            </div>
+            <!-- Video 2: Oben Rechts -->
+            <div class="matrix-cell">
+                <video src="https://cdn.pixabay.com/video/2025/12/21/323513_tiny.mp4" autoplay muted loop playsinline></video>
+            </div>
+            <!-- Video 3: Unten Links -->
+            <div class="matrix-cell">
+                <video src="https://cdn.pixabay.com/video/2025/12/21/323513_tiny.mp4" autoplay muted loop playsinline></video>
+            </div>
+            <!-- Video 4: Unten Rechts -->
+            <div class="matrix-cell">
+                <video src="https://cdn.pixabay.com/video/2025/12/21/323513_tiny.mp4" autoplay muted loop playsinline></video>
+            </div>
+            <!-- Optional: Abdunklung, damit Text lesbar bleibt -->
+            <div class="matrix-overlay"></div>
+        </div>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <!-- Background Image -->
-            <div class="hero-bg-image">
-                <img src="https://static.wixstatic.com/media/1a2196_fbe9ff330b1346d9818a251995ddf4fa~mv2.png" alt="3D Printer Background">
+        <!-- Ab hier bleibt DEIN alter Code gleich -->
+        
+        <!-- Der 3D-Titel -->
+        <div class="hero-title-container">
+            <h1 class="giant-3d-text">3D-PRINT-HUB</h1>
+        </div>
+
+        <!-- Die Orangene Haupt-Karte -->
+        <div class="main-card glass-effect">
+            <div class="card-arrow-top-left">
+                <svg viewBox="0 0 24 24" width="40" height="40"><path fill="none" stroke="currentColor" stroke-width="2" d="M5 19L19 5M19 5H8M19 5V16"/></svg>
             </div>
 
-            <!-- Der 3D-Titel (liegt jetzt hinter der Karte, aber ragt oben raus) -->
-            <div class="hero-title-container">
-                <h1 class="giant-3d-text">3D-PRINT-HUB</h1>
-            </div>
-
-            <!-- Die Orangene Haupt-Karte -->
-            <div class="main-card glass-effect">
-                <div class="card-arrow-top-left">
-                    <svg viewBox="0 0 24 24" width="40" height="40"><path fill="none" stroke="currentColor" stroke-width="2" d="M5 19L19 5M19 5H8M19 5V16"/></svg>
+            <div class="card-content">
+                <h2 class="welcome-text">Willkommen bei 3D-print-hub,<br>Bestellen sie ihr personalisiertes 3D-Modell!</h2>
+                <p class="sub-text">Oder erfahren sie mehr über uns!</p>
+                <p class="tip-text">Tipp: Sehe dir den Status deiner Bestellung an!!!</p>
+                
+                <div class="darkmode-control">
+                    <span>Darkmode</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="darkModeCheckbox">
+                        <span class="slider"></span>
+                    </label>
                 </div>
 
-                <div class="card-content">
-                    <h2 class="welcome-text">Willkommen bei 3D-print-hub,<br>Bestellen sie ihr personalisiertes 3D-Modell!</h2>
-                    <p class="sub-text">Oder erfahren sie mehr über uns!</p>
-                    <p class="tip-text">Tipp: Sehe dir den Status deiner Bestellung an!!!</p>
-                    
-                    <div class="darkmode-control">
-                        <span>Darkmode</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="darkModeCheckbox">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-
-                    <div class="card-buttons">
-                        <button class="btn-pill filled">Buchen</button>
-                        <button class="btn-pill filled">Status</button>
-                        <button class="btn-pill filled">Mehr erfahren!</button>
-                    </div>
+                <div class="card-buttons">
+                    <button class="btn-pill filled">Buchen</button>
+                    <button class="btn-pill filled">Status</button>
+                    <button class="btn-pill filled">Mehr erfahren!</button>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+</main>
 
         <!-- Video Matrix Section (4x4 Look / 2x2 Grid with Videos) -->
         <!-- HINWEIS: Ersetze src="" mit deinen Videodateien später -->
-        <section class="matrix-section">
-            <div class="matrix-grid">
-                <!-- Video 1 -->
-                <div class="matrix-card">
-                    <video autoplay muted loop playsinline poster="https://static.wixstatic.com/media/0c0901_275729734d0b432eb293105c10138508~mv2.jpg">
-                        <source src="" type="video/mp4"> <!-- Hier Video einfügen -->
-                    </video>
-                    <div class="matrix-overlay">
-                        <h3>Hochqualitative<br>Drucke</h3>
-                        <button class="discover-pill">Discover more</button>
-                    </div>
-                </div>
-
-                <!-- Video 2 -->
-                <div class="matrix-card">
-                    <video autoplay muted loop playsinline poster="https://static.wixstatic.com/media/0c0901_092f8b4e57714b0093108a55b221732e~mv2.jpg">
-                        <source src="" type="video/mp4"> <!-- Hier Video einfügen -->
-                    </video>
-                    <div class="matrix-overlay">
-                        <h3>Personalisierte<br>Ersatzteile</h3>
-                    </div>
-                </div>
-
-                 <!-- Video 3 -->
-                 <div class="matrix-card">
-                    <video autoplay muted loop playsinline poster="https://static.wixstatic.com/media/11062b_cb98464547d4408181a6a1b1eff6b08b~mv2.jpg">
-                        <source src="" type="video/mp4"> <!-- Hier Video einfügen -->
-                    </video>
-                    <div class="matrix-overlay">
-                        <h3>Moderne<br>Designs.</h3>
-                    </div>
-                </div>
-
-                <!-- Video 4 -->
-                <div class="matrix-card">
-                    <video autoplay muted loop playsinline poster="https://static.wixstatic.com/media/11062b_933fc88ce03243148fe0d5952bcbaee7~mv2.jpeg">
-                        <source src="" type="video/mp4"> <!-- Hier Video einfügen -->
-                    </video>
-                    <div class="matrix-overlay">
-                        <h3>Prototypen</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- Neue Galerie Slider (Links Bild, Rechts Text-Box) -->
         <section class="gallery-slider-section">

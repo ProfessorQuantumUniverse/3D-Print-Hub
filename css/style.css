@@ -1,6 +1,6 @@
 :root {
     --primary-orange: #E98E68;
-    --primary-bg: #f5f5f5;
+    --primary-bg: #f0b197;
     --text-color: #000000;
     --card-text: #000000;
     --pill-bg: #ffffff;
@@ -10,7 +10,7 @@
 }
 
 body.darkmode {
-    --primary-orange: #C06C48;
+    --primary-orange: #0c1b7e;
     --primary-bg: #121212;
     --text-color: #ffffff;
     --card-text: #ffffff;
@@ -62,7 +62,7 @@ body { font-family: var(--font-main); background-color: var(--primary-bg); color
 /* Der 3D Effekt Titel */
 .hero-title-container {
     position: absolute;
-    top: 25%; /* Höher positioniert */
+    top: 13%; /* Höher positioniert */
     width: 100%;
     text-align: center;
     z-index: 5; /* Hinter der Karte (10) aber vor Hintergrund (0) */
@@ -84,6 +84,8 @@ body { font-family: var(--font-main); background-color: var(--primary-bg); color
 .main-card {
     position: relative;
     z-index: 10; /* Vor dem Text */
+        top: 8%; /* Höher positioniert */
+
     background-color: var(--primary-orange);
     width: 90%;
     max-width: 600px;
@@ -223,4 +225,84 @@ footer { background: #000; color: #fff; padding: 40px; text-align: center; font-
     .matrix-grid { grid-template-columns: 1fr; }
     .gallery-slide { flex-direction: column; }
     .slide-text-box { padding: 20px; }
+}
+
+/* --- Basis für die Hero Section sicherstellen --- */
+.hero-section1 {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Oder deine gewünschte Höhe */
+    overflow: hidden;
+    /* Zentrierung für deine Karte */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #111; /* Dunkler Hintergrund für die Lücken */
+}
+
+/* --- Der neue Matrix Hintergrund --- */
+.video-matrix-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    /* 2 Spalten, 2 Zeilen */
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    /* Deine gewünschten Abstände */
+    gap: 20px;     /* Abstand zwischen Videos */
+    padding: 20px; /* Abstand zum Rand */
+    z-index: 0;    /* Ganz hinten */
+}
+
+/* Die einzelnen Zellen */
+.matrix-cell {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px; /* Abgerundete Ecken */
+    overflow: hidden;    /* Wichtig für Border-Radius beim Video */
+    position: relative;
+    background: #000;    /* Fallback Farbe */
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5); /* Innerer Schatten für Tiefe */
+}
+
+/* Das Video Styling */
+.matrix-cell video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Video füllt die Zelle ohne Verzerrung */
+    display: block;
+    opacity: 0.8; /* Leichte Transparenz für coolen Look */
+}
+
+/* Optionales Overlay über die Videos (aber hinter dem Content) */
+.matrix-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.2); /* Globale Abdunklung */
+    pointer-events: none;
+    z-index: 1; /* Über den Videos, aber im Container */
+}
+
+/* --- Anpassung deiner bestehenden Elemente (Z-Index) --- */
+
+/* Der 3D Titel muss über dem Video schweben */
+.hero-title-container {
+    position: absolute; /* Vermutlich schon so, aber sicherheitshalber */
+    z-index: 2; /* Höher als Video (0) */
+    /* Positionierung falls nötig anpassen, z.B. top: 10% */
+}
+
+/* Deine Main Card muss ganz vorne sein */
+.main-card {
+    position: relative;
+    z-index: 3; /* Ganz oben */
+}
+
+.logo-image {
+    width: 100%;
+    height: auto;
 }
