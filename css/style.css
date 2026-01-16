@@ -260,7 +260,8 @@ h1, h2, h3, h4, h5, h6 {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Mobile Navigation Overlay */
+/* Mobile Navigation Overlay - Exception to mobile-first using max-width 
+   because we need a completely different navigation UI on mobile (overlay vs inline) */
 @media (max-width: 767px) {
   .nav {
     position: fixed;
