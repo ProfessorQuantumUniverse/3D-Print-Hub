@@ -1,40 +1,49 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const toggleSwitch = document.getElementById('darkModeToggle');
+    // 1. Dark Mode Funktionalität
+    const darkModeCheckbox = document.getElementById('darkModeCheckbox');
     const body = document.body;
 
-    // Check for saved user preference, if any, on load of the website
-    const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
-
-    if (currentTheme) {
-        body.classList.add(currentTheme);
-
-        if (currentTheme === 'dark-mode') {
-            toggleSwitch.checked = true;
-        }
+    // Prüfen, ob der Nutzer schon mal da war und eine Einstellung hat
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        body.classList.add('darkmode');
+        if(darkModeCheckbox) darkModeCheckbox.checked = true;
     }
 
-    // Switch theme function
-    function switchTheme(e) {
-        if (e.target.checked) {
-            body.classList.add('dark-mode');
-            localStorage.setItem('theme', 'dark-mode');
-        } else {
-            body.classList.remove('dark-mode');
-            localStorage.setItem('theme', 'light');
-        }
+    if(darkModeCheckbox) {
+        darkModeCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                body.classList.add('darkmode');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.classList.remove('darkmode');
+                localStorage.setItem('theme', 'light');
+            }
+        });
     }
 
-    toggleSwitch.addEventListener('change', switchTheme);
-    
-    // Smooth scroll for buttons (optional if you add IDs later)
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            // Simple bounce effect visual feedback
-            this.style.transform = "scale(0.95)";
+    // 2. Smooth Scroll für "Mehr erfahren"
+    const learnMoreBtn = document.querySelector('.btn-pill:nth-child(3)');
+    if(learnMoreBtn) {
+        learnMoreBtn.addEventListener('click', () => {
+            const aboutSection = document.querySelector('.about-section');
+            if(aboutSection) {
+                aboutSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+
+    // 3. Button Click Animation (Feedback)
+    const allButtons = document.querySelectorAll('button, .pill-link');
+    allButtons.forEach(btn => {
+        btn.addEventListener('mousedown', () => {
+            btn.style.transform = 'scale(0.95)';
+        });
+        btn.addEventListener('mouseup', () => {
+            btn.style.transform = 'scale(1.03)'; // Back to hover state or 1
             setTimeout(() => {
-                this.style.transform = "scale(1)";
-            }, 100);
+                btn.style.transform = ''; // Clear inline style
+            }, 150);
         });
     });
 });
