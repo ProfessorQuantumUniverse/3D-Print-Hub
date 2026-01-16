@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>3D-Print-Hub | Ihr Partner für 3D-Druck Dienstleistungen</title>
+  <meta name="description" content="3D-Print-Hub bietet hochwertige 3D-Druck Dienstleistungen. Drucken Sie Ihre Designs in PLA, PETG und mehr. Schnell, zuverlässig, professionell.">
+  <meta name="keywords" content="3D Druck, 3D Printing, PLA, PETG, 3D Modelle, Prototypen, Maker">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖨️</text></svg>">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Skip to Content Link for Accessibility -->
+  <a href="#main-content" class="visually-hidden">Zum Hauptinhalt springen</a>
+
+  <!-- ========================================
+       HEADER / NAVIGATION
+       ======================================== -->
+  <header class="header" role="banner">
+    <div class="container header__container">
+      <!-- Logo -->
+      <a href="#" class="header__logo" aria-label="3D-Print-Hub Startseite">
+        <div class="header__logo-icon" aria-hidden="true">🖨️</div>
+        <span class="header__logo-text">3D-PRINT-HUB</span>
+      </a>
+
+      <!-- Navigation -->
+      <nav id="nav" class="nav" role="navigation" aria-label="Hauptnavigation">
+        <ul class="nav__list">
+          <li><a href="#home" class="nav__link">Home</a></li>
+          <li><a href="#showcase" class="nav__link">Galerie</a></li>
+          <li><a href="#about" class="nav__link">Über uns</a></li>
+          <li><a href="#team" class="nav__link">Team</a></li>
+          <li><a href="#pricing" class="nav__link">Preise</a></li>
+        </ul>
+      </nav>
+
+      <!-- Mobile Menu Toggle -->
+      <button class="menu-toggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="nav">
+        <span class="menu-toggle__bar"></span>
+        <span class="menu-toggle__bar"></span>
+        <span class="menu-toggle__bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================
+       MAIN CONTENT
+       ======================================== -->
+  <main id="main-content">
+    
+    <!-- ========================================
+         HERO SECTION
+         ======================================== -->
+    <section id="home" class="hero">
+      <div class="hero__background" aria-hidden="true"></div>
+      
+      <div class="hero__content">
+        <h1 class="hero__title">3D-PRINT-HUB</h1>
+        <p class="hero__subtitle">
+          Ihr Partner für hochwertige 3D-Druck Dienstleistungen. 
+          Von der Idee zum fertigen Produkt – schnell, zuverlässig und professionell.
+        </p>
+        <div class="hero__cta">
+          <a href="#showcase" class="btn btn--primary">Galerie entdecken</a>
+          <a href="#about" class="btn btn--outline">Mehr erfahren</a>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <div class="hero__scroll-indicator" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ========================================
+         SHOWCASE / GALLERY SECTION
+         ======================================== -->
+    <section id="showcase" class="section showcase">
+      <div class="container">
+        <header class="section__header" data-animate>
+          <h2 class="section__title">Unsere Werke</h2>
+          <p class="section__subtitle">
+            Entdecken Sie eine Auswahl unserer 3D-Druckprojekte – von funktionalen Teilen bis hin zu kreativen Designs.
+          </p>
+        </header>
+
+        <div class="showcase__slider" data-animate>
+          <!-- Showcase Item 1 -->
+          <article class="showcase__item">
+            <div class="showcase__item-image" style="background: linear-gradient(135deg, #2d5a27 0%, #4a7c42 100%); display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 4rem;">🚢</span>
+            </div>
+            <div class="showcase__item-overlay">
+              <h3 class="showcase__item-title">Benchy Boot</h3>
+            </div>
+          </article>
+
+          <!-- Showcase Item 2 -->
+          <article class="showcase__item">
+            <div class="showcase__item-image" style="background: linear-gradient(135deg, #D97E55 0%, #E89A76 100%); display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 4rem;">⚙️</span>
+            </div>
+            <div class="showcase__item-overlay">
+              <h3 class="showcase__item-title">Spezialzahnrad</h3>
+            </div>
+          </article>
+
+          <!-- Showcase Item 3 -->
+          <article class="showcase__item">
+            <div class="showcase__item-image" style="background: linear-gradient(135deg, #333 0%, #555 100%); display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 4rem;">📱</span>
+            </div>
+            <div class="showcase__item-overlay">
+              <h3 class="showcase__item-title">MagSafe Halter</h3>
+            </div>
+          </article>
+
+          <!-- Showcase Item 4 -->
+          <article class="showcase__item">
+            <div class="showcase__item-image" style="background: linear-gradient(135deg, #cc4444 0%, #e66666 100%); display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 4rem;">🔋</span>
+            </div>
+            <div class="showcase__item-overlay">
+              <h3 class="showcase__item-title">Batterie-Organizer</h3>
+            </div>
+          </article>
+
+          <!-- Showcase Item 5 -->
+          <article class="showcase__item">
+            <div class="showcase__item-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 4rem;">👕</span>
+            </div>
+            <div class="showcase__item-overlay">
+              <h3 class="showcase__item-title">Kleiderstangenhalter</h3>
+            </div>
+          </article>
+
+          <!-- Showcase Item 6 -->
+          <article class="showcase__item">
+            <div class="showcase__item-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 4rem;">🎮</span>
+            </div>
+            <div class="showcase__item-overlay">
+              <h3 class="showcase__item-title">Fingerspielzeug</h3>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         ABOUT SECTION
+         ======================================== -->
+    <section id="about" class="section section--textured">
+      <div class="container">
+        <div class="about__content">
+          <div class="about__text" data-animate>
+            <h2 class="section__title">Willkommen bei 3D-Print-Hub</h2>
+            <p>
+              Wir sind Ihr zuverlässiger Partner für hochwertige 3D-Druck Dienstleistungen. 
+              Mit modernster Technologie und einem erfahrenen Team verwandeln wir Ihre Ideen 
+              in greifbare Realität.
+            </p>
+            <p>
+              Ob Prototypen, Ersatzteile, kreative Projekte oder individuelle Geschenke – 
+              wir drucken Ihre Designs in verschiedenen Materialien und Farben.
+            </p>
+          </div>
+
+          <div class="about__features" data-animate>
+            <div class="about__feature">
+              <div class="about__feature-icon">⚡</div>
+              <div class="about__feature-text">
+                <h4>Schnelle Bearbeitung</h4>
+                <p>Von der Bestellung bis zur Lieferung in kürzester Zeit.</p>
+              </div>
+            </div>
+
+            <div class="about__feature">
+              <div class="about__feature-icon">🎯</div>
+              <div class="about__feature-text">
+                <h4>Präzise Qualität</h4>
+                <p>Hochauflösender Druck mit verschiedenen Qualitätsstufen.</p>
+              </div>
+            </div>
+
+            <div class="about__feature">
+              <div class="about__feature-icon">🌈</div>
+              <div class="about__feature-text">
+                <h4>Vielfältige Materialien</h4>
+                <p>PLA, PETG und mehr in verschiedenen Farben verfügbar.</p>
+              </div>
+            </div>
+
+            <div class="about__feature">
+              <div class="about__feature-icon">💬</div>
+              <div class="about__feature-text">
+                <h4>Persönliche Beratung</h4>
+                <p>Individuelle Unterstützung bei Ihrem Projekt.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         TEAM SECTION
+         ======================================== -->
+    <section id="team" class="section team">
+      <div class="container">
+        <header class="section__header" data-animate>
+          <h2 class="section__title">Ihre Profis</h2>
+          <p class="section__subtitle">
+            Lernen Sie die Menschen hinter 3D-Print-Hub kennen.
+          </p>
+        </header>
+
+        <div class="team__grid" data-animate>
+          <!-- Team Member 1 -->
+          <article class="team__card team__card--blue">
+            <div class="team__card-image" aria-hidden="true" style="display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+              👨‍💻
+            </div>
+            <h3 class="team__card-name">Lorenzo</h3>
+            <p class="team__card-role">Co-CEO & 3D-Druck Experte</p>
+            <a href="#" class="team__card-link">
+              <span>Mehr erfahren</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </article>
+
+          <!-- Team Member 2 -->
+          <article class="team__card team__card--orange">
+            <div class="team__card-image" aria-hidden="true" style="display: flex; align-items: center; justify-content: center; font-size: 3rem;">
+              👨‍🔧
+            </div>
+            <h3 class="team__card-name">Partner</h3>
+            <p class="team__card-role">Co-CEO & Design Spezialist</p>
+            <a href="#" class="team__card-link">
+              <span>Mehr erfahren</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================
+         PRICING SECTION
+         ======================================== -->
+    <section id="pricing" class="section pricing">
+      <div class="container">
+        <header class="section__header" data-animate>
+          <h2 class="section__title">Preisgestaltung</h2>
+          <p class="section__subtitle">
+            Transparente Preise basierend auf Materialverbrauch und Druckzeit.
+          </p>
+        </header>
+
+        <div class="pricing__cards" data-animate>
+          <div class="pricing__card">
+            <div class="pricing__card-icon">📦</div>
+            <div class="pricing__card-content">
+              <h4>Volumenbasiert</h4>
+              <p>Der Preis richtet sich nach dem Materialvolumen Ihres Modells. Mehr Material = höherer Preis.</p>
+            </div>
+          </div>
+
+          <div class="pricing__card">
+            <div class="pricing__card-icon">⏱️</div>
+            <div class="pricing__card-content">
+              <h4>Zeitbasiert</h4>
+              <p>Druckzeit beeinflusst den Endpreis. Komplexere Drucke benötigen mehr Zeit.</p>
+            </div>
+          </div>
+
+          <div class="pricing__card">
+            <div class="pricing__card-icon">🎨</div>
+            <div class="pricing__card-content">
+              <h4>Materialwahl</h4>
+              <p>Verschiedene Materialien haben unterschiedliche Preise. PLA, PETG und mehr.</p>
+            </div>
+          </div>
+
+          <div class="pricing__card">
+            <div class="pricing__card-icon">⭐</div>
+            <div class="pricing__card-content">
+              <h4>Qualitätsstufen</h4>
+              <p>Wählen Sie zwischen Entwurf, Normal und Extra Fein für optimale Ergebnisse.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================
+       FOOTER
+       ======================================== -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__content">
+        <div class="footer__brand">
+          <p class="footer__logo">3D-PRINT-HUB</p>
+          <p class="footer__tagline">Ihre Ideen. Unsere Technologie.</p>
+        </div>
+
+        <nav class="footer__links" aria-label="Footer Navigation">
+          <a href="#home" class="footer__link">Home</a>
+          <a href="#showcase" class="footer__link">Galerie</a>
+          <a href="#about" class="footer__link">Über uns</a>
+          <a href="#team" class="footer__link">Team</a>
+          <a href="#" class="footer__link">Impressum</a>
+          <a href="#" class="footer__link">Datenschutz</a>
+        </nav>
+      </div>
+
+      <div class="footer__bottom">
+        <p class="footer__copyright">
+          © 2025 3D-Print-Hub. Alle Rechte vorbehalten.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
+</body>
+</html>
