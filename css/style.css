@@ -219,12 +219,71 @@ footer { background: #000; color: #fff; padding: 40px; text-align: center; font-
 
 /* Mobile */
 @media (max-width: 768px) {
-    .wix-header { padding: 0 10px; }
-    .header-left .brand-name, .header-center, .nav-pill a:not(.active) { display: none; }
-    .giant-3d-text { font-size: 18vw; margin-bottom: -20px; }
+    /* Header adjustments */
+    .wix-header { padding: 0 10px; top: 10px; }
+    .header-left { padding: 8px 15px; height: 50px; gap: 10px; }
+    .header-left .brand-name { font-size: 0.9rem; letter-spacing: 1px; }
+    .header-center { display: none; }
+    .nav-pill { display: none; }
+    .lang-pill { height: 50px; padding: 0 12px; }
+    
+    /* Hero section adjustments */
+    .hero-section1 { padding-bottom: 60px; }
+    .video-matrix-bg { gap: 10px; padding: 10px; }
+    .matrix-cell { border-radius: 10px; }
+    
+    /* Hero title adjustments */
+    .hero-title-container { top: 15%; }
+    .giant-3d-text { font-size: 15vw; margin-bottom: -20px; letter-spacing: -1px; }
+    
+    /* Main card adjustments */
+    .main-card { 
+        width: 95%; 
+        padding: 30px 20px; 
+        border-radius: 30px;
+        top: 5%;
+    }
+    .card-arrow-top-left { top: 20px; left: 20px; }
+    .card-arrow-top-left svg { width: 30px; height: 30px; }
+    .welcome-text { font-size: 1.4rem; line-height: 1.2; margin-bottom: 15px; }
+    .sub-text { font-size: 1rem; margin-bottom: 8px; }
+    .tip-text { font-size: 0.85rem; margin-bottom: 15px; }
+    .btn-pill { font-size: 1rem; padding: 12px 0; width: 90%; }
+    
+    /* Gallery slider adjustments */
+    .gallery-slider-section { padding: 20px 10px; gap: 10px; }
+    .slider-btn { width: 40px; height: 40px; font-size: 1rem; }
+    .gallery-wrapper { height: auto; min-height: 400px; border-radius: 20px; }
+    .gallery-slide { flex-direction: column; height: auto; }
+    .slide-image { height: 250px; }
+    .slide-text-box { height: auto; min-height: 200px; padding: 20px; }
+    .glass-text-overlay { padding: 20px; }
+    .glass-text-overlay h3 { font-size: 1.8rem; margin-bottom: 15px; }
+    .glass-text-overlay p { font-size: 1rem; }
+    
+    /* About section adjustments */
+    .about-section { padding: 60px 20px; margin: 10px; border-radius: 30px; }
+    .big-headline { font-size: 2.5rem; margin-bottom: 20px; }
+    .about-text-block { font-size: 1.1rem; line-height: 1.5; margin-bottom: 40px; }
+    .about-grid { grid-template-columns: 1fr; gap: 25px; }
+    .about-item h3 { font-size: 1.5rem; }
+    .about-item p { font-size: 1rem; }
+    
+    /* Team section adjustments */
+    .team-section { padding: 60px 15px; }
+    .section-headline { font-size: 2rem; margin-bottom: 30px; }
+    .team-container { flex-direction: column; align-items: center; gap: 25px; }
+    .profile-card { width: 90%; max-width: 350px; padding: 30px 20px; border-radius: 25px; }
+    .avatar img { width: 100px; height: 100px; }
+    
+    /* Footer adjustments */
+    footer { padding: 30px 20px; font-size: 0.85rem; }
+    
+    /* Chat FAB adjustments */
+    .chat-fab { padding: 10px 20px; font-size: 0.9rem; bottom: 15px; right: 15px; }
+    
+    /* Matrix grid for other sections */
     .matrix-grid { grid-template-columns: 1fr; }
-    .gallery-slide { flex-direction: column; }
-    .slide-text-box { padding: 20px; }
 }
 
 /* --- Basis für die Hero Section sicherstellen --- */
