@@ -5,21 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D-Print-Hub | Home</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- Wir nutzen Montserrat, da es der Wix "Madefor" Schriftart extrem ähnlich ist -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Hintergrund für die gesamte Seite (feines Raster/Grain wie im Original) -->
     <div class="site-background"></div>
 
-    <!-- Schwebender Header (Wix Studio Style) -->
+    <!-- Header (Unverändert, da perfekt) -->
     <header class="wix-header">
         <div class="header-content">
             <div class="header-left">
                 <div class="logo-box">
-                    <!-- Original SVG Icon nachempfunden -->
                     <svg viewBox="0 0 24 24" class="printer-icon">
                         <path fill="currentColor" d="M19 8h-1V3H6v5H5c-1.66 0-3 1.34-3 3v6h3v4h14v-4h3v-6c0-1.66-1.34-3-3-3zM8 5h8v3H8V5zm8 12v2H8v-2h8zm2-2v-2H6v2H4v-4c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v4h-2z"/>
                         <circle cx="18" cy="11.5" r="1" fill="red"/> 
@@ -28,15 +25,12 @@
                 <div class="separator"></div>
                 <span class="brand-name">HOME</span>
             </div>
-
-            <!-- Mitte: Player Steuerung (aus Video) -->
             <div class="header-center">
                 <div class="player-pill">
                     <i class="fa-solid fa-play"></i>
                     <div class="progress-bar"></div>
                 </div>
             </div>
-
             <div class="header-right">
                 <div class="lang-pill">
                     <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/de.svg" alt="DE" class="flag">
@@ -56,17 +50,17 @@
     <main>
         <!-- Hero Section -->
         <section class="hero-section">
-            <!-- Original Hintergrundbild/3D Drucker -->
+            <!-- Background Image -->
             <div class="hero-bg-image">
                 <img src="https://static.wixstatic.com/media/1a2196_fbe9ff330b1346d9818a251995ddf4fa~mv2.png" alt="3D Printer Background">
             </div>
 
-            <!-- Der gigantische Text im Hintergrund -->
-            <div class="hero-text-layer">
-                <h1>3D-PRINT-HUB</h1>
+            <!-- Der 3D-Titel (liegt jetzt hinter der Karte, aber ragt oben raus) -->
+            <div class="hero-title-container">
+                <h1 class="giant-3d-text">3D-PRINT-HUB</h1>
             </div>
 
-            <!-- Die Orangene Haupt-Karte (Overlay) -->
+            <!-- Die Orangene Haupt-Karte -->
             <div class="main-card glass-effect">
                 <div class="card-arrow-top-left">
                     <svg viewBox="0 0 24 24" width="40" height="40"><path fill="none" stroke="currentColor" stroke-width="2" d="M5 19L19 5M19 5H8M19 5V16"/></svg>
@@ -91,66 +85,118 @@
                         <button class="btn-pill filled">Mehr erfahren!</button>
                     </div>
                 </div>
-
-                <div class="card-icon-bottom">
-                    <!-- Drucker Icon unten -->
-                    <svg viewBox="0 0 100 100" class="card-print-svg">
-                        <rect x="20" y="40" width="60" height="40" rx="5" fill="none" stroke="currentColor" stroke-width="3"/>
-                        <path d="M30 40 V20 H70 V40" fill="none" stroke="currentColor" stroke-width="3"/>
-                        <path d="M35 80 V90 H65 V80" fill="none" stroke="currentColor" stroke-width="3"/>
-                        <line x1="25" y1="55" x2="75" y2="55" stroke="currentColor" stroke-width="2"/>
-                    </svg>
-                </div>
             </div>
         </section>
 
-        <!-- Features Grid (Das Kachellayout) -->
-        <section class="features-section">
-            <div class="feature-grid">
-                <!-- Kachel 1: Benchy -->
-                <div class="grid-card image-card">
-                    <img src="https://static.wixstatic.com/media/0c0901_275729734d0b432eb293105c10138508~mv2.jpg" alt="Benchy">
-                    <div class="grid-overlay">
+        <!-- Video Matrix Section (4x4 Look / 2x2 Grid with Videos) -->
+        <!-- HINWEIS: Ersetze src="" mit deinen Videodateien später -->
+        <section class="matrix-section">
+            <div class="matrix-grid">
+                <!-- Video 1 -->
+                <div class="matrix-card">
+                    <video autoplay muted loop playsinline poster="https://static.wixstatic.com/media/0c0901_275729734d0b432eb293105c10138508~mv2.jpg">
+                        <source src="" type="video/mp4"> <!-- Hier Video einfügen -->
+                    </video>
+                    <div class="matrix-overlay">
                         <h3>Hochqualitative<br>Drucke</h3>
                         <button class="discover-pill">Discover more</button>
                     </div>
                 </div>
 
-                <!-- Kachel 2: Zahnrad -->
-                <div class="grid-card text-card">
-                    <img src="https://static.wixstatic.com/media/0c0901_092f8b4e57714b0093108a55b221732e~mv2.jpg" alt="Zahnrad">
-                    <div class="grid-text-content">
+                <!-- Video 2 -->
+                <div class="matrix-card">
+                    <video autoplay muted loop playsinline poster="https://static.wixstatic.com/media/0c0901_092f8b4e57714b0093108a55b221732e~mv2.jpg">
+                        <source src="" type="video/mp4"> <!-- Hier Video einfügen -->
+                    </video>
+                    <div class="matrix-overlay">
                         <h3>Personalisierte<br>Ersatzteile</h3>
                     </div>
                 </div>
 
-                 <!-- Kachel 3: Design -->
-                 <div class="grid-card image-card">
-                    <img src="https://static.wixstatic.com/media/11062b_cb98464547d4408181a6a1b1eff6b08b~mv2.jpg" alt="Design">
-                    <div class="grid-overlay">
+                 <!-- Video 3 -->
+                 <div class="matrix-card">
+                    <video autoplay muted loop playsinline poster="https://static.wixstatic.com/media/11062b_cb98464547d4408181a6a1b1eff6b08b~mv2.jpg">
+                        <source src="" type="video/mp4"> <!-- Hier Video einfügen -->
+                    </video>
+                    <div class="matrix-overlay">
                         <h3>Moderne<br>Designs.</h3>
                     </div>
                 </div>
 
-                <!-- Kachel 4: Prototypen -->
-                <div class="grid-card image-card">
-                    <img src="https://static.wixstatic.com/media/11062b_933fc88ce03243148fe0d5952bcbaee7~mv2.jpeg" alt="Prototypen">
-                    <div class="grid-overlay">
+                <!-- Video 4 -->
+                <div class="matrix-card">
+                    <video autoplay muted loop playsinline poster="https://static.wixstatic.com/media/11062b_933fc88ce03243148fe0d5952bcbaee7~mv2.jpeg">
+                        <source src="" type="video/mp4"> <!-- Hier Video einfügen -->
+                    </video>
+                    <div class="matrix-overlay">
                         <h3>Prototypen</h3>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Über uns (Orange Background Text) -->
+        <!-- Neue Galerie Slider (Links Bild, Rechts Text-Box) -->
+        <section class="gallery-slider-section">
+            <button class="slider-btn prev-btn"><i class="fa-solid fa-chevron-left"></i></button>
+            
+            <div class="gallery-wrapper">
+                <!-- Slide 1 -->
+                <div class="gallery-slide active">
+                    <div class="slide-image">
+                        <img src="https://static.wixstatic.com/media/11062b_933fc88ce03243148fe0d5952bcbaee7~mv2.jpeg" alt="Prototyping">
+                    </div>
+                    <div class="slide-text-box" style="background-image: url('https://static.wixstatic.com/media/11062b_933fc88ce03243148fe0d5952bcbaee7~mv2.jpeg');">
+                        <div class="glass-text-overlay">
+                            <h3>Rapid Prototyping</h3>
+                            <p>Schnelle Umsetzung von der Idee zum greifbaren Modell.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="gallery-slide">
+                    <div class="slide-image">
+                        <img src="https://static.wixstatic.com/media/0c0901_275729734d0b432eb293105c10138508~mv2.jpg" alt="Qualität">
+                    </div>
+                    <div class="slide-text-box" style="background-image: url('https://static.wixstatic.com/media/0c0901_275729734d0b432eb293105c10138508~mv2.jpg');">
+                        <div class="glass-text-overlay">
+                            <h3>Präzision</h3>
+                            <p>Schicht für Schicht zur Perfektion mit modernsten FDM Druckern.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="slider-btn next-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </section>
+
+        <!-- Über uns (Orange Background Text - Jetzt aus einem Guss) -->
         <section class="about-section">
             <div class="about-content">
-                <h2>Über uns:</h2>
-                <p>Willkommen bei 3D Print Hub, deinem zuverlässigen Partner für maßgeschneiderte 3D-Drucklösungen! Wir bieten eine Vielzahl von Dienstleistungen für Privatpersonen, Designer, Ingenieure und Bastler.</p>
-                <div class="about-list">
-                    <p>• <strong>Qualität:</strong> Höchste Detailgenauigkeit.</p>
-                    <p>• <strong>Flexibilität:</strong> Von Einzelstück bis Serie.</p>
-                    <p>• <strong>Innovation:</strong> Modernste Technologien.</p>
+                <h2 class="big-headline">Über uns:</h2>
+                <div class="about-text-block">
+                    <p class="intro-p">Willkommen bei 3D Print Hub, deinem zuverlässigen Partner für maßgeschneiderte 3D-Drucklösungen! Wir sind nicht nur ein Dienstleister, wir sind Maker aus Leidenschaft.</p>
+                    <p>Wir bieten eine Vielzahl von Dienstleistungen für Privatpersonen, Designer, Ingenieure und Bastler, die hochwertige 3D-gedruckte Prototypen, Modelle und Produkte benötigen.</p>
+                    <p>Unser Team von erfahrenen Spezialisten verwendet modernste Drucktechnologien, um deine Ideen zum Leben zu erwecken. Egal, ob du Einzelteile, Kleinserien oder komplexe Projekte drucken möchtest, wir stehen dir zur Seite – von der ersten Konzeptphase bis zum fertigen Produkt.</p>
+                </div>
+                
+                <div class="about-grid">
+                    <div class="about-item">
+                        <h3>Qualität</h3>
+                        <p>Wir legen höchsten Wert auf Detailgenauigkeit und Langlebigkeit.</p>
+                    </div>
+                    <div class="about-item">
+                        <h3>Flexibilität</h3>
+                        <p>Von kleinen Einzelstücken bis zu großen Aufträgen – wir passen uns deinen Bedürfnissen an.</p>
+                    </div>
+                    <div class="about-item">
+                        <h3>Innovation</h3>
+                        <p>Wir bleiben stets am Puls der Zeit und nutzen die neuesten Entwicklungen im 3D-Druck.</p>
+                    </div>
+                    <div class="about-item">
+                        <h3>Support</h3>
+                        <p>Du hast Fragen oder brauchst Beratung? Unser Team ist immer für dich da.</p>
+                    </div>
                 </div>
             </div>
         </section>
