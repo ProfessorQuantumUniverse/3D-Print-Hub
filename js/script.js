@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const darkModeCheckbox = document.getElementById('darkModeCheckbox');
     const body = document.body;
 
-    // Prüfen, ob der Nutzer schon mal da war und eine Einstellung hat
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
         body.classList.add('darkmode');
@@ -22,28 +21,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Smooth Scroll für "Mehr erfahren"
-    const learnMoreBtn = document.querySelector('.btn-pill:nth-child(3)');
-    if(learnMoreBtn) {
-        learnMoreBtn.addEventListener('click', () => {
-            const aboutSection = document.querySelector('.about-section');
-            if(aboutSection) {
-                aboutSection.scrollIntoView({ behavior: 'smooth' });
-            }
+    // 2. Gallery Slider Logic
+    const slides = document.querySelectorAll('.gallery-slide');
+    const nextBtn = document.querySelector('.next-btn');
+    const prevBtn = document.querySelector('.prev-btn');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+        // Wrap around
+        if (index >= slides.length) currentSlide = 0;
+        else if (index < 0) currentSlide = slides.length - 1;
+        else currentSlide = index;
+
+        // Hide all
+        slides.forEach(slide => {
+            slide.classList.remove('active');
+            slide.style.opacity = '0';
         });
+
+        // Show current with fade in
+        slides[currentSlide].classList.add('active');
+        setTimeout(() => {
+            slides[currentSlide].style.opacity = '1';
+        }, 50);
     }
 
-    // 3. Button Click Animation (Feedback)
-    const allButtons = document.querySelectorAll('button, .pill-link');
-    allButtons.forEach(btn => {
-        btn.addEventListener('mousedown', () => {
-            btn.style.transform = 'scale(0.95)';
+    if(nextBtn && prevBtn) {
+        nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
+        prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+    }
+
+    // 3. Smooth Scroll
+    const learnMoreBtn = document.querySelectorAll('.btn-pill')[2]; // 3rd button
+    if(learnMoreBtn) {
+        learnMoreBtn.addEventListener('click', () => {
+            document.querySelector('.about-section').scrollIntoView({ behavior: 'smooth' });
         });
-        btn.addEventListener('mouseup', () => {
-            btn.style.transform = 'scale(1.03)'; // Back to hover state or 1
-            setTimeout(() => {
-                btn.style.transform = ''; // Clear inline style
-            }, 150);
-        });
-    });
+    }
 });
