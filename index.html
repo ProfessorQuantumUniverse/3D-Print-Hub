@@ -3,179 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D-Print-Hub | Individueller 3D-Druckservice</title>
+    <title>3D-Print-Hub | Home</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- Einbindung passender Fonts um den Look zu matchen (Orbitron für den Titel, Montserrat für Text) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Wir nutzen Montserrat, da es der Wix "Madefor" Schriftart extrem ähnlich ist -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- Navigation -->
-    <header class="navbar">
-        <div class="logo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="printer-icon"><path d="M6 9H4a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-2"/><path d="M6 14h12v8H6z"/><path d="M6 9V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v5"/><rect x="10" y="14" width="4" height="4"/></svg>
-            <div class="nav-line"></div>
-            <span class="home-text">HOME</span>
-        </div>
-        <div class="nav-controls">
-            <div class="lang-selector">
-                <span class="flag">🇩🇪</span>
-                <i class="fa-solid fa-chevron-down"></i>
+    <!-- Hintergrund für die gesamte Seite (feines Raster/Grain wie im Original) -->
+    <div class="site-background"></div>
+
+    <!-- Schwebender Header (Wix Studio Style) -->
+    <header class="wix-header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="logo-box">
+                    <!-- Original SVG Icon nachempfunden -->
+                    <svg viewBox="0 0 24 24" class="printer-icon">
+                        <path fill="currentColor" d="M19 8h-1V3H6v5H5c-1.66 0-3 1.34-3 3v6h3v4h14v-4h3v-6c0-1.66-1.34-3-3-3zM8 5h8v3H8V5zm8 12v2H8v-2h8zm2-2v-2H6v2H4v-4c0-.55.45-1 1-1h14c.55 0 1 .45 1 1v4h-2z"/>
+                        <circle cx="18" cy="11.5" r="1" fill="red"/> 
+                    </svg>
+                </div>
+                <div class="separator"></div>
+                <span class="brand-name">HOME</span>
             </div>
-            <nav class="menu">
-                <a href="#" class="active">Home</a>
-                <a href="#">Buchen</a>
-                <a href="#">Order Status</a>
-                <a href="#">Modell aussuchen</a>
-                <a href="#" class="arrow-link">></a>
-            </nav>
+
+            <!-- Mitte: Player Steuerung (aus Video) -->
+            <div class="header-center">
+                <div class="player-pill">
+                    <i class="fa-solid fa-play"></i>
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="lang-pill">
+                    <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/de.svg" alt="DE" class="flag">
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <nav class="nav-pill">
+                    <a href="#" class="nav-item active">Home</a>
+                    <a href="#" class="nav-item">Buchen</a>
+                    <a href="#" class="nav-item">Order Status</a>
+                    <a href="#" class="nav-item">Modell aussuchen</a>
+                    <a href="#" class="nav-arrow">></a>
+                </nav>
+            </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg">
-            <!-- Verwendung des Originalbildes/Videos als Hintergrund -->
-            <img src="https://static.wixstatic.com/media/0da768_8b89980121844d37be099f0dbe33e3e3.png" class="bg-pattern" alt="">
-            <div class="printer-visual">
-                <!-- Placeholder für den 3D Drucker im Hintergrund -->
-                <img src="https://static.wixstatic.com/media/1a2196_fbe9ff330b1346d9818a251995ddf4fa~mv2.png/v1/fill/w_1000,h_1000,al_c,q_90/3d-printer.png" alt="3D Printer">
-            </div>
-        </div>
-        
-        <h1 class="main-title">3D-PRINT-HUB</h1>
-
-        <!-- Der schwebende Orange-Container -->
-        <div class="floating-card">
-            <div class="card-icon-corner">
-                <i class="fa-solid fa-arrow-right-long icon-tilted"></i>
-            </div>
-            <div class="card-content">
-                <h2>Willkommen bei 3D-print-hub,<br>Bestellen sie ihr personalisiertes 3D-Modell!</h2>
-                <h3>Oder erfahren sie mehr über uns!<br><span>Tipp: Sehe dir den Status deiner Bestellung an!!!</span></h3>
-                
-                <div class="darkmode-wrapper">
-                    <span>Darkmode</span>
-                    <label class="switch">
-                        <input type="checkbox" id="darkModeToggle">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-
-                <div class="action-buttons">
-                    <button class="btn btn-primary">Buchen</button>
-                    <button class="btn btn-secondary">Status</button>
-                    <button class="btn btn-outline">Mehr erfahren!</button>
-                </div>
-            </div>
-            
-            <div class="card-printer-icon">
-                <i class="fa-solid fa-print"></i>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter Modal (Simuliert, normalerweise versteckt) -->
-    <!-- Feature Grid Section -->
-    <section class="features-grid">
-        <div class="grid-item">
-            <img src="https://static.wixstatic.com/media/0c0901_275729734d0b432eb293105c10138508~mv2.jpg" alt="Benchy">
-            <div class="overlay-text">
-                <h2>Hochqualitative<br>Drucke</h2>
-                <button class="discover-btn">Discover more</button>
-            </div>
-        </div>
-        <div class="grid-item">
-            <img src="https://static.wixstatic.com/media/0c0901_092f8b4e57714b0093108a55b221732e~mv2.jpg" alt="Ersatzteile">
-            <div class="overlay-text">
-                <h2>Personalisierte<br>Ersatzteile</h2>
-            </div>
-        </div>
-        <div class="grid-item">
-            <img src="https://static.wixstatic.com/media/11062b_cb98464547d4408181a6a1b1eff6b08b~mv2.jpg" alt="Moderne Designs">
-            <div class="overlay-text">
-                <h2>Moderne<br>Designs.</h2>
-            </div>
-        </div>
-        <div class="grid-item">
-            <img src="https://static.wixstatic.com/media/11062b_933fc88ce03243148fe0d5952bcbaee7~mv2.jpeg" alt="Prototypen">
-            <div class="overlay-text">
-                <h2>Prototypen</h2>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about-section">
-        <div class="content-wrapper">
-            <h2>Über uns:</h2>
-            <p>Willkommen bei 3D Print Hub, deinem zuverlässigen Partner für maßgeschneiderte 3D-Drucklösungen! Wir bieten eine Vielzahl von Dienstleistungen für Privatpersonen, Designer, Ingenieure und Bastler, die hochwertige 3D-gedruckte Prototypen, Modelle und Produkte benötigen.</p>
-            <p>Unser Team von erfahrenen Spezialisten verwendet modernste Drucktechnologien, um deine Ideen zum Leben zu erwecken. Egal, ob du Einzelteile, Kleinserien oder komplexe Projekte drucken möchtest, wir stehen dir zur Seite – von der ersten Konzeptphase bis zum fertigen Produkt.</p>
-            
-            <h3>Warum 3D Print Hub?</h3>
-            <ul>
-                <li><strong>Qualität:</strong> Wir legen höchsten Wert auf Detailgenauigkeit und Langlebigkeit.</li>
-                <li><strong>Flexibilität:</strong> Von kleinen Einzelstücken bis zu großen Aufträgen – wir passen uns deinen Bedürfnissen an.</li>
-                <li><strong>Innovation:</strong> Wir bleiben stets am Puls der Zeit und nutzen die neuesten Entwicklungen im 3D-Druck.</li>
-                <li><strong>Support:</strong> Du hast Fragen oder brauchst Beratung? Unser Team ist immer für dich da.</li>
-            </ul>
-            <p>Lass uns gemeinsam deine Ideen verwirklichen und in die Welt des 3D-Drucks eintauchen!</p>
-        </div>
-    </section>
-
-    <!-- Team Section -->
-    <section class="team-section">
-        <h2 class="section-title">Ihre Profis</h2>
-        <div class="team-grid">
-            <!-- Member 1 -->
-            <div class="team-card gradient-1">
-                <div class="profile-img">
-                    <img src="https://static.wixstatic.com/media/1a2196_d86a31684fbd4f338970d1562e322c29~mv2.jpeg/v1/fill/w_147,h_143,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/IMG_2660.jpg" alt="Bahrian Novotny">
-                </div>
-                <h3>Bahrian Novotny</h3>
-                <p>Co-CEO und Mitgründer</p>
-                <div class="team-links">
-                    <a href="#" class="btn-team">Besuche mich auf Skypixel</a>
-                    <a href="#" class="btn-team">Besuche meine Website</a>
-                </div>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <!-- Original Hintergrundbild/3D Drucker -->
+            <div class="hero-bg-image">
+                <img src="https://static.wixstatic.com/media/1a2196_fbe9ff330b1346d9818a251995ddf4fa~mv2.png" alt="3D Printer Background">
             </div>
 
-            <!-- Member 2 -->
-            <div class="team-card gradient-2">
-                <div class="profile-img">
-                    <img src="https://static.wixstatic.com/media/1a2196_3fe898123d2c4ef180e3af2571a33364~mv2.jpg/v1/fill/w_147,h_196,al_c,q_80,usm_0.66_1.00_0.01,blur_2,enc_avif,quality_auto/IMG_5882.jpg" alt="Lorenzo Bay-Müller">
+            <!-- Der gigantische Text im Hintergrund -->
+            <div class="hero-text-layer">
+                <h1>3D-PRINT-HUB</h1>
+            </div>
+
+            <!-- Die Orangene Haupt-Karte (Overlay) -->
+            <div class="main-card glass-effect">
+                <div class="card-arrow-top-left">
+                    <svg viewBox="0 0 24 24" width="40" height="40"><path fill="none" stroke="currentColor" stroke-width="2" d="M5 19L19 5M19 5H8M19 5V16"/></svg>
                 </div>
-                <h3>Lorenzo Bay-Müller</h3>
-                <p>Co-CEO und Mitgründer</p>
-                <div class="team-links">
-                    <a href="#" class="btn-team">Besuche mich auf Skypixel</a>
-                    <a href="#" class="btn-team">Besuche meine Website</a>
-                    <a href="#" class="btn-team">Besuche mich auf YouTube!</a>
+
+                <div class="card-content">
+                    <h2 class="welcome-text">Willkommen bei 3D-print-hub,<br>Bestellen sie ihr personalisiertes 3D-Modell!</h2>
+                    <p class="sub-text">Oder erfahren sie mehr über uns!</p>
+                    <p class="tip-text">Tipp: Sehe dir den Status deiner Bestellung an!!!</p>
+                    
+                    <div class="darkmode-control">
+                        <span>Darkmode</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="darkModeCheckbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="card-buttons">
+                        <button class="btn-pill filled">Buchen</button>
+                        <button class="btn-pill filled">Status</button>
+                        <button class="btn-pill filled">Mehr erfahren!</button>
+                    </div>
+                </div>
+
+                <div class="card-icon-bottom">
+                    <!-- Drucker Icon unten -->
+                    <svg viewBox="0 0 100 100" class="card-print-svg">
+                        <rect x="20" y="40" width="60" height="40" rx="5" fill="none" stroke="currentColor" stroke-width="3"/>
+                        <path d="M30 40 V20 H70 V40" fill="none" stroke="currentColor" stroke-width="3"/>
+                        <path d="M35 80 V90 H65 V80" fill="none" stroke="currentColor" stroke-width="3"/>
+                        <line x1="25" y1="55" x2="75" y2="55" stroke="currentColor" stroke-width="2"/>
+                    </svg>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Features Grid (Das Kachellayout) -->
+        <section class="features-section">
+            <div class="feature-grid">
+                <!-- Kachel 1: Benchy -->
+                <div class="grid-card image-card">
+                    <img src="https://static.wixstatic.com/media/0c0901_275729734d0b432eb293105c10138508~mv2.jpg" alt="Benchy">
+                    <div class="grid-overlay">
+                        <h3>Hochqualitative<br>Drucke</h3>
+                        <button class="discover-pill">Discover more</button>
+                    </div>
+                </div>
+
+                <!-- Kachel 2: Zahnrad -->
+                <div class="grid-card text-card">
+                    <img src="https://static.wixstatic.com/media/0c0901_092f8b4e57714b0093108a55b221732e~mv2.jpg" alt="Zahnrad">
+                    <div class="grid-text-content">
+                        <h3>Personalisierte<br>Ersatzteile</h3>
+                    </div>
+                </div>
+
+                 <!-- Kachel 3: Design -->
+                 <div class="grid-card image-card">
+                    <img src="https://static.wixstatic.com/media/11062b_cb98464547d4408181a6a1b1eff6b08b~mv2.jpg" alt="Design">
+                    <div class="grid-overlay">
+                        <h3>Moderne<br>Designs.</h3>
+                    </div>
+                </div>
+
+                <!-- Kachel 4: Prototypen -->
+                <div class="grid-card image-card">
+                    <img src="https://static.wixstatic.com/media/11062b_933fc88ce03243148fe0d5952bcbaee7~mv2.jpeg" alt="Prototypen">
+                    <div class="grid-overlay">
+                        <h3>Prototypen</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Über uns (Orange Background Text) -->
+        <section class="about-section">
+            <div class="about-content">
+                <h2>Über uns:</h2>
+                <p>Willkommen bei 3D Print Hub, deinem zuverlässigen Partner für maßgeschneiderte 3D-Drucklösungen! Wir bieten eine Vielzahl von Dienstleistungen für Privatpersonen, Designer, Ingenieure und Bastler.</p>
+                <div class="about-list">
+                    <p>• <strong>Qualität:</strong> Höchste Detailgenauigkeit.</p>
+                    <p>• <strong>Flexibilität:</strong> Von Einzelstück bis Serie.</p>
+                    <p>• <strong>Innovation:</strong> Modernste Technologien.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profis Section -->
+        <section class="team-section">
+            <h2 class="section-headline">Ihre Profis</h2>
+            <div class="team-container">
+                <!-- Profil 1 -->
+                <div class="profile-card gradient-blue">
+                    <div class="avatar">
+                        <img src="https://static.wixstatic.com/media/1a2196_d86a31684fbd4f338970d1562e322c29~mv2.jpeg/v1/fill/w_147,h_143,al_c,q_80/IMG_2660.jpg" alt="Bahrian">
+                    </div>
+                    <h3>Bahrian Novotny</h3>
+                    <p class="role">Co-CEO und Mitgründer</p>
+                    <div class="profile-actions">
+                        <a href="#" class="pill-link">Besuche mich auf Skypixel</a>
+                        <a href="#" class="pill-link">Besuche meine Website</a>
+                    </div>
+                </div>
+
+                <!-- Profil 2 -->
+                <div class="profile-card gradient-purple">
+                    <div class="avatar">
+                        <img src="https://static.wixstatic.com/media/1a2196_3fe898123d2c4ef180e3af2571a33364~mv2.jpg/v1/fill/w_147,h_196,al_c,q_80/IMG_5882.jpg" alt="Lorenzo">
+                    </div>
+                    <h3>Lorenzo Bay-Müller</h3>
+                    <p class="role">Co-CEO und Mitgründer</p>
+                    <div class="profile-actions">
+                        <a href="#" class="pill-link">Besuche mich auf Skypixel</a>
+                        <a href="#" class="pill-link">Besuche meine Website</a>
+                        <a href="#" class="pill-link youtube">Besuche mich auf YouTube!</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
+        <div class="footer-inner">
+            <span>© Copyright: Bahrian Novotny & Lorenzo Bay-Müller</span>
             <div class="footer-links">
-                <a href="#">Impressum</a>
-                <a href="#">Privacy</a>
-            </div>
-            <div class="copyright">
-                <p>© Copyright: Bahrian Novotny & Lorenzo Bay-Müller</p>
+                <a href="#">Impressum</a> | <a href="#">Privacy</a>
             </div>
         </div>
     </footer>
 
-    <!-- Chat Widget Simulation (Optional) -->
-    <div class="chat-widget">
-        <i class="fa-solid fa-comment-dots"></i> Chat with us
+    <!-- Chat Button Fixed -->
+    <div class="chat-fab">
+        <i class="fa-regular fa-comment"></i> Chat with us
     </div>
 
     <script src="js/script.js"></script>
