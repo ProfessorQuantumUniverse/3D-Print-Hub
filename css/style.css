@@ -32,7 +32,7 @@ body.darkmode {
 body { font-family: var(--font-main); background-color: var(--primary-bg); color: var(--text-color); overflow-x: hidden; transition: 0.3s; }
 
 /* =========================================
-   HEADER & NAVIGATION (FINAL CLEAN FIX)
+   HEADER & NAVIGATION (FIXED & ALIGNED)
    ========================================= */
 
 /* --- BASIS LAYOUT --- */
@@ -45,40 +45,40 @@ body { font-family: var(--font-main); background-color: var(--primary-bg); color
     padding: 0 40px;
     display: flex;
     justify-content: center;
-    pointer-events: none; /* Klicks gehen durch leere Bereiche */
+    pointer-events: none;
+    transition: all 0.3s ease;
 }
 
 .header-content {
     width: 100%;
-    max-width: 1400px; /* 1400px verhindert, dass es zu weit auseinander rutscht */
+    max-width: 1400px;
     display: flex;
-    justify-content: space-between; /* WICHTIG: Links links, Rechts rechts */
     align-items: center;
-    position: relative; /* Wichtig für die absolute Mitte */
+    /* This ensures Left stays Left, and Right stays Right */
+    justify-content: space-between; 
+    position: relative;
 }
 
 /* --- PILLEN BASIS STYLE --- */
 .header-pill {
-    background: rgba(255, 255, 255, 0.15); /* Edles dunkles Glas */
+    background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    
     border-radius: 50px;
     height: 60px;
     display: flex;
     align-items: center;
     padding: 0 10px;
-    pointer-events: auto; /* Buttons wieder klickbar */
+    pointer-events: auto;
     transition: 0.3s ease;
     color: #fff;
-    flex-shrink: 0; /* Verhindert Zerquetschen */
+    flex-shrink: 0;
 }
 
 body.darkmode .header-pill {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
     border-color: rgba(255, 255, 255, 0.15);
 }
 
@@ -92,7 +92,10 @@ body.darkmode .header-pill {
 .header-left { 
     padding: 0 20px 0 10px; 
     gap: 15px; 
+    /* Ensures logo stays on the left */
+    margin-right: auto; 
 }
+
 .logo-box { 
     width: 40px; height: 40px; 
     display: flex; align-items: center; justify-content: center; 
@@ -103,9 +106,6 @@ body.darkmode .header-pill {
 .separator { 
     width: 1px; height: 24px; background: rgba(255,255,255,0.3); 
 }
-body.darkmode .separator { 
-    background: rgba(255,255,255,0.3); 
-}
 .brand-name { 
     font-weight: 800; font-size: 1rem; letter-spacing: 1px; 
     font-family: var(--font-title); color: #fff;
@@ -113,7 +113,6 @@ body.darkmode .separator {
 
 /* --- MITTLERER BEREICH (Scrollbar) --- */
 .header-center { 
-    /* Absolut zentrieren, damit es das Layout nicht verschiebt */
     position: absolute; 
     left: 50%; 
     transform: translateX(-50%);
@@ -127,7 +126,6 @@ body.darkmode .separator {
     flex-grow: 1; height: 4px; background: rgba(255,255,255,0.2); 
     border-radius: 2px; overflow: hidden; 
 }
-body.darkmode .scroll-track { background: rgba(255,255,255,0.2); }
 .scroll-bar { 
     width: 0%; height: 100%; 
     background: var(--primary-orange); 
@@ -138,17 +136,29 @@ body.darkmode .scroll-track { background: rgba(255,255,255,0.2); }
 .header-right { 
     display: flex; 
     gap: 10px; 
-    justify-content: flex-end; /* Drückt alles nach rechts */
     align-items: center;
     flex-shrink: 0;
+    
+    /* CRITICAL FIX: Forces this group to the far right */
+    margin-left: auto; 
+    justify-content: flex-end;
 }
 
 .lang-pill { 
-    padding: 0 15px; cursor: pointer; width: 60px; justify-content: center;
+    padding: 0; /* Remove padding to center the flag better */
+    width: 50px; 
+    height: 50px; /* Make it a perfect circle/square shape if needed */
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 5px; /* Tiny gap between Lang and Menu */
 }
+
+/* Fix flag sizing */
 .flag-icon {
-    width: 25px !important; height: 18px !important; display: block;
-    border-radius: 2px; box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    width: 24px !important; 
+    height: auto !important; 
+    display: block;
+    border-radius: 2px;
 }
 
 /* Desktop Navigation */
@@ -163,152 +173,77 @@ body.darkmode .scroll-track { background: rgba(255,255,255,0.2); }
 }
 .nav-item:hover { background: rgba(255,255,255,0.2); color: var(--primary-orange); }
 .nav-item.active { color: #fff; background: rgba(255,255,255,0.1); }
-body.darkmode .nav-item.active { color: #fff; }
 
 /* --- HAMBURGER BUTTON (Mobile Trigger) --- */
 .mobile-trigger { 
-    display: none; /* Standard: unsichtbar */
-    background: var(--primary-orange); /* Orange Hintergrund */
-    padding: 0 20px; cursor: pointer; 
-    font-weight: 700; font-size: 0.9rem; gap: 10px;
-    border: none; color: #fff;
-    min-width: 60px; justify-content: center;
+    display: none; /* Hidden on desktop */
+    background: var(--primary-orange); 
+    padding: 0 20px; 
+    cursor: pointer; 
+    font-weight: 700; 
+    font-size: 0.9rem; 
+    gap: 10px;
+    border: none; 
+    color: #fff;
+    height: 50px; /* Match height with lang pill */
+    border-radius: 50px;
+    align-items: center;
 }
 .hamburger-icon { display: flex; flex-direction: column; gap: 5px; width: 20px; }
 .hamburger-icon span { width: 100%; height: 2px; background-color: #fff; transition: 0.3s; border-radius: 2px;}
 
-/* Menu Open Animation */
+/* Animation for Menu Open */
 .menu-toggle-btn.menu-open .hamburger-icon span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
 .menu-toggle-btn.menu-open .hamburger-icon span:nth-child(2) { opacity: 0; }
 .menu-toggle-btn.menu-open .hamburger-icon span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
 
 /* =========================================
-   MOBILE MENU OVERLAY (HUD STYLE)
+   RESPONSIVE BREAKPOINTS (HEADER FIXED)
    ========================================= */
 
-.mobile-menu-overlay {
-    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    z-index: 1500; pointer-events: none;
-    display: flex; justify-content: center; align-items: center;
-    opacity: 0; transition: opacity 0.4s ease;
-}
-
-.menu-backdrop {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-}
-
-.mobile-menu-overlay.active { opacity: 1; pointer-events: auto; }
-
-.mobile-menu-container {
-    position: relative; width: 90%; max-width: 500px;
-    background: rgba(15, 15, 15, 0.85) !important; /* Dunkler Kontrast */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 30px; padding: 70px 30px 40px 30px;
-    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.4);
-    display: flex; flex-direction: column; gap: 30px;
-    transform: translateY(30px) scale(0.95);
-    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-    backdrop-filter: blur(30px);
-}
-
-.mobile-menu-overlay.active .mobile-menu-container {
-    transform: translateY(0) scale(1);
-}
-
-/* Close Button */
-.menu-close-btn {
-    position: absolute; top: 20px; right: 20px;
-    width: 40px; height: 40px; border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff; font-size: 1.2rem; cursor: pointer;
-    display: flex; justify-content: center; align-items: center;
-    transition: 0.3s; z-index: 10;
-}
-.menu-close-btn:hover {
-    background: var(--primary-orange); border-color: var(--primary-orange);
-    transform: rotate(90deg); color: #000;
-}
-
-/* Menu Items */
-.mobile-nav-list { display: flex; flex-direction: column; gap: 15px; }
-
-.menu-item {
-    display: flex; align-items: center; text-decoration: none;
-    color: #fff !important; padding: 15px; border-radius: 15px;
-    transition: all 0.3s; border: 1px solid transparent;
-    opacity: 0; transform: translateX(-20px);
-}
-
-.mobile-menu-overlay.active .menu-item {
-    animation: slideInLeft 0.5s forwards;
-    animation-delay: calc(0.1s * var(--i));
-}
-@keyframes slideInLeft { to { opacity: 1; transform: translateX(0); } }
-
-.menu-item:hover {
-    background: rgba(255, 255, 255, 0.05); padding-left: 25px;
-}
-
-.menu-num { color: var(--primary-orange); font-family: 'Orbitron', sans-serif; margin-right: 20px; opacity: 0.7; }
-.menu-text { font-size: 1.5rem; font-weight: 700; color: #fff !important; }
-
-.menu-item.highlight {
-    background: var(--primary-orange) !important; color: #000 !important;
-}
-.menu-item.highlight .menu-num, .menu-item.highlight .menu-text { color: #000 !important; }
-
-
-/* Footer im Menü */
-.mobile-menu-footer { opacity: 0; }
-.mobile-menu-overlay.active .mobile-menu-footer { animation: fadeInUp 0.6s forwards 0.6s; }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-.menu-divider { height: 1px; background: rgba(255,255,255,0.1); margin-bottom: 20px; }
-.footer-grid { display: flex; justify-content: space-between; align-items: center; }
-.footer-info { display: flex; flex-direction: column; }
-.footer-info .label { font-size: 0.75rem; text-transform: uppercase; color: #888; margin-bottom: 5px; }
-.footer-info a { color: #fff; text-decoration: none; font-weight: 500; }
-.footer-socials { display: flex; gap: 15px; }
-.social-icon {
-    width: 40px; height: 40px; border-radius: 50%;
-    background: rgba(255,255,255,0.05); color: #fff;
-    display: flex; justify-content: center; align-items: center;
-    text-decoration: none; transition: 0.3s;
-}
-.social-icon:hover { background: var(--primary-orange); color: #000; transform: rotate(10deg); }
-
-
-/* =========================================
-   RESPONSIVE BREAKPOINTS (HEADER)
-   ========================================= */
-
-/* Ab 1200px: Mitte weg, Hamburger her */
+/* Ab 1200px: Remove Center, Show Hamburger, KEEP RIGHT ALIGNMENT */
 @media (max-width: 1200px) {
     .header-center { display: none; }
     .desktop-nav { display: none !important; }
+    
+    /* Show Menu Button */
     .mobile-trigger { display: flex !important; }
+    
+    /* Ensure spacing remains correct */
+    .header-right { gap: 10px; }
 }
 
-/* Ab 768px: Brand Name weg, Header kompakter */
+/* Ab 768px: Compact Header */
 @media (max-width: 768px) {
-    .wix-header { padding: 0 20px; top: 10px; }
+    .wix-header { padding: 0 20px; top: 15px; }
+    
+    /* Hide Brand Name */
     .brand-name, .separator { display: none; }
-    .header-left { width: 50px; padding: 0; justify-content: center; }
+    
+    /* Make Logo Pill Square */
+    .header-left { 
+        width: 50px; 
+        padding: 0; 
+        justify-content: center; 
+    }
 }
 
-/* Ab 480px: Mobile Mode */
+/* Ab 480px: Mobile Mode (Smallest screens) */
 @media (max-width: 480px) {
-    .wix-header { padding: 0 10px; }
-    .header-pill { height: 50px; }
-    .menu-text { display: none; } /* Text im Hamburger weg */
-    .mobile-trigger { width: 50px; padding: 0; min-width: 50px; }
-    .lang-pill { width: 50px; }
+    .wix-header { padding: 0 15px; }
+    
+    /* Make pills slightly smaller */
+    .header-pill, .mobile-trigger, .lang-pill { 
+        height: 45px; 
+    }
+    .header-left { width: 45px; }
+    .lang-pill { width: 45px; }
+
+    /* Hide "Menu" text, show only Icon to save space */
+    .menu-text { display: none; } 
+    .mobile-trigger { padding: 0; width: 45px; justify-content: center; }
 }
-/* --- BACKGROUND DOTS EFFECT --- */
 /* --- GLOBAL DOTS BACKGROUND --- */
 
 /* --- GLOBAL TRANSPARENCY FIX --- */
