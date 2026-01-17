@@ -1,38 +1,125 @@
 <header class="wix-header">
     <div class="header-content">
-        <div class="header-left">
+        
+        <!-- LINKS: Logo & Brand -->
+        <!-- Fix: flex-shrink-0 verhindert das Zerquetschen -->
+        <div class="header-left header-pill">
             <div class="logo-box">
-                <!-- WICHTIG: Pfad zum Logo muss absolut sein oder angepasst werden -->
                 <a href="/3D-Print-Hub/index.html">
-                    <img src="https://static.wixstatic.com/media/1a2196_fbe9ff330b1346d9818a251995ddf4fa~mv2.png/v1/fill/w_333,h_201,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3d-printer-3308167_1920.png" alt="DE" class="logo-image">
+                    <img src="https://static.wixstatic.com/media/1a2196_fbe9ff330b1346d9818a251995ddf4fa~mv2.png/v1/fill/w_333,h_201,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3d-printer-3308167_1920.png" alt="Logo" class="logo-image">
                 </a>
             </div>
             <div class="separator"></div>
-            <!-- ID hinzufügen, um den Text per JS zu ändern -->
-            <span class="brand-name" id="page-title-display">3D-PRINT-HUB</span>
+            <span class="brand-name">3D-PRINT-HUB</span>
         </div>
+
+        <!-- MITTE: Scroll Indicator -->
         <div class="header-center">
-            <div class="player-pill">
-                <i class="fa-solid fa-play"></i>
-                <div class="progress-bar"></div>
+            <div class="status-pill header-pill">
+                <i class="fa-solid fa-code-branch"></i>
+                <div class="scroll-track">
+                    <div class="scroll-bar" id="scrollProgress"></div>
+                </div>
             </div>
         </div>
-        <div class="header-right">
-            <div class="lang-pill">
-                <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/de.svg" alt="DE" class="flag">
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
-            <nav class="nav-pill">
-                <!-- WICHTIG: Nutze absolute Pfade (/RepoName/datei.html), damit sie von jeder Unterseite funktionieren -->
-                <!-- Passe '3D-Print-Hub' an den Namen deines GitHub Repos an -->
-                <a href="/3D-Print-Hub/index.html" class="nav-item" data-page="home">Home</a>
-                <a href="/3D-Print-Hub/buchen.html" class="nav-item" data-page="buchen">Buchen</a>
-                <a href="/3D-Print-Hub/status.html" class="nav-item" data-page="status">Order Status</a>
-                <a href="/3D-Print-Hub/modelle.html" class="nav-item" data-page="modelle">Modell aussuchen</a>
-                <a href="/3D-Print-Hub/materialien.html" class="nav-item" data-page="materialien">Materialien</a>
-                <a href="/3D-Print-Hub/galerie.html" class="nav-item" data-page="galerie">Galerie</a>
-                <a href="#" class="nav-arrow">></a>
-            </nav>
-        </div>
+
+        <!-- RECHTS: Navigation -->
+<div class="header-right">
+            
+    <!-- Sprache: Wir geben dem Bild eine Klasse für feste Größe -->
+    <div class="lang-pill header-pill">
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/de.svg" alt="DE" class="flag-icon">
     </div>
+
+    <!-- DESKTOP NAV -->
+    <nav class="nav-pill header-pill desktop-nav">
+        <a href="/3D-Print-Hub/index.html" class="nav-item">Home</a>
+        <a href="/3D-Print-Hub/modelle.html" class="nav-item">Modelle</a>
+        <a href="/3D-Print-Hub/materialien.html" class="nav-item">Materialien</a>
+        <a href="/3D-Print-Hub/galerie.html" class="nav-item">Galerie</a>
+        <a href="/3D-Print-Hub/status.html" class="nav-item">Status</a>
+        <a href="/3D-Print-Hub/buchen.html" class="nav-item">Buchen</a>
+    </nav>
+
+    <!-- HAMBURGER BUTTON -->
+    <button class="menu-toggle-btn header-pill mobile-trigger" id="mobileMenuBtn">
+        <span class="menu-text">Menu</span>
+        <div class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span> <!-- 3 Striche sind Standard für Hamburger -->
+        </div>
+    </button>
+</div>
+    </div>
+
+    <!-- MOBILE OVERLAY -->
+    <!-- PREMIUM MOBILE MENU OVERLAY -->
+<!-- PREMIUM MOBILE MENU OVERLAY -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay">
+    <div class="menu-backdrop"></div>
+
+    <div class="mobile-menu-container">
+        
+        <!-- NEU: Close Button oben rechts -->
+        <button class="menu-close-btn" id="internalCloseBtn">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <!-- Navigation -->
+        <nav class="mobile-nav-list">
+            <a href="/3D-Print-Hub/index.html" class="menu-item" style="--i:1;">
+                <span class="menu-num">01</span>
+                <span class="menu-text">Home</span>
+            </a>
+            <!-- ... deine anderen Links ... -->
+             <a href="/3D-Print-Hub/modelle.html" class="menu-item" style="--i:2;">
+                <span class="menu-num">02</span>
+                <span class="menu-text">Modelle</span>
+            </a>
+            <a href="/3D-Print-Hub/materialien.html" class="menu-item" style="--i:3;">
+                <span class="menu-num">03</span>
+                <span class="menu-text">Materialien</span>
+            </a>
+            <a href="/3D-Print-Hub/galerie.html" class="menu-item" style="--i:4;">
+                <span class="menu-num">04</span>
+                <span class="menu-text">Galerie</span>
+            </a>
+            <a href="/3D-Print-Hub/status.html" class="menu-item" style="--i:5;">
+                <span class="menu-num">05</span>
+                <span class="menu-text">Status Check</span>
+            </a>
+            <a href="/3D-Print-Hub/buchen.html" class="menu-item highlight" style="--i:6;">
+                <span class="menu-num">06</span>
+                <span class="menu-text">Jetzt Buchen</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </nav>
+
+        <!-- Footer Bereich ... -->
+        <div class="mobile-menu-footer" style="--i:7;">
+             <!-- ... (bleibt gleich) ... -->
+        </div>
+
+    </div>
+</div>
+
+        <!-- Bereich 2: Footer Infos (Socials & Kontakt) -->
+        <div class="mobile-menu-footer" style="--i:7;">
+            <div class="menu-divider"></div>
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <span class="label">Support</span>
+                    <a href="mailto:info@3dprinthub.de">info@3dprinthub.de</a>
+                </div>
+                <div class="footer-socials">
+                    <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 </header>

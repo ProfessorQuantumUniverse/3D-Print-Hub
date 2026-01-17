@@ -1,64 +1,46 @@
+/* ============================================================
+   GLOBAL SCRIPT - CLEANED & FIXED
+   ============================================================ */
+
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. Header laden
+
+    /* --- 1. HEADER LADEN (FETCH) --- */
     const headerContainer = document.getElementById('global-header');
     
-    // Pfad anpassen: Wenn deine Seite z.B. unter "username.github.io/repo/" läuft,
-    // muss der Pfad zur header.html stimmen.
-    // Bei lokaler Entwicklung oder Root reicht oft './header.html'
-    const headerPath = './header.html'; 
+    // Falls du lokal arbeitest oder die Pfade anders sind, passe dies an:
+    const headerPath = '/3D-Print-Hub/header.html'; 
+    // HINWEIS: Wenn das nicht geht, probiere './header.html'
 
     if (headerContainer) {
         fetch(headerPath)
             .then(response => {
-                if (!response.ok) throw new Error("Header konnte nicht geladen werden");
+                if (!response.ok) throw new Error(`Header Error: ${response.status}`);
                 return response.text();
             })
             .then(html => {
                 headerContainer.innerHTML = html;
                 
-                // 2. Aktiven Link setzen und Titel anpassen
+                // Nach dem Laden: Active State setzen
                 setActiveMenuItem();
+                
+                // Debugging: Prüfen ob Button da ist
+                console.log("Header geladen via Fetch.");
             })
-            .catch(error => console.error('Fehler beim Laden des Headers:', error));
-    }
-});
-
-function setActiveMenuItem() {
-    // Ermittle den aktuellen Dateinamen aus der URL (z.B. "index.html" oder "materialien.html")
-    const path = window.location.pathname;
-    let page = path.split("/").pop().replace('.html', ''); // "index", "materialien"
-
-    // Fallback für Startseite (wenn path leer oder nur Slash ist)
-    if (page === '' || page === 'index' || page === '3D-Print-Hub') {
-        page = 'home';
+            .catch(error => {
+                console.error('Fehler beim Laden des Headers:', error);
+                // Fallback: Zeige Fehlermeldung im Header
+                headerContainer.innerHTML = "<p style='color:white; text-align:center; padding:20px;'>Header konnte nicht geladen werden.</p>";
+            });
+    } else {
+        // Falls kein Header-Container da ist (z.B. statische Seite), trotzdem Active setzen
+        setActiveMenuItem();
     }
 
-    // Navigation Items suchen
-    const navItems = document.querySelectorAll('.nav-item');
-    const brandName = document.getElementById('page-title-display');
-
-    navItems.forEach(item => {
-        // Entferne erst alle active Klassen
-        item.classList.remove('active');
-
-        // Prüfe ob das data-page Attribut mit der aktuellen Seite übereinstimmt
-        if (item.getAttribute('data-page') === page) {
-            item.classList.add('active');
-            
-            // Optional: Den Brand-Namen oben links ändern (z.B. "MATERIALIEN" statt "HOME")
-            if(brandName) {
-                brandName.textContent = item.textContent.toUpperCase();
-            }
-        }
-    });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Dark Mode Funktionalität
+    /* --- 2. DARK MODE --- */
     const darkModeCheckbox = document.getElementById('darkModeCheckbox');
     const body = document.body;
 
+    // Gespeichertes Theme laden
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
         body.classList.add('darkmode');
@@ -77,217 +59,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Gallery Slider Logic
-    const slides = document.querySelectorAll('.gallery-slide');
-    const nextBtn = document.querySelector('.next-btn');
-    const prevBtn = document.querySelector('.prev-btn');
-    let currentSlide = 0;
-
-    function showSlide(index) {
-        // Wrap around
-        if (index >= slides.length) currentSlide = 0;
-        else if (index < 0) currentSlide = slides.length - 1;
-        else currentSlide = index;
-
-        // Hide all
-        slides.forEach(slide => {
-            slide.classList.remove('active');
-            slide.style.opacity = '0';
-        });
-
-        // Show current with fade in
-        slides[currentSlide].classList.add('active');
-        setTimeout(() => {
-            slides[currentSlide].style.opacity = '1';
-        }, 50);
-    }
-
-    if(nextBtn && prevBtn) {
-        nextBtn.addEventListener('click', () => showSlide(currentSlide + 1));
-        prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
-    }
-
-    // 3. Smooth Scroll
-    const learnMoreBtn = document.querySelectorAll('.btn-pill')[2]; // 3rd button
-    if(learnMoreBtn) {
-        learnMoreBtn.addEventListener('click', () => {
-            document.querySelector('.about-section').scrollIntoView({ behavior: 'smooth' });
-        });
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const step1 = document.getElementById('booking-step-1');
-    const step2 = document.getElementById('booking-step-2');
-    const btnToStep2 = document.getElementById('btn-to-step-2');
-    const btnBackTo1 = document.getElementById('btn-back-to-1');
-    const orderTypeSelect = document.getElementById('order-type');
-    
-    const shippingCheckbox = document.getElementById('shipping');
-    const addressField = document.getElementById('address-field');
-
-    // Navigation zu Schritt 2
-    btnToStep2.addEventListener('click', () => {
-        const selection = orderTypeSelect.value;
-        if (!selection) {
-            alert('Bitte wählen Sie eine Bestellart aus.');
-            return;
-        }
-
-        step1.classList.add('hidden');
-        step2.classList.remove('hidden');
-
-        // Alle dynamischen Felder verstecken
-        document.querySelectorAll('.dynamic-content').forEach(el => el.classList.add('hidden'));
-
-        // Gewünschtes Feld anzeigen
-        if (selection === 'file') document.getElementById('field-file').classList.remove('hidden');
-        if (selection === 'design') document.getElementById('field-design').classList.remove('hidden');
-        if (selection === 'link') document.getElementById('field-link').classList.remove('hidden');
-    });
-
-    // Zurück zu Schritt 1
-    btnBackTo1.addEventListener('click', () => {
-        step2.classList.add('hidden');
-        step1.classList.remove('hidden');
-    });
-
-    // Adresse einblenden wenn Postsendung gewählt
-    shippingCheckbox.addEventListener('change', () => {
-        if (shippingCheckbox.checked) {
-            addressField.classList.remove('hidden');
-        } else {
-            addressField.classList.add('hidden');
-        }
-    });
-});
-
-let currentSlide = 0;
-const captions = [
-    "Das intuitive Touch-Interface unserer Drucker im Einsatz.",
-    "Ein wunderbares grünes Benchy-Boot.",
-    "Präzision in Aktion: Ein Bambu Lab Drucker bei der Arbeit."
-];
-
-function updateSlider() {
-    const track = document.getElementById('slidesTrack');
-    const captionElement = document.getElementById('slideCaption');
-    
-    // Verschiebe den Track
-    track.style.transform = `translateX(-${currentSlide * 100}%)`;
-    
-    // Update Text mit leichtem Fade-Effekt
-    captionElement.style.opacity = 0;
-    setTimeout(() => {
-        captionElement.innerText = captions[currentSlide];
-        captionElement.style.opacity = 1;
-    }, 200);
-}
-
-function changeSlide(direction) {
-    const totalSlides = document.querySelectorAll('.slide').length;
-    currentSlide += direction;
-
-    if (currentSlide >= totalSlides) {
-        currentSlide = 0;
-    } else if (currentSlide < 0) {
-        currentSlide = totalSlides - 1;
-    }
-    
-    updateSlider();
-}
-
-// Initialisierung
-document.addEventListener('DOMContentLoaded', () => {
-    updateSlider();
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const submitBtn = document.getElementById('submitBtn');
-    const orderInput = document.getElementById('orderInput');
-    const resultsContainer = document.getElementById('resultsTableContainer');
-    const tableBody = document.getElementById('tableBody');
-
-    if (submitBtn) {
-        submitBtn.addEventListener('click', () => {
-            const val = orderInput.value;
-            
-            if (val === "1234" || val === "123456" || val === "555555") {
-                // Beispiel-Daten wie im Video bei Sekunde 0:14
-                tableBody.innerHTML = `
-                    <tr>
-                        <td>${val}</td>
-                        <td>fertig</td>
-                        <td>jhv</td>
-                        <td>7</td>
-                    </tr>
-                `;
-                resultsContainer.classList.remove('hidden');
-                
-                // Optional: Scroll zum Ergebnis
-                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else if (val !== "") {
-                // Fallback falls eine andere Nummer eingegeben wird
-                tableBody.innerHTML = `
-                    <tr>
-                        <td>${val}</td>
-                        <td>NaN</td>
-                        <td>NaN</td>
-                        <td>NaN</td>
-                    </tr>
-                `;
-                resultsContainer.classList.remove('hidden');
-            }
-        });
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
+    /* --- 3. 3D TEXT & BACKGROUND EFFECT --- */
     const textElement = document.querySelector('.giant-3d-text');
-
-    // Wir brauchen keinen Container mehr als Auslöser, sondern nur das Element selbst
     if (textElement) {
-        
         textElement.addEventListener('mousemove', (e) => {
-            // 1. Wo befindet sich der Text genau im Browserfenster?
             const rect = textElement.getBoundingClientRect();
-            
-            // 2. Mausposition RELATIV zum Text berechnen (nicht zum Bildschirm)
-            const x = e.clientX - rect.left; // 0 bis Textbreite
-            const y = e.clientY - rect.top;  // 0 bis Texthöhe
-            
-            // 3. Umrechnen in Bereich -1 bis +1 (Mitte ist 0)
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
             const xWalk = (x / rect.width * 2) - 1;
             const yWalk = (y / rect.height * 2) - 1;
-
-            // 4. KIPP-ANIMATION (Winkel)
+            
             const tiltX = yWalk * -15; 
             const tiltY = xWalk * 15;
-            
-            // 5. EXTRUSION (Tiefe)
             const depthFactor = 1.5; 
             const shadowX = xWalk * -1 * depthFactor;
             const shadowY = yWalk * -1 * depthFactor;
 
             let shadowString = '';
-            
-            // --- LOOP (40 Layer) ---
-            // A. Gehäuse (Grau)
-            for(let i = 1; i <= 5; i++) {
-                shadowString += `${shadowX * i}px ${shadowY * i}px 0 #888, `;
-            }
-            // B. Kern (Orange)
-            for(let i = 6; i <= 30; i++) {
-                shadowString += `${shadowX * i}px ${shadowY * i}px 0 #E98E68, `;
-            }
-            // C. Fundament (Dunkel)
-            for(let i = 31; i <= 40; i++) {
-                shadowString += `${shadowX * i}px ${shadowY * i}px 0 #333, `;
-            }
-            // D. Ambient Shadow
+            // Layering Loop
+            for(let i = 1; i <= 5; i++) shadowString += `${shadowX * i}px ${shadowY * i}px 0 #888, `;
+            for(let i = 6; i <= 30; i++) shadowString += `${shadowX * i}px ${shadowY * i}px 0 #E98E68, `;
+            for(let i = 31; i <= 40; i++) shadowString += `${shadowX * i}px ${shadowY * i}px 0 #333, `;
             shadowString += `${shadowX * 55}px ${shadowY * 55}px 40px rgba(0,0,0,0.6)`;
 
-            // 6. Anwenden
             requestAnimationFrame(() => {
                 textElement.style.setProperty('--rX', `${tiltX}deg`);
                 textElement.style.setProperty('--rY', `${tiltY}deg`);
@@ -296,44 +90,230 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // RESET: Sobald die Maus das TEXT-ELEMENT verlässt
         textElement.addEventListener('mouseleave', () => {
-            // Transition aktivieren für sanftes Zurückgleiten
             textElement.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), text-shadow 0.5s';
-            
-            // Alles auf Null setzen
             textElement.style.setProperty('--rX', `0deg`);
             textElement.style.setProperty('--rY', `0deg`);
             textElement.style.setProperty('--tz', `0px`);
             textElement.style.textShadow = '0 0 0 rgba(0,0,0,0)';
-            
-            // Kurzer Timeout, um "Glitch" beim schnellen Wiedereintritt zu verhindern
-            setTimeout(() => {
-                 // Nur resetten, wenn Maus wirklich weg ist (optionaler Sicherheitscheck)
-                 if(!textElement.matches(':hover')) {
-                     textElement.style.transition = ''; 
-                 }
-            }, 500);
+            setTimeout(() => { if(!textElement.matches(':hover')) textElement.style.transition = ''; }, 500);
         });
         
-        // Fix: Transition ausschalten, wenn Maus DRÜBER ist (für Instant-Reaktion)
         textElement.addEventListener('mouseenter', () => {
              textElement.style.transition = 'transform 0.1s linear, text-shadow 0s';
         });
     }
 
+    // Background Mouse Move
     const bgWrapper = document.querySelector('.background-wrapper');
-
     if (bgWrapper) {
         document.addEventListener('mousemove', (e) => {
-            // Wir holen die Mausposition im Fenster
-            const x = e.clientX;
-            const y = e.clientY;
+            bgWrapper.style.setProperty('--mouse-x', `${e.clientX}px`);
+            bgWrapper.style.setProperty('--mouse-y', `${e.clientY}px`);
+        });
+    }
 
-            // Wir senden die Koordinaten an die CSS-Variablen des Wrappers
-            bgWrapper.style.setProperty('--mouse-x', `${x}px`);
-            bgWrapper.style.setProperty('--mouse-y', `${y}px`);
+    /* --- 4. BUCHUNGSSYSTEM LOGIC --- */
+    const step1 = document.getElementById('booking-step-1');
+    const btnToStep2 = document.getElementById('btn-to-step-2');
+    if (btnToStep2 && step1) {
+        const step2 = document.getElementById('booking-step-2');
+        const btnBackTo1 = document.getElementById('btn-back-to-1');
+        const orderTypeSelect = document.getElementById('order-type');
+        const shippingCheckbox = document.getElementById('shipping');
+        const addressField = document.getElementById('address-field');
+
+        btnToStep2.addEventListener('click', () => {
+            const selection = orderTypeSelect.value;
+            if (!selection) { alert('Bitte wählen Sie eine Bestellart aus.'); return; }
+
+            step1.classList.add('hidden');
+            step2.classList.remove('hidden');
+            document.querySelectorAll('.dynamic-content').forEach(el => el.classList.add('hidden'));
+
+            if (selection === 'file') document.getElementById('field-file')?.classList.remove('hidden');
+            if (selection === 'design') document.getElementById('field-design')?.classList.remove('hidden');
+            if (selection === 'link') document.getElementById('field-link')?.classList.remove('hidden');
+        });
+
+        if (btnBackTo1) {
+            btnBackTo1.addEventListener('click', () => {
+                step2.classList.add('hidden');
+                step1.classList.remove('hidden');
+            });
+        }
+        if (shippingCheckbox && addressField) {
+            shippingCheckbox.addEventListener('change', () => {
+                shippingCheckbox.checked ? addressField.classList.remove('hidden') : addressField.classList.add('hidden');
+            });
+        }
+    }
+
+    /* --- 5. SLIDER LOGIC (Kompatibilität für beide Varianten) --- */
+    // Variante A: Opacity Slider (Home)
+    const slidesA = document.querySelectorAll('.gallery-slide');
+    if (slidesA.length > 0) {
+        const nextBtn = document.querySelector('.next-btn');
+        const prevBtn = document.querySelector('.prev-btn');
+        let currentSlideA = 0;
+
+        function showSlideA(index) {
+            if (index >= slidesA.length) currentSlideA = 0;
+            else if (index < 0) currentSlideA = slidesA.length - 1;
+            else currentSlideA = index;
+
+            slidesA.forEach(slide => { slide.classList.remove('active'); slide.style.opacity = '0'; });
+            slidesA[currentSlideA].classList.add('active');
+            setTimeout(() => { slidesA[currentSlideA].style.opacity = '1'; }, 50);
+        }
+        if(nextBtn) nextBtn.addEventListener('click', () => showSlideA(currentSlideA + 1));
+        if(prevBtn) prevBtn.addEventListener('click', () => showSlideA(currentSlideA - 1));
+    }
+
+    // Variante B: Transform Slider (Gallery Page)
+    const track = document.getElementById('slidesTrack');
+    if (track) {
+        let currentSlideB = 0;
+        const totalSlidesB = document.querySelectorAll('.slide').length;
+        const captions = ["Interface", "Benchy", "Precision"];
+        const captionElement = document.getElementById('slideCaption');
+
+        // Wir hängen die Funktion ans window Objekt, falls HTML Buttons onclick="" nutzen
+        window.changeSlide = function(direction) {
+            currentSlideB += direction;
+            if (currentSlideB >= totalSlidesB) currentSlideB = 0;
+            else if (currentSlideB < 0) currentSlideB = totalSlidesB - 1;
+            
+            track.style.transform = `translateX(-${currentSlideB * 100}%)`;
+            
+            if (captionElement) {
+                captionElement.style.opacity = 0;
+                setTimeout(() => {
+                    captionElement.innerText = captions[currentSlideB] || "";
+                    captionElement.style.opacity = 1;
+                }, 200);
+            }
+        };
+    }
+    
+    /* --- 6. ORDER STATUS LOGIC --- */
+    const submitBtn = document.getElementById('submitBtn');
+    if (submitBtn) {
+        submitBtn.addEventListener('click', () => {
+            const val = document.getElementById('orderInput').value;
+            const tableBody = document.getElementById('tableBody');
+            const resultsContainer = document.getElementById('resultsTableContainer');
+            
+            if (val.length > 3) { // Simple Validierung
+                tableBody.innerHTML = `<tr><td>${val}</td><td>In Bearbeitung</td><td>3D-Hub</td><td>2 Tage</td></tr>`;
+                resultsContainer.classList.remove('hidden');
+            }
+        });
+    }
+
+    /* --- 7. SMOOTH SCROLL BUTTON --- */
+    // Wählt den 3. Button in der Hero Card aus
+    const learnMoreBtns = document.querySelectorAll('.btn-pill');
+    if(learnMoreBtns.length >= 3) {
+        learnMoreBtns[2].addEventListener('click', () => {
+            const target = document.querySelector('#about') || document.querySelector('.about-section-tech');
+            if(target) target.scrollIntoView({ behavior: 'smooth' });
         });
     }
 });
 
+
+/* ============================================================
+   FUNKTIONEN AUSSERHALB (Scope)
+   ============================================================ */
+
+/* --- A. ACTIVE MENU ITEM SETZEN --- */
+function setActiveMenuItem() {
+    const path = window.location.pathname;
+    // Dateinamen extrahieren (z.B. "materialien")
+    let page = path.split("/").pop().replace('.html', '');
+    
+    // Fallbacks
+    if (page === '' || page === 'index' || page === '3D-Print-Hub') page = 'home';
+
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.classList.remove('active');
+        // Wenn data-page="home" und wir sind auf home -> active
+        if (item.getAttribute('data-page') === page) {
+            item.classList.add('active');
+        }
+        // Fallback: Prüfen ob href den Namen enthält
+        else if (item.getAttribute('href').includes(page + '.html')) {
+            item.classList.add('active');
+        }
+    });
+}
+
+
+/* --- B. SCROLL PROGRESS BAR --- */
+window.addEventListener('scroll', () => {
+    const scrollBar = document.getElementById('scrollProgress');
+    if(scrollBar) {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (scrollTop / scrollHeight) * 100;
+        scrollBar.style.width = scrolled + "%";
+    }
+});
+
+
+/* --- C. ROBUSTES MOBILE MENU (EVENT DELEGATION) --- */
+/* Dies ist der wichtigste Teil für den Fix! */
+document.addEventListener('click', function(e) {
+    
+    // Helper zum Schließen
+    function closeMenu() {
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const menuOverlay = document.getElementById('mobileMenuOverlay');
+        
+        if (menuBtn && menuOverlay) {
+            menuBtn.classList.remove('menu-open');
+            menuOverlay.classList.remove('active');
+            
+            const textSpan = menuBtn.querySelector('.menu-text');
+            if (textSpan) textSpan.innerText = "Menu";
+        }
+    }
+
+    // 1. HAMBURGER BUTTON CLICK
+    // Wir suchen nach dem Button oder einem Kind davon
+    const menuBtn = e.target.closest('#mobileMenuBtn');
+    if (menuBtn) {
+        e.preventDefault();
+        const menuOverlay = document.getElementById('mobileMenuOverlay');
+        const textSpan = menuBtn.querySelector('.menu-text');
+
+        if (menuOverlay) {
+            const isClosed = !menuBtn.classList.contains('menu-open');
+            
+            if (isClosed) {
+                // Öffnen
+                menuBtn.classList.add('menu-open');
+                menuOverlay.classList.add('active');
+                if (textSpan) textSpan.innerText = "Close";
+            } else {
+                // Schließen
+                closeMenu();
+            }
+        }
+        return; 
+    }
+
+    // 2. CLOSE BUTTON (X) CLICK
+    if (e.target.closest('.menu-close-btn')) {
+        e.preventDefault();
+        closeMenu();
+        return;
+    }
+
+    // 3. LINK CLICK IM MENÜ
+    if (e.target.closest('.menu-item') || e.target.closest('.mobile-link')) {
+        closeMenu();
+    }
+});
