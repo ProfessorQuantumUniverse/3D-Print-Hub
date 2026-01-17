@@ -243,7 +243,140 @@ body.darkmode .header-pill {
     /* Hide "Menu" text, show only Icon to save space */
     .menu-text { display: none; } 
     .mobile-trigger { padding: 0; width: 45px; justify-content: center; }
+
 }
+
+/* =========================================
+   MOBILE MENU OVERLAY (FIXED & HIDDEN)
+   ========================================= */
+
+.mobile-menu-overlay {
+    /* WICHTIG: fixed nimmt es aus dem Header-Fluss raus */
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh;
+    z-index: 3000; /* Muss höher sein als der Header (2000) */
+    
+    /* WICHTIG: Standardmäßig unsichtbar und nicht klickbar */
+    opacity: 0; 
+    pointer-events: none;
+    
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    transition: opacity 0.4s ease;
+}
+
+/* Hintergrund abdunkeln */
+.menu-backdrop {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.8); 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+/* Wenn JS die Klasse .active hinzufügt -> Sichtbar machen */
+.mobile-menu-overlay.active { 
+    opacity: 1; 
+    pointer-events: auto; 
+}
+
+/* Der Container für das Menü selbst */
+.mobile-menu-container {
+    position: relative; 
+    width: 90%; 
+    max-width: 500px;
+    background: rgba(20, 20, 20, 0.95); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px; 
+    padding: 70px 30px 40px 30px;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px;
+    
+    /* Animation beim Öffnen */
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.mobile-menu-overlay.active .mobile-menu-container {
+    transform: translateY(0) scale(1);
+}
+
+/* Close Button (X) oben rechts im Menü */
+.menu-close-btn {
+    position: absolute; top: 20px; right: 20px;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff; font-size: 1.2rem; cursor: pointer;
+    display: flex; justify-content: center; align-items: center;
+    transition: 0.3s; z-index: 10;
+}
+.menu-close-btn:hover {
+    background: var(--primary-orange); 
+    color: #000;
+    transform: rotate(90deg);
+}
+
+/* Links im Menü */
+.mobile-nav-list { display: flex; flex-direction: column; gap: 10px; }
+
+.menu-item {
+    display: flex; align-items: center; text-decoration: none;
+    color: #fff !important; padding: 12px 15px; border-radius: 12px;
+    transition: all 0.3s; 
+    opacity: 0; transform: translateX(-20px);
+}
+
+/* Animation der Links (fliegen rein) */
+.mobile-menu-overlay.active .menu-item {
+    animation: slideInLeft 0.5s forwards;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes slideInLeft { 
+    to { opacity: 1; transform: translateX(0); } 
+}
+
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.1); padding-left: 25px;
+}
+
+.menu-num { color: var(--primary-orange); margin-right: 15px; font-family: monospace; opacity: 0.7; }
+.menu-text { font-size: 1.3rem; font-weight: 700; }
+
+/* Highlight Button (Buchen) */
+.menu-item.highlight {
+    background: var(--primary-orange) !important; color: #000 !important; margin-top: 10px;
+}
+.menu-item.highlight .menu-num, .menu-item.highlight .menu-text { color: #000 !important; }
+
+/* Footer im Menü */
+.mobile-menu-footer { 
+    margin-top: 20px; 
+    border-top: 1px solid rgba(255,255,255,0.1); 
+    padding-top: 20px;
+    opacity: 0;
+}
+
+.mobile-menu-overlay.active .mobile-menu-footer { 
+    animation: fadeInUp 0.6s forwards 0.5s; 
+}
+
+@keyframes fadeInUp { 
+    from { opacity: 0; transform: translateY(20px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+.footer-grid { display: flex; justify-content: space-between; align-items: center; }
+.footer-info a { color: #aaa; text-decoration: none; display: block; font-size: 0.9rem; }
+.footer-socials { display: flex; gap: 10px; }
+.social-icon { color: #fff; font-size: 1.2rem; }
+
 /* --- GLOBAL DOTS BACKGROUND --- */
 
 /* --- GLOBAL TRANSPARENCY FIX --- */
