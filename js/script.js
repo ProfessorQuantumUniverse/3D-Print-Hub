@@ -1,4 +1,60 @@
 document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. Header laden
+    const headerContainer = document.getElementById('global-header');
+    
+    // Pfad anpassen: Wenn deine Seite z.B. unter "username.github.io/repo/" läuft,
+    // muss der Pfad zur header.html stimmen.
+    // Bei lokaler Entwicklung oder Root reicht oft './header.html'
+    const headerPath = './header.html'; 
+
+    if (headerContainer) {
+        fetch(headerPath)
+            .then(response => {
+                if (!response.ok) throw new Error("Header konnte nicht geladen werden");
+                return response.text();
+            })
+            .then(html => {
+                headerContainer.innerHTML = html;
+                
+                // 2. Aktiven Link setzen und Titel anpassen
+                setActiveMenuItem();
+            })
+            .catch(error => console.error('Fehler beim Laden des Headers:', error));
+    }
+});
+
+function setActiveMenuItem() {
+    // Ermittle den aktuellen Dateinamen aus der URL (z.B. "index.html" oder "materialien.html")
+    const path = window.location.pathname;
+    let page = path.split("/").pop().replace('.html', ''); // "index", "materialien"
+
+    // Fallback für Startseite (wenn path leer oder nur Slash ist)
+    if (page === '' || page === 'index' || page === '3D-Print-Hub') {
+        page = 'home';
+    }
+
+    // Navigation Items suchen
+    const navItems = document.querySelectorAll('.nav-item');
+    const brandName = document.getElementById('page-title-display');
+
+    navItems.forEach(item => {
+        // Entferne erst alle active Klassen
+        item.classList.remove('active');
+
+        // Prüfe ob das data-page Attribut mit der aktuellen Seite übereinstimmt
+        if (item.getAttribute('data-page') === page) {
+            item.classList.add('active');
+            
+            // Optional: Den Brand-Namen oben links ändern (z.B. "MATERIALIEN" statt "HOME")
+            if(brandName) {
+                brandName.textContent = item.textContent.toUpperCase();
+            }
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
     // 1. Dark Mode Funktionalität
     const darkModeCheckbox = document.getElementById('darkModeCheckbox');
     const body = document.body;
