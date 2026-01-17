@@ -10,7 +10,10 @@
 </head>
 <body>
 
-    <div class="site-background"></div>
+    <div class="background-wrapper">
+    <div class="dots-base"></div>   <!-- Die dunklen, statischen Punkte -->
+    <div class="dots-glow"></div>   <!-- Die leuchtenden Punkte (nur bei Hover sichtbar) -->
+    </div>
 
     <!-- Header (Unverändert, da perfekt) -->
     <header class="wix-header">
@@ -180,37 +183,61 @@
         </section>
 
         <!-- Profis Section -->
-        <section class="team-section">
-            <h2 class="section-headline">Ihre Profis</h2>
-            <div class="team-container">
-                <!-- Profil 1 -->
-                <div class="profile-card gradient-blue">
-                    <div class="avatar">
-                        <img src="https://static.wixstatic.com/media/1a2196_d86a31684fbd4f338970d1562e322c29~mv2.jpeg/v1/fill/w_147,h_143,al_c,q_80/IMG_2660.jpg" alt="Bahrian">
-                    </div>
-                    <h3>Bahrian Novotny</h3>
-                    <p class="role">Co-CEO und Mitgründer</p>
-                    <div class="profile-actions">
-                        <a href="#" class="pill-link">Besuche mich auf Skypixel</a>
-                        <a href="#" class="pill-link">Besuche meine Website</a>
-                    </div>
+       <section class="team-section">
+    <h2 class="section-headline">Ihre Profis</h2>
+    <div class="team-container">
+        
+        <!-- Profil 1: Bahrian (Cyan/Blue Theme) -->
+        <div class="profile-card theme-blue">
+            <div class="card-glass-bg"></div> <!-- Der Glaseffekt -->
+            <div class="card-border-glow"></div> <!-- Der leuchtende Rand -->
+            
+            <div class="card-inner">
+                <div class="avatar-wrapper">
+                    <div class="hud-ring"></div> <!-- Rotierender Ring -->
+                    <img src="https://static.wixstatic.com/media/1a2196_d86a31684fbd4f338970d1562e322c29~mv2.jpeg/v1/fill/w_147,h_143,al_c,q_80/IMG_2660.jpg" alt="Bahrian">
                 </div>
-
-                <!-- Profil 2 -->
-                <div class="profile-card gradient-purple">
-                    <div class="avatar">
-                        <img src="https://static.wixstatic.com/media/1a2196_3fe898123d2c4ef180e3af2571a33364~mv2.jpg/v1/fill/w_147,h_196,al_c,q_80/IMG_5882.jpg" alt="Lorenzo">
-                    </div>
-                    <h3>Lorenzo Bay-Müller</h3>
-                    <p class="role">Co-CEO und Mitgründer</p>
-                    <div class="profile-actions">
-                        <a href="#" class="pill-link">Besuche mich auf Skypixel</a>
-                        <a href="#" class="pill-link">Besuche meine Website</a>
-                        <a href="#" class="pill-link youtube">Besuche mich auf YouTube!</a>
+                
+                <div class="profile-info">
+                    <h3>Bahrian Novotny</h3>
+                    <p class="role">Co-CEO & Founder</p>
+                    <div class="tech-divider"></div>
+                    
+                    <div class="profile-links">
+                        <a href="#" class="hud-btn"><i class="fa-solid fa-paper-plane"></i> Skypixel</a>
+                        <a href="#" class="hud-btn"><i class="fa-solid fa-globe"></i> Website</a>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <!-- Profil 2: Lorenzo (Purple Theme) -->
+        <div class="profile-card theme-purple">
+            <div class="card-glass-bg"></div>
+            <div class="card-border-glow"></div>
+            
+            <div class="card-inner">
+                <div class="avatar-wrapper">
+                    <div class="hud-ring"></div>
+                    <img src="https://static.wixstatic.com/media/1a2196_3fe898123d2c4ef180e3af2571a33364~mv2.jpg/v1/fill/w_147,h_196,al_c,q_80/IMG_5882.jpg" alt="Lorenzo">
+                </div>
+                
+                <div class="profile-info">
+                    <h3>Lorenzo Bay-Müller</h3>
+                    <p class="role">Co-CEO & Founder</p>
+                    <div class="tech-divider"></div>
+                    
+                    <div class="profile-links">
+                        <a href="#" class="hud-btn"><i class="fa-solid fa-paper-plane"></i> Skypixel</a>
+                        <a href="#" class="hud-btn"><i class="fa-solid fa-globe"></i> Website</a>
+                        <a href="#" class="hud-btn youtube"><i class="fa-brands fa-youtube"></i> YouTube</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
     </main>
 
     <!-- Footer -->

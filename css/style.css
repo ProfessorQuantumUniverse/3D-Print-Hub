@@ -7,6 +7,11 @@
     --pill-text: #000000;
     --font-main: 'Montserrat', sans-serif;
     --font-title: 'Orbitron', sans-serif; /* Für den 3D Titel */
+        /* Deine existierenden Variablen ... */
+    --primary-orange: #E98E68;
+    
+    /* NEU: Die Farbe für die leuchtenden Punkte im hellen Modus */
+    --dot-glow-color: #b81414cb; /* Standard: Dein Orange */
 }
 
 body.darkmode {
@@ -16,6 +21,7 @@ body.darkmode {
     --card-text: #ffffff;
     --pill-bg: #2a2a2a;
     --pill-text: #ffffff;
+    --dot-glow-color: #00f3ff; 
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,6 +46,97 @@ body { font-family: var(--font-main); background-color: var(--primary-bg); color
 .nav-item { text-decoration: none; color: var(--pill-text); padding: 10px 15px; font-weight: 500; border-radius: 20px; transition: background 0.3s; }
 .nav-item.active { background: #e0e0e0; color: #000; }
 .nav-arrow { padding: 0 15px; color: #888; text-decoration: none; }
+
+/* --- BACKGROUND DOTS EFFECT --- */
+/* --- GLOBAL DOTS BACKGROUND --- */
+
+/* --- GLOBAL TRANSPARENCY FIX --- */
+
+/* 1. Haupt-Container transparent machen */
+main, 
+.team-section, 
+.gallery-slider-section, 
+.modelle-page,
+.status-page-content,
+.materials-page {
+    /* WICHTIG: Damit man den Hintergrund sieht */
+    background-color: transparent !important; 
+    background-image: none !important; /* Entfernt evtl. alte Muster */
+}
+
+/* 2. Die About-Section ist orange. Damit man die Punkte trotzdem sieht,
+      machen wir sie leicht durchsichtig (Glassmorphismus) */
+.about-section {
+    /* 90% Deckkraft, damit Punkte leicht durchschimmern */
+    background-color: rgba(233, 142, 104, 0.85) !important; 
+    backdrop-filter: blur(10px); /* Milchglas-Effekt */
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Darkmode Anpassung für About */
+body.darkmode .about-section {
+    background-color: rgba(12, 27, 126, 0.7) !important;
+}
+
+/* 3. Footer leicht transparent machen für coolen Look */
+footer {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.background-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -999; /* Ganz hinten */
+    pointer-events: none; /* Klicks gehen durch */
+    background-color: var(--primary-bg); /* Deine Hintergrundfarbe */
+    transition: background-color 0.3s;
+    overflow: hidden;
+}
+
+/* Gemeinsames Raster-Muster für beide Ebenen */
+.dots-base, .dots-glow {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-size: 30px 30px; /* Abstand der Punkte */
+}
+
+/* EBENE 1: Die statischen, dunklen Punkte (immer sichtbar, aber dezent) */
+.dots-base {
+    /* Ein grauer Punkt auf transparentem Grund */
+    background-image: radial-gradient(circle, rgba(0,0,0,0.1) 2px, transparent 2px);
+}
+
+/* Im Darkmode müssen die Basispunkte etwas heller sein, damit man sie sieht */
+body.darkmode .dots-base {
+    background-image: radial-gradient(circle, rgba(255,255,255,0.1) 2px, transparent 2px);
+}
+
+/* EBENE 2: Die leuchtenden Punkte (High-End Effekt) */
+.dots-glow {
+    /* Deine Brand-Color (Orange) für die aktiven Punkte */
+    background-image: radial-gradient(circle, var(--dot-glow-color) 2px, transparent 2px);
+    
+    /* Hier ist der Trick: Standardmäßig ist diese Ebene unsichtbar */
+    opacity: 1; 
+    
+    /* Die Maske schneidet alles weg, außer einem Kreis um die Mauskoordinaten */
+    /* Wir nutzen CSS-Variablen --x und --y, die JS liefert */
+    -webkit-mask-image: radial-gradient(
+        300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        black 0%, 
+        transparent 100%
+    );
+    mask-image: radial-gradient(
+        300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+        black 0%, 
+        transparent 100%
+    );
+}
 
 /* --- HERO SECTION --- */
 .hero-section {
@@ -66,6 +163,22 @@ body { font-family: var(--font-main); background-color: var(--primary-bg); color
     width: 100%;
     text-align: center;
     z-index: 5; /* Hinter der Karte (10) aber vor Hintergrund (0) */
+        /* NEU: Macht das Element zu einem Block, damit man es besser treffen kann */
+    display: inline-block; 
+    
+    /* NEU: Unsichtbares Polster, damit die Maus nicht sofort "runterrutscht" beim Kippen */
+    padding: 20px; 
+    margin: -20px; /* Gleicht das Padding aus, damit das Layout gleich bleibt */
+}
+
+.hero-section:hover .giant-3d-text {
+    transition: transform 0.1s linear, text-shadow 0s; 
+        /* NEU: Macht das Element zu einem Block, damit man es besser treffen kann */
+    display: inline-block; 
+    
+    /* NEU: Unsichtbares Polster, damit die Maus nicht sofort "runterrutscht" beim Kippen */
+    padding: 20px; 
+    margin: -20px; /* Gleicht das Padding aus, damit das Layout gleich bleibt */
 }
 
 .giant-3d-text {
@@ -78,23 +191,216 @@ body { font-family: var(--font-main); background-color: var(--primary-bg); color
     text-shadow: 0 10px 20px rgba(0,0,0,0.3);
     /* Der Trick, damit es hinter der Karte verschwindet */
     margin-bottom: -40px; 
+    letter-spacing: -2px;
+
+  /* Variablen Init */
+    --rX: 0deg;
+    --rY: 0deg;
+    --tz: 0px;
+    
+    position: relative;
+    color: #fff;
+    cursor: default;
+    
+    /* Wir nutzen preserve-3d für echte Tiefe */
+    transform-style: preserve-3d;
+    
+    /* Standard-Transition für sanftes Zurückgleiten beim Verlassen */
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), text-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    
+    /* Hier wenden wir die Rotation an */
+    transform: perspective(1000px) rotateX(var(--rX)) rotateY(var(--rY)) translateZ(var(--tz));
+    
+    /* Start ohne Schatten */
+    text-shadow: 0 0 0 rgba(0,0,0,0);
+    will-change: transform, text-shadow;
+
+        /* NEU: Macht das Element zu einem Block, damit man es besser treffen kann */
+    display: inline-block; 
+    
+    /* NEU: Unsichtbares Polster, damit die Maus nicht sofort "runterrutscht" beim Kippen */
+    padding: 20px; 
+    margin: -20px; /* Gleicht das Padding aus, damit das Layout gleich bleibt */
+
 }
 
-/* Main Card */
+.giant-3d-text:hover {
+    /* 1. Der Text hebt sich an und kippt leicht nach hinten links */
+    transform: perspective(1000px) rotateX(5deg) rotateY(0deg) translateY(0px);
+    
+    /* 2. Die Schichten werden simuliert */
+    text-shadow: 
+        /* Die ersten Schichten (Dunkelgrau - Rahmen) */
+        1px 1px 0 #555,
+        2px 2px 0 #555,
+        3px 3px 0 #555,
+        4px 4px 0 #555,
+        
+        /* Die mittleren Schichten (Dein Orange als Highlight-Kern) */
+        5px 5px 0 var(--primary-orange),
+        6px 6px 0 var(--primary-orange),
+        7px 7px 0 var(--primary-orange),
+        8px 8px 0 var(--primary-orange),
+        
+        /* Die unteren Schichten (Dunkel für Tiefe) */
+        9px 9px 0 #333,
+        10px 10px 0 #333,
+        11px 11px 0 #333,
+        12px 12px 0 #333,
+        
+        /* Der weiche Schatten am Boden (Abstand = Höhe des Textes) */
+        20px 20px 30px rgba(0, 0, 0, 0.6),
+        
+        /* Ein Glow-Effekt um das Orange leuchten zu lassen */
+        0 0 20px rgba(233, 142, 104, 0.4); 
+
+        -webkit-text-stroke: 1px rgba(255,255,255,0.4);
+
+}
+
+/* --- HERO CARD UPGRADE (Frosted Amber) --- */
+
 .main-card {
     position: relative;
-    z-index: 10; /* Vor dem Text */
-        top: 8%; /* Höher positioniert */
-
-    background-color: var(--primary-orange);
+    z-index: 10;
+    top: 8%; /* Leicht angepasst für Balance */
+    
     width: 90%;
-    max-width: 600px;
-    padding: 40px;
+    max-width: 650px;
+    padding: 50px;
+    
+    /* Das neue Material: Amber Glass */
+    background: linear-gradient(135deg, rgba(237, 150, 113, 0.489) 0%, rgba(242, 236, 234, 0.75) 100%);
+    backdrop-filter: blur(20px) saturate(120%); /* Macht den Hintergrund unscharf */
+    -webkit-backdrop-filter: blur(20px) saturate(120%);
+    
     border-radius: 40px;
     text-align: center;
-    box-shadow: 0 -20px 50px rgba(0,0,0,0.2); /* Schatten nach oben für Tiefe */
+    color: #000; /* Text bleibt schwarz für Kontrast auf Orange */
+    
+    /* Edle Ränder */
+    border: 1px solid rgba(255,255,255,0.4);
+    border-top: 1px solid rgba(255,255,255,0.6); /* Oben heller für Lichtkante */
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    
+    /* 3D Schatten: Wirft einen farbigen Glow nach unten */
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.2),
+        0 0 0 1px rgba(255,255,255,0.1),
+        0 30px 60px rgba(233, 142, 104, 0.3); /* Orange Ambient Glow */
+        
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden; /* Wichtig für den Glanz-Effekt */
+}
+
+/* Hover Effekt: Karte hebt sich an und wird "wacher" */
+.main-card:hover {
+    transform: translateY(-10px) scale(1.01);
+    box-shadow: 
+        0 30px 50px rgba(0,0,0,0.25),
+        0 0 0 1px rgba(255,255,255,0.3),
+        0 40px 80px rgba(233, 142, 104, 0.5); /* Stärkerer Glow */
+    border-color: rgba(255,255,255,0.8);
+}
+
+/* Der "Sheen" Effekt (Lichtreflektion) */
+.main-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -180%;
+    width: 210%; height: 100%;
+    background: linear-gradient(
+        to right, 
+        transparent 0%, 
+        rgba(240, 204, 178, 0.153) 50%, 
+        transparent 100%
+    );
+    transform: skewX(-25deg);
+    transition: 0.7s;
+    pointer-events: none;
+}
+
+/* Beim Hover läuft das Licht einmal durch */
+.main-card:hover::before {
+    left: 200%;
+    transition: 0.7s ease-in-out;
+}
+
+/* Anpassung der Inhalte für besseren Kontrast */
+.welcome-text {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    line-height: 1.2;
+    /* Leichter Text-Schatten für Lesbarkeit */
+    text-shadow: 0 2px 5px rgba(255,255,255,0.3);
+}
+
+.sub-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.tip-text {
+    font-size: 0.95rem;
+    font-weight: 700;
+    background: rgba(255,255,255,0.3);
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* Das Icon oben links animieren */
+.card-arrow-top-left {
+    position: absolute; 
+    top: 30px; left: 30px; 
+    transform: rotate(180deg);
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.main-card:hover .card-arrow-top-left {
+    transform: rotate(135deg) scale(1.2); /* Dreht sich spielerisch */
+    opacity: 1;
+}
+
+/* --- DARKMODE ANPASSUNG DER KARTE --- */
+body.darkmode .main-card {
+    /* Im Darkmode: Dunkles Glas mit orangem Rand */
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.85) 0%, rgba(40, 40, 40, 0.85) 100%);
+    color: #fff;
     border: 1px solid rgba(255,255,255,0.1);
-    color: var(--card-text);
+    /* Neon Border Effekt */
+    box-shadow: 
+        0 20px 40px rgba(0,0,0,0.5),
+        inset 0 0 20px rgba(233, 142, 104, 0.1), /* Innerer oranger Schein */
+        0 0 20px rgba(233, 142, 104, 0.2); /* Äußerer oranger Schein */
+}
+
+body.darkmode .welcome-text {
+    text-shadow: none;
+}
+
+body.darkmode .tip-text {
+    background: rgba(233, 142, 104, 0.2); /* Orange transparent */
+    color: var(--primary-orange);
+}
+
+body.darkmode .btn-pill {
+    /* Buttons im Darkmode anpassen */
+    background: var(--primary-orange);
+    color: #fff;
+    border: none;
+}
+
+body.darkmode .btn-pill:hover {
+    background: #fff;
+    color: var(--primary-orange);
+    box-shadow: 0 0 20px var(--primary-orange);
 }
 
 .card-arrow-top-left { position: absolute; top: 30px; left: 30px; transform: rotate(180deg); }
@@ -140,45 +446,209 @@ input:checked + .slider:before { transform: translateX(22px); background-color: 
 .discover-pill { margin-top: 15px; background: var(--primary-orange); border: none; color: #fff; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; }
 
 /* --- GALERIE SLIDER --- */
+/* --- EXTRAORDINARY GALLERY SECTION --- */
+
 .gallery-slider-section {
-    padding: 40px;
-    background: var(--primary-bg);
+    position: relative;
+    padding: 80px 40px;
+    /* Ein subtiler radialer Glow im Hintergrund der Sektion */
+    background: radial-gradient(circle at 50% 50%, rgba(233, 142, 104, 0.15) 0%, transparent 70%);
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    overflow: hidden;
 }
-.slider-btn {
-    background: var(--pill-bg); color: var(--pill-text); border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.1); font-size: 1.2rem;
-}
+
+/* Der Container - Schwebt jetzt */
 .gallery-wrapper {
-    width: 100%; max-width: 1200px; position: relative; height: 500px; overflow: hidden; border-radius: 30px;
-}
-.gallery-slide {
-    display: none; width: 100%; height: 100%;
-}
-.gallery-slide.active { display: flex; }
-
-/* Split Layout für Slide */
-.slide-image { flex: 1; height: 100%; }
-.slide-image img { width: 100%; height: 100%; object-fit: cover; }
-.slide-text-box {
-    flex: 1; height: 100%;
-    background-size: cover; background-position: center;
+    width: 100%;
+    max-width: 1300px;
+    height: 600px; /* Höher für mehr Impact */
     position: relative;
-    display: flex; align-items: center; justify-content: center;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 
+        0 30px 60px rgba(0,0,0,0.3), /* Tiefer Schatten */
+        0 0 0 1px rgba(255,255,255,0.1); /* Feine Border */
+    background: #000;
 }
-/* Blur Effect on Right Side */
-.slide-text-box::before {
-    content: ''; position: absolute; top:0; left:0; width:100%; height:100%;
-    background: rgba(255,255,255,0.2); backdrop-filter: blur(20px);
-}
-.glass-text-overlay {
-    position: relative; z-index: 2; padding: 40px; text-align: center; color: #000;
-}
-.glass-text-overlay h3 { font-size: 2.5rem; margin-bottom: 20px; font-weight: 800; }
-.glass-text-overlay p { font-size: 1.2rem; line-height: 1.6; }
 
+/* Slide Layout */
+.gallery-slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    opacity: 0;
+    transform: scale(1.1); /* Startet leicht vergrößert für Zoom-Effekt */
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Ultra-Smooth Easing */
+    visibility: hidden;
+}
+
+/* Aktiver Slide */
+.gallery-slide.active {
+    opacity: 1;
+    transform: scale(1);
+    visibility: visible;
+    z-index: 2;
+}
+
+/* --- LINKS: Das Bild (60% Breite) --- */
+.slide-image {
+    flex: 6; /* Nimmt 60% ein */
+    position: relative;
+    overflow: hidden;
+}
+
+.slide-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 3s ease; /* Langsamer Zoom beim Betrachten */
+}
+
+/* Satisfying: Bild zoomt langsam weiter, wenn aktiv */
+.gallery-slide.active .slide-image img {
+    transform: scale(1.05);
+}
+
+/* --- RECHTS: Die Glass-Box (40% Breite) --- */
+.slide-text-box {
+    flex: 4; /* Nimmt 40% ein */
+    position: relative;
+    /* Wir nutzen das Hintergrundbild auch hier für den Blur-Effekt */
+    background-size: cover;
+    background-position: center;
+    border-left: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Der eigentliche Glass-Effekt (Overlay) */
+.slide-text-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Heavy Blur + Abdunklung für Lesbarkeit */
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(25px) saturate(180%);
+    z-index: 1;
+}
+
+/* Oranger Neon-Strich als Akzent */
+.slide-text-box::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 0%; /* Startet bei 0 */
+    background: var(--primary-orange);
+    box-shadow: 0 0 15px var(--primary-orange);
+    z-index: 3;
+    transition: height 1s cubic-bezier(0.23, 1, 0.32, 1);
+    transition-delay: 0.2s; /* Wartet kurz */
+}
+
+.gallery-slide.active .slide-text-box::after {
+    height: 100%; /* Wächst auf 100% wenn aktiv */
+}
+
+/* Der Text-Container */
+.glass-text-overlay {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px;
+    color: #fff;
+}
+
+/* Animationen für den Text (Staggered) */
+.glass-text-overlay h3 {
+    font-family: var(--font-title); /* Orbitron */
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    
+    /* Startposition für Animation */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transition-delay: 0.3s; /* Kommt nach dem Slide rein */
+}
+
+.glass-text-overlay p {
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.8);
+    
+    /* Startposition für Animation */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transition-delay: 0.4s; /* Kommt nach der Überschrift */
+}
+
+/* Wenn aktiv, fliegt der Text ein */
+.gallery-slide.active .glass-text-overlay h3,
+.gallery-slide.active .glass-text-overlay p {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- BUTTONS: Modern & Schwebend --- */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    display: flex; /* Zentrieren */
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.slider-btn:hover {
+    background: var(--primary-orange);
+    border-color: var(--primary-orange);
+    box-shadow: 0 0 20px var(--primary-orange);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn { left: 60px; }
+.next-btn { right: 60px; }
+
+/* Mobile Anpassung */
+@media (max-width: 900px) {
+    .gallery-wrapper { height: auto; min-height: 700px; display: flex; }
+    .gallery-slide { flex-direction: column; position: relative; opacity: 0; display: none; }
+    .gallery-slide.active { display: flex; opacity: 1; }
+    
+    .slide-image { flex: 1; min-height: 300px; }
+    .slide-text-box { flex: 1; border-left: none; border-top: 1px solid rgba(255,255,255,0.2); }
+    .slide-text-box::after { width: 100%; height: 4px; top: 0; left: 0; transition: width 1s ease; }
+    .gallery-slide.active .slide-text-box::after { height: 4px; width: 100%; }
+    
+    .glass-text-overlay { padding: 30px; }
+    .glass-text-overlay h3 { font-size: 2rem; }
+    
+    .slider-btn { width: 50px; height: 50px; top: auto; bottom: 20px; transform: none; }
+    .prev-btn { left: 20px; right: auto; }
+    .next-btn { right: 20px; left: auto; }
+    .slider-btn:hover { transform: scale(1.1); }
+}
 /* --- ABOUT SECTION (Alles Orange) --- */
 .about-section {
     background-color: var(--primary-orange); /* Der ganze Hintergrund ist orange */
@@ -744,6 +1214,223 @@ input[type="text"], input[type="email"], select, textarea {
     .centered-card {
         grid-column: 1;
     }
+}
+
+/* --- TEAM CARDS --- */
+/* --- SCI-FI PROFILE CARDS --- */
+
+.team-container {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    perspective: 1000px; /* Für 3D Effekte */
+}
+
+/* Basis Karte */
+.profile-card {
+    position: relative;
+    width: 350px;
+    border-radius: 30px;
+    padding: 3px; /* Platz für den Border-Glow */
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Farben Variablen je nach Theme */
+    --theme-color: #00f3ff; /* Default Blau */
+}
+
+.profile-card.theme-purple {
+    --theme-color: #4a5dd8; /* Neon Lila */
+}
+
+/* Hover Lift */
+.profile-card:hover {
+    transform: translateY(0px) scale(1.02);
+    z-index: 10;
+}
+
+/* Der Glas-Hintergrund (Extra Layer für maximale Kontrolle) */
+.card-glass-bg {
+    position: absolute;
+    inset: 3px; /* Innerhalb des Borders */
+    background: rgba(20, 20, 20, 0.288); /* Fast komplett transparent */
+    backdrop-filter: blur(12px); /* Blurt die Dots im Hintergrund */
+    border-radius: 28px;
+    z-index: 0;
+    box-shadow: inset 0 0 30px rgba(255,255,255,0.05);
+}
+
+/* Der leuchtende Rand (Animated Gradient) */
+.card-border-glow {
+    position: absolute;
+    inset: 0;
+    background: conic-gradient(
+        from 0deg, 
+        transparent 0%, 
+        var(--theme-color) 20%, 
+        transparent 40%
+    );
+    border-radius: 30px;
+    z-index: -1;
+    animation: rotateBorder 4s linear infinite;
+    opacity: 0.5; /* Dezent im Normalzustand */
+    transition: opacity 0.3s;
+}
+
+/* Hover: Rand leuchtet stark */
+.profile-card:hover .card-border-glow {
+    opacity: 1;
+    animation-duration: 2s; /* Schneller bei Hover */
+    filter: blur(5px); /* Glow Effekt */
+}
+
+@keyframes rotateBorder {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Inhalt Wrapper */
+.card-inner {
+    position: relative;
+    z-index: 2;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* --- AVATAR BEREICH --- */
+.avatar-wrapper {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar-wrapper img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255,255,255,0.8);
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    transition: transform 0.4s ease, filter 0.4s;
+    filter: grayscale(60%); /* Startet Schwarz/Weiß für coolen Look */
+}
+
+/* Hover: Bild wird farbig und zoomt */
+.profile-card:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.1);
+    border-color: var(--theme-color);
+}
+
+/* Das drehende HUD Interface um den Kopf */
+.hud-ring {
+    position: absolute;
+    width: 100%; height: 100%;
+    border: 2px dashed rgba(255,255,255,0.2);
+    border-radius: 50%;
+    animation: spinRing 10s linear infinite;
+}
+
+.hud-ring::before {
+    content: ''; position: absolute; inset: -5px;
+    border-radius: 50%;
+    border-top: 2px solid var(--theme-color);
+    border-right: 2px solid transparent;
+    transform: rotate(45deg);
+}
+
+.profile-card:hover .hud-ring {
+    border-color: rgba(255,255,255,0.6);
+    animation-duration: 3s; /* Schneller drehen bei Hover */
+}
+
+@keyframes spinRing {
+    to { transform: rotate(360deg); }
+}
+
+/* --- TEXT BEREICH --- */
+.profile-info h3 {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.role {
+    color: var(--theme-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px var(--theme-color);
+}
+
+.tech-divider {
+    width: 50px;
+    height: 2px;
+    background: var(--theme-color);
+    margin: 0 auto 25px;
+    box-shadow: 0 0 10px var(--theme-color);
+    transition: width 0.3s ease;
+}
+
+.profile-card:hover .tech-divider {
+    width: 100%; /* Linie wächst auf volle Breite */
+    opacity: 0.5;
+}
+
+/* --- BUTTONS --- */
+.profile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.hud-btn {
+    position: relative;
+    background: rgba(255,255,255,0.05);
+    color: #fff;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.hud-btn:hover {
+    background: var(--theme-color);
+    color: #000; /* Schwarzer Text auf Neon Hintergrund für Kontrast */
+    box-shadow: 0 0 20px var(--theme-color);
+    border-color: var(--theme-color);
+    font-weight: bold;
+}
+
+.hud-btn.youtube:hover {
+    background: #FF0000;
+    color: #fff;
+    box-shadow: 0 0 20px #FF0000;
+    border-color: #FF0000;
+}
+
+/* Darkmode spezifische Anpassungen (Optional, da das Design schon dunkel ist) */
+body.darkmode .card-glass-bg {
+    background: rgba(0, 0, 0, 0.4); /* Etwas dunkler im Darkmode */
 }
 
 /* --- REKONSTRUKTION MODELLE SEITE --- */

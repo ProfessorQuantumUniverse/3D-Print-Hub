@@ -185,3 +185,99 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const textElement = document.querySelector('.giant-3d-text');
+
+    // Wir brauchen keinen Container mehr als Auslöser, sondern nur das Element selbst
+    if (textElement) {
+        
+        textElement.addEventListener('mousemove', (e) => {
+            // 1. Wo befindet sich der Text genau im Browserfenster?
+            const rect = textElement.getBoundingClientRect();
+            
+            // 2. Mausposition RELATIV zum Text berechnen (nicht zum Bildschirm)
+            const x = e.clientX - rect.left; // 0 bis Textbreite
+            const y = e.clientY - rect.top;  // 0 bis Texthöhe
+            
+            // 3. Umrechnen in Bereich -1 bis +1 (Mitte ist 0)
+            const xWalk = (x / rect.width * 2) - 1;
+            const yWalk = (y / rect.height * 2) - 1;
+
+            // 4. KIPP-ANIMATION (Winkel)
+            const tiltX = yWalk * -15; 
+            const tiltY = xWalk * 15;
+            
+            // 5. EXTRUSION (Tiefe)
+            const depthFactor = 1.5; 
+            const shadowX = xWalk * -1 * depthFactor;
+            const shadowY = yWalk * -1 * depthFactor;
+
+            let shadowString = '';
+            
+            // --- LOOP (40 Layer) ---
+            // A. Gehäuse (Grau)
+            for(let i = 1; i <= 5; i++) {
+                shadowString += `${shadowX * i}px ${shadowY * i}px 0 #888, `;
+            }
+            // B. Kern (Orange)
+            for(let i = 6; i <= 30; i++) {
+                shadowString += `${shadowX * i}px ${shadowY * i}px 0 #E98E68, `;
+            }
+            // C. Fundament (Dunkel)
+            for(let i = 31; i <= 40; i++) {
+                shadowString += `${shadowX * i}px ${shadowY * i}px 0 #333, `;
+            }
+            // D. Ambient Shadow
+            shadowString += `${shadowX * 55}px ${shadowY * 55}px 40px rgba(0,0,0,0.6)`;
+
+            // 6. Anwenden
+            requestAnimationFrame(() => {
+                textElement.style.setProperty('--rX', `${tiltX}deg`);
+                textElement.style.setProperty('--rY', `${tiltY}deg`);
+                textElement.style.setProperty('--tz', `30px`);
+                textElement.style.textShadow = shadowString;
+            });
+        });
+
+        // RESET: Sobald die Maus das TEXT-ELEMENT verlässt
+        textElement.addEventListener('mouseleave', () => {
+            // Transition aktivieren für sanftes Zurückgleiten
+            textElement.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), text-shadow 0.5s';
+            
+            // Alles auf Null setzen
+            textElement.style.setProperty('--rX', `0deg`);
+            textElement.style.setProperty('--rY', `0deg`);
+            textElement.style.setProperty('--tz', `0px`);
+            textElement.style.textShadow = '0 0 0 rgba(0,0,0,0)';
+            
+            // Kurzer Timeout, um "Glitch" beim schnellen Wiedereintritt zu verhindern
+            setTimeout(() => {
+                 // Nur resetten, wenn Maus wirklich weg ist (optionaler Sicherheitscheck)
+                 if(!textElement.matches(':hover')) {
+                     textElement.style.transition = ''; 
+                 }
+            }, 500);
+        });
+        
+        // Fix: Transition ausschalten, wenn Maus DRÜBER ist (für Instant-Reaktion)
+        textElement.addEventListener('mouseenter', () => {
+             textElement.style.transition = 'transform 0.1s linear, text-shadow 0s';
+        });
+    }
+
+    const bgWrapper = document.querySelector('.background-wrapper');
+
+    if (bgWrapper) {
+        document.addEventListener('mousemove', (e) => {
+            // Wir holen die Mausposition im Fenster
+            const x = e.clientX;
+            const y = e.clientY;
+
+            // Wir senden die Koordinaten an die CSS-Variablen des Wrappers
+            bgWrapper.style.setProperty('--mouse-x', `${x}px`);
+            bgWrapper.style.setProperty('--mouse-y', `${y}px`);
+        });
+    }
+});
+
