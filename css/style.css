@@ -49,14 +49,16 @@ body { font-family: var(--font-main); background-color: var(--primary-bg); color
     transition: all 0.3s ease;
 }
 
+/* Container, der die Breite bestimmt */
 .header-content {
     width: 100%;
     max-width: 1400px;
     display: flex;
     align-items: center;
-    /* This ensures Left stays Left, and Right stays Right */
-    justify-content: space-between; 
     position: relative;
+    /* Dies sorgt normalerweise für die Verteilung, 
+       aber margin-left: auto ist sicherer */
+    justify-content: space-between; 
 }
 
 /* --- PILLEN BASIS STYLE --- */
@@ -133,14 +135,18 @@ body.darkmode .header-pill {
 }
 
 /* --- RECHTER BEREICH (Navi & Sprache) --- */
+/* Die Gruppe rechts (Sprache + Menü/Navi) */
 .header-right { 
     display: flex; 
     gap: 10px; 
     align-items: center;
-    flex-shrink: 0;
     
-    /* CRITICAL FIX: Forces this group to the far right */
+    /* DER WICHTIGSTE BEFEHL: 
+       Drückt diese Gruppe gnadenlos an den rechten Rand */
     margin-left: auto; 
+    
+    /* Stellt sicher, dass es nicht gequetscht wird */
+    flex-shrink: 0; 
     justify-content: flex-end;
 }
 
