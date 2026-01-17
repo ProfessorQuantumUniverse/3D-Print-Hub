@@ -7,11 +7,14 @@
     --pill-text: #000000;
     --font-main: 'Montserrat', sans-serif;
     --font-title: 'Orbitron', sans-serif; /* Für den 3D Titel */
+    --dark-orange: #d7230f;
+
         /* Deine existierenden Variablen ... */
-    --primary-orange: #E98E68;
     
     /* NEU: Die Farbe für die leuchtenden Punkte im hellen Modus */
     --dot-glow-color: #b81414cb; /* Standard: Dein Orange */
+    --mild-orange: #bb691161;
+
 }
 
 body.darkmode {
@@ -22,6 +25,7 @@ body.darkmode {
     --pill-bg: #2a2a2a;
     --pill-text: #ffffff;
     --dot-glow-color: #00f3ff; 
+    --mild-orange: #bba4112d;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -65,19 +69,203 @@ main,
 }
 
 /* 2. Die About-Section ist orange. Damit man die Punkte trotzdem sieht,
-      machen wir sie leicht durchsichtig (Glassmorphismus) */
-.about-section {
-    /* 90% Deckkraft, damit Punkte leicht durchschimmern */
-    background-color: rgba(233, 142, 104, 0.85) !important; 
-    backdrop-filter: blur(10px); /* Milchglas-Effekt */
-    border: 1px solid rgba(255,255,255,0.2);
+/* --- ABOUT SECTION MODERN --- */
+
+/* --- ABOUT SECTION: THE GLASS MONOLITH --- */
+
+.about-section-tech {
+    padding: 120px 20px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    /* Hintergrund bleibt transparent, damit man die Dots sieht */
 }
 
-/* Darkmode Anpassung für About */
-body.darkmode .about-section {
-    background-color: rgba(12, 27, 126, 0.7) !important;
+/* Der große Container (Monolith) */
+.about-monolith {
+    position: relative;
+    width: 100%;
+    max-width: 1300px;
+    border-radius: 40px;
+    padding: 60px 40px;
+    overflow: hidden;
+    text-align: center;
+    
+    /* Das "Tech Glas" */
+    background: rgba(15, 15, 15, 0.212); /* Sehr dunkel, aber durchsichtig */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    
+    /* Feine Border mit Verlauf */
+    border: 1px solid rgba(255, 255, 255, 0.269);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.701);
+    
+    /* Übergang für Hover-Effekt */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
+.about-monolith:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 30px rgba(233, 142, 104, 0.1);
+    border-color: rgba(233, 142, 104, 0.3); /* Rand wird leicht orange */
+}
+
+/* Hintergrund Gitter-Muster im Glas (sehr dezent) */
+.monolith-bg-grid {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+        linear-gradient(var(--mild-orange) 1px, transparent 1px),
+        linear-gradient(90deg, var(--mild-orange) 1px, transparent 1px);
+    background-size: 10px 10px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Ein oranger Lichtschein oben in der Mitte */
+.monolith-glow-spot {
+    position: absolute;
+    top: -100px; left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 200px;
+    background: radial-gradient(circle, rgba(215, 35, 15, 0.25) 0%, transparent 70%);
+    filter: blur(40px);
+    z-index: 0;
+}
+
+.monolith-content {
+    position: relative;
+    z-index: 2; /* Über dem Gitter/Glow */
+}
+
+/* --- TYPOGRAPHIE --- */
+
+.tech-headline {
+    font-family: var(--font-title);
+    font-size: 3.5rem;
+    color: var(--text-color);
+    margin-bottom: 30px;
+    letter-spacing: -2px;
+    text-transform: uppercase;
+}
+
+.orange-glitch {
+    color: var(--dark-orange);
+    text-shadow: 0 0 15px rgba(215, 35, 15, 0.6);
+}
+
+.text-container {
+    max-width: 700px;
+    margin: 0 auto 60px;
+}
+
+.lead-paragraph {
+    font-size: 1.3rem;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.highlight {
+    color: var(--dark-orange);
+    font-weight: 700;
+}
+
+.details-paragraph {
+    font-size: 1rem;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* --- DAS UNTERE GRID --- */
+
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 Spalten nebeneinander */
+    gap: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1); /* Trennlinie oben */
+    padding-top: 40px;
+}
+
+.tech-item {
+    background: rgba(255,255,255,0.02);
+    padding: 25px 15px;
+    border-radius: 15px;
+    transition: 0.3s;
+    border: 1px solid transparent;
+}
+
+.tech-item:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(233, 142, 104, 0.3);
+    transform: translateY(-5px);
+}
+
+.tech-icon {
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.tech-item:hover .tech-icon {
+    color: var(--dark-orange);
+    text-shadow: 0 0 10px var(--dark-orange);
+}
+
+.tech-item h3 {
+    font-family: var(--font-title);
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+/* Die kleine orange Linie */
+.tech-line {
+    width: 30px;
+    height: 2px;
+    background: var(--dark-orange);
+    margin: 0 auto 10px; /* Zentriert */
+    transition: 0.3s;
+}
+
+.tech-item:hover .tech-line {
+    width: 60px; /* Linie wächst beim Hover */
+    box-shadow: 0 0 10px var(--dark-orange);
+}
+
+.tech-item p {
+    font-size: 0.85rem;
+    color: var(--text-color);
+    line-height: 1.4;
+}
+
+/* --- MOBILE & TABLET ANPASSUNG --- */
+@media (max-width: 900px) {
+    .tech-grid {
+        grid-template-columns: 1fr 1fr; /* 2x2 auf Tablets */
+    }
+    .tech-headline {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .about-monolith {
+        padding: 40px 20px;
+    }
+    .tech-grid {
+        grid-template-columns: 1fr; /* Alles untereinander auf Handy */
+    }
+    .tech-headline {
+        font-size: 2rem;
+    }
+    .lead-paragraph {
+        font-size: 1.1rem;
+    }
+}
 /* 3. Footer leicht transparent machen für coolen Look */
 footer {
     background: rgba(0, 0, 0, 0.8);
