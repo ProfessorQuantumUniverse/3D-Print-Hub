@@ -209,7 +209,7 @@ body.darkmode .header-pill {
    ========================================= */
 
 /* Ab 1200px: Remove Center, Show Hamburger, KEEP RIGHT ALIGNMENT */
-@media (max-width: 1200px) {
+@media (max-width: 1580px) {
     .header-center { display: none; }
     .desktop-nav { display: none !important; }
     
@@ -726,10 +726,7 @@ body.darkmode .dots-base {
     
     /* Standard-Transition für sanftes Zurückgleiten beim Verlassen */
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), text-shadow 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-    
-    /* Hier wenden wir die Rotation an */
-    transform: perspective(1000px) rotateX(var(--rX)) rotateY(var(--rY)) translateZ(var(--tz));
-    
+        
     /* Start ohne Schatten */
     text-shadow: 0 0 0 rgba(0,0,0,0);
     will-change: transform, text-shadow;
