@@ -121,85 +121,92 @@ document.addEventListener('DOMContentLoaded', () => {
   /* =====================================================================
    MODAL & FORM LOGIC (Buchen Page)
    ===================================================================== */
-document.addEventListener('DOMContentLoaded', () => {
+    function initBookingModal() {
+        const openBtn = document.getElementById('openBookingModalBtn');
+        const modal = document.getElementById('bookingModalOverlay');
+        const closeBtn = document.getElementById('closeModalBtn');
+        
+        // Debugging: Prüfen ob Elemente gefunden wurden
+        if (!openBtn) {
+            console.warn('Booking Button (openBookingModalBtn) nicht gefunden.');
+            return; 
+        }
+        if (!modal) {
+            console.error('Modal Overlay (bookingModalOverlay) nicht gefunden.');
+            return;
+        }
 
-    const modal = document.getElementById('bookingModalOverlay');
-    const openBtn = document.getElementById('openBookingModalBtn');
-    const closeBtn = document.getElementById('closeModalBtn');
-    
-    // Step Elements
+        console.log('Booking System initialisiert.');
+
+        // OPEN
+        openBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Verhindert Springen nach oben
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Scroll Lock
+        });
+
+        // CLOSE (X-Button)
+        if(closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        }
+
+        // CLOSE (Background Click)
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
+
+    // Direkt ausführen
+    initBookingModal();
+
+    // STEP LOGIC (Radio Buttons & Weiter)
+    const radioInputs = document.querySelectorAll('input[name="order-type"]');
+    const nextBtn = document.getElementById('nextStepBtn');
     const step1 = document.getElementById('modal-step-1');
     const step2 = document.getElementById('modal-step-2');
-    const nextBtn = document.getElementById('nextStepBtn');
     const prevBtn = document.getElementById('prevStepBtn');
-
-    // Radios & Dynamic zones
-    const radioInputs = document.querySelectorAll('input[name="order-type"]');
     const dynamicZones = document.querySelectorAll('.dynamic-zone');
 
-    // 1. MODAL OPEN/CLOSE LOGIC
-    if (openBtn && modal) {
-        openBtn.addEventListener('click', () => {
-            modal.classList.add('active');
-            // Verhindert Scrollen im Hintergrund
-            document.body.style.overflow = 'hidden'; 
-        });
-
-        closeBtn.addEventListener('click', closeModal);
-        modal.addEventListener('click', (e) => {
-            if(e.target === modal) closeModal();
+    if(radioInputs.length > 0) {
+        radioInputs.forEach(radio => {
+            radio.addEventListener('change', () => {
+                if(nextBtn) {
+                    nextBtn.disabled = false;
+                    nextBtn.classList.remove('disabled');
+                }
+            });
         });
     }
 
-    function closeModal() {
-        modal.classList.remove('active');
-        document.body.style.overflow = 'auto'; // Scrollen wieder erlauben
-    }
-
-    // 2. STEP 1 -> STEP 2 (RADIO BUTTON LOGIC)
-    radioInputs.forEach(radio => {
-        radio.addEventListener('change', () => {
-            nextBtn.disabled = false;
-            nextBtn.classList.remove('disabled');
-        });
-    });
-
-    if (nextBtn) {
+    if(nextBtn) {
         nextBtn.addEventListener('click', () => {
-            // Finde die ausgewählte Option
-            const selectedType = document.querySelector('input[name="order-type"]:checked').value;
+            const checkedRadio = document.querySelector('input[name="order-type"]:checked');
+            if(!checkedRadio) return; // Sicherheit
+
+            const selectedType = checkedRadio.value;
             
-            // Animation: Step 1 ausblenden, Step 2 einblenden
             step1.classList.add('hidden');
             step2.classList.remove('hidden');
 
-            // Richtigen Dynamic-Bereich einblenden
             dynamicZones.forEach(zone => zone.classList.add('hidden'));
-            document.getElementById(`dynamic-${selectedType}`).classList.remove('hidden');
+            const activeZone = document.getElementById(`dynamic-${selectedType}`);
+            if(activeZone) activeZone.classList.remove('hidden');
         });
     }
 
-    // 3. STEP 2 -> STEP 1 (BACK BUTTON)
-    if (prevBtn) {
+    if(prevBtn) {
         prevBtn.addEventListener('click', () => {
             step2.classList.add('hidden');
             step1.classList.remove('hidden');
         });
     }
 
-    // 4. VERSAND TOGGLE
-    const shippingToggle = document.getElementById('shippingToggle');
-    const shippingAddress = document.getElementById('shippingAddress');
-    if (shippingToggle && shippingAddress) {
-        shippingToggle.addEventListener('change', () => {
-            if(shippingToggle.checked) {
-                shippingAddress.classList.remove('hidden');
-            } else {
-                shippingAddress.classList.add('hidden');
-            }
-        });
-    }
-});
     /* --- 5. SLIDER LOGIC (Kompatibilität für beide Varianten) --- */
     // Variante A: Opacity Slider (Home)
     const slidesA = document.querySelectorAll('.gallery-slide');

@@ -34,21 +34,27 @@
 
         <!-- High-End Pricing Grid -->
         <div class="pricing-ecosystem">
-            <h2 class="section-tag">PREISGESTALTUNG</h2>
+            <h2 class="section-tag">PREIS-KALKULATION</h2>
             
-            <div class="pricing-grid">
+            <div class="pricing-formula-row">
                 <!-- Card 1: Material -->
                 <div class="pricing-card">
                     <div class="card-glow"></div>
                     <span class="card-step">01</span>
                     <i class="fa-solid fa-weight-hanging icon-feature"></i>
-                    <h3>Material & Volumen</h3>
-                    <p>Preis pro Gramm Filament.</p>
+                    <h3>Material</h3>
+                    <p>Volumen in Gramm</p>
                     <div class="price-metric">
                         <span class="metric-value">0,70€</span>
                         <span class="metric-unit">/ 10g</span>
                     </div>
+               
+                    <a href="/materials.html" class="btn-pill"><i class="fa-solid fa-layer-group"></i> Material</a>
+                    
                 </div>
+
+                <!-- PLUS ZEICHEN -->
+                <div class="math-sign"><i class="fa-solid fa-plus"></i></div>
 
                 <!-- Card 2: Zeit -->
                 <div class="pricing-card">
@@ -56,36 +62,56 @@
                     <span class="card-step">02</span>
                     <i class="fa-solid fa-clock icon-feature"></i>
                     <h3>Druckzeit</h3>
-                    <p>Reine Laufzeit der Maschine.</p>
+                    <p>Maschinenlaufzeit</p>
                     <div class="price-metric">
                         <span class="metric-value">0,08€</span>
                         <span class="metric-unit">/ Std.</span>
                     </div>
                 </div>
 
+                <!-- PLUS ZEICHEN -->
+                <div class="math-sign"><i class="fa-solid fa-plus"></i></div>
+
                 <!-- Card 3: Extras -->
                 <div class="pricing-card">
                     <div class="card-glow"></div>
                     <span class="card-step">03</span>
                     <i class="fa-solid fa-wand-magic-sparkles icon-feature"></i>
-                    <h3>Finishing & Extras</h3>
-                    <p>Nachbearbeitung, Support-Entfernung & Versand.</p>
+                    <h3>Service</h3>
+                    <p>Setup & Finishing</p>
                     <div class="price-metric">
-                        <span class="metric-value">Individuell</span>
+                        <span class="metric-value">Start</span>
+                        <span class="metric-unit">ab 0,10€</span>
                     </div>
-                    <a href="/materials.html" class="link-pill"><i class="fa-solid fa-layer-group"></i> Materialien ansehen</a>
                 </div>
             </div>
 
-            <!-- Kalkulations-Beispiel (Apple-Style "Pro Display" Look) -->
+            <!-- GLEICH ZEICHEN (Pfeil nach unten) -->
+            <div class="math-result-wrapper">
+                <div class="math-equals-icon"><i class="fa-solid fa-equals"></i></div>
+            </div>
+
+            <!-- Kalkulations-Beispiel -->
             <div class="example-calculation-card">
                 <div class="example-content">
-                    <span class="tag">BEISPIEL</span>
+                    <span class="tag">BEISPIEL-RECHNUNG</span>
                     <h4>Standard PLA Benchy</h4>
                     <ul class="calc-list">
-                        <li><span>27g Material:</span> <span>1,89 €</span></li>
-                        <li><span>3 Stunden Druck:</span> <span>0,24 €</span></li>
-                        <li><span>Basis Finishing:</span> <span>1,28 €</span></li>
+                        <li>
+                            <span class="c-label">27g Material</span> 
+                            <span class="c-dots">...........................................</span>
+                            <span class="c-price">1,89 €</span>
+                        </li>
+                        <li>
+                            <span class="c-label">3 Std. Druckzeit</span> 
+                            <span class="c-dots">...........................................</span>
+                            <span class="c-price">0,24 €</span>
+                        </li>
+                        <li>
+                            <span class="c-label">Setup & Finishing</span> 
+                            <span class="c-dots">...........................................</span>
+                            <span class="c-price">1,28 €</span>
+                        </li>
                     </ul>
                     <div class="total-price">
                         <span>Gesamtpreis</span>
@@ -93,8 +119,8 @@
                     </div>
                 </div>
                 <div class="example-image-wrapper">
-                    <!-- Bild deines Benchys oder Modells -->
                     <img src="https://static.wixstatic.com/media/0c0901_5b5a9450229a4212840b6eab371a71d4~mv2.png/v1/fill/w_210,h_197,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Screenshot%202024-09-16%20111924.png" alt="3D Modell Beispiel">
+                    <div class="image-reflection"></div>
                 </div>
             </div>
         </div>
@@ -153,7 +179,7 @@
                         <div class="upload-zone">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
                             <span>ZIP-Datei hierher ziehen oder klicken</span>
-                            <p class="micro-text">Max. 50MB (STL, OBJ, 3MF gezippt)</p>
+                            <p class="micro-text">Max. 50MB (STL, OBJ, 3MF, STEP (wenn zu groß, dann bitte in ZIP-Datei packen.))</p>
                         </div>
                     </div>
 
@@ -194,7 +220,7 @@
                             <input type="checkbox" id="shippingToggle">
                             <span class="slider round"></span>
                         </label>
-                        <span class="toggle-label">Postversand gewünscht (+5,99€)</span>
+                        <span class="toggle-label">Postversand gewünscht (+Versandkosten)</span>
                     </div>
 
                     <div id="shippingAddress" class="input-group hidden">
