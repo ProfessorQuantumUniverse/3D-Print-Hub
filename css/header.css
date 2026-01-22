@@ -1,0 +1,381 @@
+:root {
+    --primary-orange: #E98E68;
+    --primary-bg: #f0b197;
+    --text-color: #000000;
+    --card-text: #000000;
+    --pill-bg: #ffffff;
+    --pill-text: #000000;
+    --font-main: 'Montserrat', sans-serif;
+    --font-title: 'Orbitron', sans-serif; /* Für den 3D Titel */
+    --dark-orange: #d7230f;
+
+        /* Deine existierenden Variablen ... */
+    
+    /* NEU: Die Farbe für die leuchtenden Punkte im hellen Modus */
+    --dot-glow-color: #b81414cb; /* Standard: Dein Orange */
+    --mild-orange: #bb691161;
+
+}
+
+body.darkmode {
+    --primary-orange: #0c1b7e;
+    --primary-bg: #121212;
+    --text-color: #ffffff;
+    --card-text: #ffffff;
+    --pill-bg: #2a2a2a;
+    --pill-text: #ffffff;
+    --dot-glow-color: #00f3ff; 
+    --mild-orange: #bba4112d;
+}
+
+/* =========================================
+   HEADER & NAVIGATION (FIXED & ALIGNED)
+   ========================================= */
+
+/* --- BASIS LAYOUT --- */
+.wix-header {
+    position: fixed;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    z-index: 2000;
+    padding: 0 40px;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+/* Container, der die Breite bestimmt */
+.header-content {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    /* Dies sorgt normalerweise für die Verteilung, 
+       aber margin-left: auto ist sicherer */
+    justify-content: space-between; 
+}
+
+/* --- PILLEN BASIS STYLE --- */
+.header-pill {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    pointer-events: auto;
+    transition: 0.3s ease;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+body.darkmode .header-pill {
+    background: rgba(0, 0, 0, 0.6);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.header-pill:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* --- LINKER BEREICH (Logo) --- */
+.header-left { 
+    padding: 0 20px 0 10px; 
+    gap: 15px; 
+    /* Ensures logo stays on the left */
+    margin-right: auto; 
+}
+
+.logo-box { 
+    width: 40px; height: 40px; 
+    display: flex; align-items: center; justify-content: center; 
+}
+.logo-image { 
+    width: 100%; height: auto; object-fit: contain; 
+}
+.separator { 
+    width: 1px; height: 24px; background: rgba(255,255,255,0.3); 
+}
+.brand-name { 
+    font-weight: 800; font-size: 1rem; letter-spacing: 1px; 
+    font-family: var(--font-title); color: #fff;
+}
+
+/* --- MITTLERER BEREICH (Scrollbar) --- */
+.header-center { 
+    position: absolute; 
+    left: 50%; 
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 10;
+}
+.status-pill { 
+    padding: 0 20px; gap: 15px; width: 220px; pointer-events: auto; 
+}
+.scroll-track { 
+    flex-grow: 1; height: 4px; background: rgba(255,255,255,0.2); 
+    border-radius: 2px; overflow: hidden; 
+}
+.scroll-bar { 
+    width: 0%; height: 100%; 
+    background: var(--primary-orange); 
+    box-shadow: 0 0 10px var(--primary-orange); 
+}
+
+/* --- RECHTER BEREICH (Navi & Sprache) --- */
+/* Die Gruppe rechts (Sprache + Menü/Navi) */
+.header-right { 
+    display: flex; 
+    gap: 10px; 
+    align-items: center;
+    
+    /* DER WICHTIGSTE BEFEHL: 
+       Drückt diese Gruppe gnadenlos an den rechten Rand */
+    margin-left: auto; 
+    
+    /* Stellt sicher, dass es nicht gequetscht wird */
+    flex-shrink: 0; 
+    justify-content: flex-end;
+}
+
+.lang-pill { 
+    padding: 0; /* Remove padding to center the flag better */
+    width: 50px; 
+    height: 50px; /* Make it a perfect circle/square shape if needed */
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 5px; /* Tiny gap between Lang and Menu */
+}
+
+/* Fix flag sizing */
+.flag-icon {
+    width: 24px !important; 
+    height: auto !important; 
+    display: block;
+    border-radius: 2px;
+}
+
+/* Desktop Navigation */
+.desktop-nav { padding: 5px; gap: 2px; }
+
+.nav-item {
+    text-decoration: none; color: #fff;
+    padding: 10px 16px; border-radius: 40px;
+    font-weight: 600; font-size: 0.9rem;
+    transition: all 0.3s; position: relative;
+    white-space: nowrap;
+}
+.nav-item:hover { background: rgba(255,255,255,0.2); color: var(--primary-orange); }
+.nav-item.active { color: #fff; background: rgba(255,255,255,0.1); }
+
+/* --- HAMBURGER BUTTON (Mobile Trigger) --- */
+.mobile-trigger { 
+    display: none; /* Hidden on desktop */
+    background: var(--primary-orange); 
+    padding: 0 20px; 
+    cursor: pointer; 
+    font-weight: 700; 
+    font-size: 0.9rem; 
+    gap: 10px;
+    border: none; 
+    color: #fff;
+    height: 50px; /* Match height with lang pill */
+    border-radius: 50px;
+    align-items: center;
+}
+.hamburger-icon { display: flex; flex-direction: column; gap: 5px; width: 20px; }
+.hamburger-icon span { width: 100%; height: 2px; background-color: #fff; transition: 0.3s; border-radius: 2px;}
+
+/* Animation for Menu Open */
+.menu-toggle-btn.menu-open .hamburger-icon span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.menu-toggle-btn.menu-open .hamburger-icon span:nth-child(2) { opacity: 0; }
+.menu-toggle-btn.menu-open .hamburger-icon span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+
+/* =========================================
+   RESPONSIVE BREAKPOINTS (HEADER FIXED)
+   ========================================= */
+
+/* Ab 1200px: Remove Center, Show Hamburger, KEEP RIGHT ALIGNMENT */
+@media (max-width: 1200px) {
+    .header-center { display: none; }
+    .desktop-nav { display: none !important; }
+    
+    /* Show Menu Button */
+    .mobile-trigger { display: flex !important; }
+    
+    /* Ensure spacing remains correct */
+    .header-right { gap: 10px; }
+}
+
+/* Ab 768px: Compact Header */
+@media (max-width: 768px) {
+    .wix-header { padding: 0 20px; top: 15px; }
+    
+    /* Hide Brand Name */
+    .brand-name, .separator { display: none; }
+    
+    /* Make Logo Pill Square */
+    .header-left { 
+        width: 50px; 
+        padding: 0; 
+        justify-content: center; 
+    }
+}
+
+/* Ab 480px: Mobile Mode (Smallest screens) */
+@media (max-width: 480px) {
+    .wix-header { padding: 0 15px; }
+    
+    /* Make pills slightly smaller */
+    .header-pill, .mobile-trigger, .lang-pill { 
+        height: 45px; 
+    }
+    .header-left { width: 45px; }
+    .lang-pill { width: 45px; }
+
+    /* Hide "Menu" text, show only Icon to save space */
+    .menu-text { display: none; } 
+    .mobile-trigger { padding: 0; width: 45px; justify-content: center; }
+
+}
+
+/* =========================================
+   MOBILE MENU OVERLAY (FIXED & HIDDEN)
+   ========================================= */
+
+.mobile-menu-overlay {
+    /* WICHTIG: fixed nimmt es aus dem Header-Fluss raus */
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh;
+    z-index: 3000; /* Muss höher sein als der Header (2000) */
+    
+    /* WICHTIG: Standardmäßig unsichtbar und nicht klickbar */
+    opacity: 0; 
+    pointer-events: none;
+    
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    transition: opacity 0.4s ease;
+}
+
+/* Hintergrund abdunkeln */
+.menu-backdrop {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.8); 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+}
+
+/* Wenn JS die Klasse .active hinzufügt -> Sichtbar machen */
+.mobile-menu-overlay.active { 
+    opacity: 1; 
+    pointer-events: auto; 
+}
+
+/* Der Container für das Menü selbst */
+.mobile-menu-container {
+    position: relative; 
+    width: 90%; 
+    max-width: 500px;
+    background: rgba(20, 20, 20, 0.95); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px; 
+    padding: 70px 30px 40px 30px;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+    display: flex; 
+    flex-direction: column; 
+    gap: 20px;
+    
+    /* Animation beim Öffnen */
+    transform: translateY(30px) scale(0.95);
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.mobile-menu-overlay.active .mobile-menu-container {
+    transform: translateY(0) scale(1);
+}
+
+/* Close Button (X) oben rechts im Menü */
+.menu-close-btn {
+    position: absolute; top: 20px; right: 20px;
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff; font-size: 1.2rem; cursor: pointer;
+    display: flex; justify-content: center; align-items: center;
+    transition: 0.3s; z-index: 10;
+}
+.menu-close-btn:hover {
+    background: var(--primary-orange); 
+    color: #000;
+    transform: rotate(90deg);
+}
+
+/* Links im Menü */
+.mobile-nav-list { display: flex; flex-direction: column; gap: 10px; }
+
+.menu-item {
+    display: flex; align-items: center; text-decoration: none;
+    color: #fff !important; padding: 12px 15px; border-radius: 12px;
+    transition: all 0.3s; 
+    opacity: 0; transform: translateX(-20px);
+}
+
+/* Animation der Links (fliegen rein) */
+.mobile-menu-overlay.active .menu-item {
+    animation: slideInLeft 0.5s forwards;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes slideInLeft { 
+    to { opacity: 1; transform: translateX(0); } 
+}
+
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.1); padding-left: 25px;
+}
+
+.menu-num { color: var(--primary-orange); margin-right: 15px; font-family: monospace; opacity: 0.7; }
+.menu-text { font-size: 1.3rem; font-weight: 700; }
+
+/* Highlight Button (Buchen) */
+.menu-item.highlight {
+    background: var(--primary-orange) !important; color: #000 !important; margin-top: 10px;
+}
+.menu-item.highlight .menu-num, .menu-item.highlight .menu-text { color: #000 !important; }
+
+/* Footer im Menü */
+.mobile-menu-footer { 
+    margin-top: 20px; 
+    border-top: 1px solid rgba(255,255,255,0.1); 
+    padding-top: 20px;
+    opacity: 0;
+}
+
+.mobile-menu-overlay.active .mobile-menu-footer { 
+    animation: fadeInUp 0.6s forwards 0.5s; 
+}
+
+@keyframes fadeInUp { 
+    from { opacity: 0; transform: translateY(20px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+.footer-grid { display: flex; justify-content: space-between; align-items: center; }
+.footer-info a { color: #aaa; text-decoration: none; display: block; font-size: 0.9rem; }
+.footer-socials { display: flex; gap: 10px; }
+.social-icon { color: #fff; font-size: 1.2rem; }

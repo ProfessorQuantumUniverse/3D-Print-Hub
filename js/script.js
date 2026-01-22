@@ -11,6 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const headerPath = '/3D-Print-Hub/header.html'; 
     // HINWEIS: Wenn das nicht geht, probiere './header.html'
 
+    /* --- ZUSATZ FÜR BUCHEN SEITE (Terminal Logic) --- */
+    const modal = document.getElementById('bookingModal');
+    const openBtn = document.getElementById('openTerminalBtn');
+    const closeBtn = document.getElementById('closeTerminalBtn');
+
     if (headerContainer) {
         fetch(headerPath)
             .then(response => {
@@ -113,42 +118,88 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* --- 4. BUCHUNGSSYSTEM LOGIC --- */
-    const step1 = document.getElementById('booking-step-1');
-    const btnToStep2 = document.getElementById('btn-to-step-2');
-    if (btnToStep2 && step1) {
-        const step2 = document.getElementById('booking-step-2');
-        const btnBackTo1 = document.getElementById('btn-back-to-1');
-        const orderTypeSelect = document.getElementById('order-type');
-        const shippingCheckbox = document.getElementById('shipping');
-        const addressField = document.getElementById('address-field');
+  /* =====================================================================
+   MODAL & FORM LOGIC (Buchen Page)
+   ===================================================================== */
+document.addEventListener('DOMContentLoaded', () => {
 
-        btnToStep2.addEventListener('click', () => {
-            const selection = orderTypeSelect.value;
-            if (!selection) { alert('Bitte wählen Sie eine Bestellart aus.'); return; }
+    const modal = document.getElementById('bookingModalOverlay');
+    const openBtn = document.getElementById('openBookingModalBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+    
+    // Step Elements
+    const step1 = document.getElementById('modal-step-1');
+    const step2 = document.getElementById('modal-step-2');
+    const nextBtn = document.getElementById('nextStepBtn');
+    const prevBtn = document.getElementById('prevStepBtn');
 
-            step1.classList.add('hidden');
-            step2.classList.remove('hidden');
-            document.querySelectorAll('.dynamic-content').forEach(el => el.classList.add('hidden'));
+    // Radios & Dynamic zones
+    const radioInputs = document.querySelectorAll('input[name="order-type"]');
+    const dynamicZones = document.querySelectorAll('.dynamic-zone');
 
-            if (selection === 'file') document.getElementById('field-file')?.classList.remove('hidden');
-            if (selection === 'design') document.getElementById('field-design')?.classList.remove('hidden');
-            if (selection === 'link') document.getElementById('field-link')?.classList.remove('hidden');
+    // 1. MODAL OPEN/CLOSE LOGIC
+    if (openBtn && modal) {
+        openBtn.addEventListener('click', () => {
+            modal.classList.add('active');
+            // Verhindert Scrollen im Hintergrund
+            document.body.style.overflow = 'hidden'; 
         });
 
-        if (btnBackTo1) {
-            btnBackTo1.addEventListener('click', () => {
-                step2.classList.add('hidden');
-                step1.classList.remove('hidden');
-            });
-        }
-        if (shippingCheckbox && addressField) {
-            shippingCheckbox.addEventListener('change', () => {
-                shippingCheckbox.checked ? addressField.classList.remove('hidden') : addressField.classList.add('hidden');
-            });
-        }
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) closeModal();
+        });
     }
 
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto'; // Scrollen wieder erlauben
+    }
+
+    // 2. STEP 1 -> STEP 2 (RADIO BUTTON LOGIC)
+    radioInputs.forEach(radio => {
+        radio.addEventListener('change', () => {
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('disabled');
+        });
+    });
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            // Finde die ausgewählte Option
+            const selectedType = document.querySelector('input[name="order-type"]:checked').value;
+            
+            // Animation: Step 1 ausblenden, Step 2 einblenden
+            step1.classList.add('hidden');
+            step2.classList.remove('hidden');
+
+            // Richtigen Dynamic-Bereich einblenden
+            dynamicZones.forEach(zone => zone.classList.add('hidden'));
+            document.getElementById(`dynamic-${selectedType}`).classList.remove('hidden');
+        });
+    }
+
+    // 3. STEP 2 -> STEP 1 (BACK BUTTON)
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            step2.classList.add('hidden');
+            step1.classList.remove('hidden');
+        });
+    }
+
+    // 4. VERSAND TOGGLE
+    const shippingToggle = document.getElementById('shippingToggle');
+    const shippingAddress = document.getElementById('shippingAddress');
+    if (shippingToggle && shippingAddress) {
+        shippingToggle.addEventListener('change', () => {
+            if(shippingToggle.checked) {
+                shippingAddress.classList.remove('hidden');
+            } else {
+                shippingAddress.classList.add('hidden');
+            }
+        });
+    }
+});
     /* --- 5. SLIDER LOGIC (Kompatibilität für beide Varianten) --- */
     // Variante A: Opacity Slider (Home)
     const slidesA = document.querySelectorAll('.gallery-slide');

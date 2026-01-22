@@ -5,159 +5,214 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D-Print-Hub | Buchen</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="css/header.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
+    <!-- Global Background (Unverändert) -->
     <div class="background-wrapper">
         <div class="dots-base"></div>
         <div class="dots-glow"></div>
     </div>
 
-    <!-- Header (Unverändert, da perfekt) -->
-        <header id="global-header"></header> 
+    <header id="global-header"></header> 
+
 <main>
-    <!-- Buchungs-Sektion -->
-    <section class="booking-hero">
-        <div class="booking-card" id="booking-step-1">
-            <div class="form-group">
-                <label for="order-type">Bestellart *</label>
-                <div class="custom-select-wrapper">
-                    <select id="order-type">
-                        <option value="" disabled selected>Bitte wählen...</option>
-                        <option value="file">Ich habe eine Datei!</option>
-                        <option value="design">Ich möchte mit Text die Erstellung des Designs in Auftrag geben.</option>
-                        <option value="link">Ich habe einen Thingiverse / Makerworld Link</option>
-                    </select>
-                </div>
-                <p class="helper-text">Thingiverse und Makerworld ist eine online 3D-Modellplatform.</p>
-            </div>
-            <div class="button-row-right">
-                <button class="btn-blue" id="btn-to-step-2">Weiter</button>
-            </div>
+    <!-- HERO CTA & PRICING BEREICH -->
+    <section class="premium-booking-section">
+        
+        <!-- Intro & Call to Action (Öffnet das Modal) -->
+        <div class="booking-intro">
+            <h1 class="premium-headline">Erschaffe die <span class="text-gradient">Zukunft</span>.</h1>
+            <p class="premium-subtext">Transparente Preise. Höchste Präzision. Dein 3D-Modell in wenigen Klicks realisiert.</p>
+            <button id="openBookingModalBtn" class="apple-btn-primary">
+                <i class="fa-solid fa-cube"></i> Jetzt Auftrag starten
+            </button>
         </div>
 
-        <!-- Dynamisches Formular (initial ausgeblendet) -->
-        <div class="booking-card hidden" id="booking-step-2">
-            <h2 class="form-title">Bestellformular</h2>
+        <!-- High-End Pricing Grid -->
+        <div class="pricing-ecosystem">
+            <h2 class="section-tag">PREISGESTALTUNG</h2>
             
-            <div class="form-grid">
-                <div class="form-group">
-                    <label>Vorname *</label>
-                    <input type="text" id="fname" required>
-                </div>
-                <div class="form-group">
-                    <label>Nachname *</label>
-                    <input type="text" id="lname" required>
-                </div>
-                <div class="form-group full-width">
-                    <label>Email *</label>
-                    <input type="email" id="email" required>
-                </div>
-            </div>
-
-            <div class="checkbox-group">
-                <input type="checkbox" id="shipping">
-                <label for="shipping">Postsendung</label>
-            </div>
-
-            <div id="address-field" class="form-group hidden">
-                <label>Adresse</label>
-                <input type="text" placeholder="Straße, Hausnummer, PLZ, Ort">
-            </div>
-
-            <!-- Bedingte Felder basierend auf Auswahl aus Step 1 -->
-            <div id="dynamic-fields">
-                <!-- Dateiupload -->
-                <div id="field-file" class="dynamic-content hidden">
-                    <label>Datei-Upload *</label>
-                    <div class="upload-box">
-                        <button class="btn-upload"><i class="fa-solid fa-plus"></i> Datei übermitteln</button>
-                        <p class="upload-note">Danke für die Daten!!!</p>
-                    </div>
-                    <p class="small-hint">Hinweis: Bitte komprimieren sie ihre Datei vor dem Upload zu einer Zip Datei!</p>
-                </div>
-
-                <!-- Design Beschreibung -->
-                <div id="field-design" class="dynamic-content hidden">
-                    <label>Beschreibung des Designs</label>
-                    <textarea rows="4"></textarea>
-                    <label>Fotos hochladen</label>
-                    <button class="btn-upload"><i class="fa-solid fa-plus"></i> Datei hochladen</button>
-                </div>
-
-                <!-- Link Feld -->
-                <div id="field-link" class="dynamic-content hidden">
-                    <label>Thingiverse-/Makerworldlink</label>
-                    <input type="text">
-                    <div class="external-links">
-                        <a href="https://www.thingiverse.com" target="_blank">Thingiverse - Digital Designs for Physical Objects</a>
-                        <a href="https://makerworld.com" target="_blank">MakerWorld: Download Free 3D Printing Models</a>
+            <div class="pricing-grid">
+                <!-- Card 1: Material -->
+                <div class="pricing-card">
+                    <div class="card-glow"></div>
+                    <span class="card-step">01</span>
+                    <i class="fa-solid fa-weight-hanging icon-feature"></i>
+                    <h3>Material & Volumen</h3>
+                    <p>Preis pro Gramm Filament.</p>
+                    <div class="price-metric">
+                        <span class="metric-value">0,70€</span>
+                        <span class="metric-unit">/ 10g</span>
                     </div>
                 </div>
+
+                <!-- Card 2: Zeit -->
+                <div class="pricing-card">
+                    <div class="card-glow"></div>
+                    <span class="card-step">02</span>
+                    <i class="fa-solid fa-clock icon-feature"></i>
+                    <h3>Druckzeit</h3>
+                    <p>Reine Laufzeit der Maschine.</p>
+                    <div class="price-metric">
+                        <span class="metric-value">0,08€</span>
+                        <span class="metric-unit">/ Std.</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: Extras -->
+                <div class="pricing-card">
+                    <div class="card-glow"></div>
+                    <span class="card-step">03</span>
+                    <i class="fa-solid fa-wand-magic-sparkles icon-feature"></i>
+                    <h3>Finishing & Extras</h3>
+                    <p>Nachbearbeitung, Support-Entfernung & Versand.</p>
+                    <div class="price-metric">
+                        <span class="metric-value">Individuell</span>
+                    </div>
+                    <a href="/materials.html" class="link-pill"><i class="fa-solid fa-layer-group"></i> Materialien ansehen</a>
+                </div>
             </div>
 
-            <div class="checkbox-group newsletter-opt">
-                <input type="checkbox" id="newsletter" checked>
-                <label for="newsletter">Ja, ich möchte den Newsletter abonnieren.</label>
-            </div>
-
-            <div class="button-row-between">
-                <button class="btn-back" id="btn-back-to-1">Back</button>
-                <button class="btn-blue">Next</button>
+            <!-- Kalkulations-Beispiel (Apple-Style "Pro Display" Look) -->
+            <div class="example-calculation-card">
+                <div class="example-content">
+                    <span class="tag">BEISPIEL</span>
+                    <h4>Standard PLA Benchy</h4>
+                    <ul class="calc-list">
+                        <li><span>27g Material:</span> <span>1,89 €</span></li>
+                        <li><span>3 Stunden Druck:</span> <span>0,24 €</span></li>
+                        <li><span>Basis Finishing:</span> <span>1,28 €</span></li>
+                    </ul>
+                    <div class="total-price">
+                        <span>Gesamtpreis</span>
+                        <span class="total-value">3,41 €</span>
+                    </div>
+                </div>
+                <div class="example-image-wrapper">
+                    <!-- Bild deines Benchys oder Modells -->
+                    <img src="https://static.wixstatic.com/media/0c0901_5b5a9450229a4212840b6eab371a71d4~mv2.png/v1/fill/w_210,h_197,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Screenshot%202024-09-16%20111924.png" alt="3D Modell Beispiel">
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Preis-Sektion (identisch zum Video-Scroll) -->
-    <section class="price-section">
-        <div class="price-container">
-            <h1 class="price-title-main">PREISE</h1>
-            
-            <div class="price-item">
-                <h3>1. Preis pro Gramm Druckvolumen</h3>
-                <div class="price-icon">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2881/2881031.png" alt="10g">
+    <!-- BUCHUNGS-MODAL (Pop-up) -->
+    <div id="bookingModalOverlay" class="modal-overlay">
+        <div class="modal-container">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h2>Neuer Auftrag</h2>
+                <button id="closeModalBtn" class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- Step 1: Auswahl -->
+            <div class="modal-step" id="modal-step-1">
+                <p class="step-desc">Was möchtest du drucken?</p>
+                <div class="selection-group">
+                    <label class="radio-card">
+                        <input type="radio" name="order-type" value="file">
+                        <span class="radio-content">
+                            <i class="fa-solid fa-file-arrow-up"></i>
+                            <span class="r-title">Eigene Datei (STL/OBJ)</span>
+                            <span class="r-desc">Ich habe fertige 3D-Daten.</span>
+                        </span>
+                    </label>
+
+                    <label class="radio-card">
+                        <input type="radio" name="order-type" value="link">
+                        <span class="radio-content">
+                            <i class="fa-solid fa-link"></i>
+                            <span class="r-title">Web-Link (Thingiverse)</span>
+                            <span class="r-desc">Link zu einer Online-Plattform.</span>
+                        </span>
+                    </label>
+
+                    <label class="radio-card">
+                        <input type="radio" name="order-type" value="design">
+                        <span class="radio-content">
+                            <i class="fa-solid fa-pen-nib"></i>
+                            <span class="r-title">Design Auftrag</span>
+                            <span class="r-desc">Erstellt ein Modell nach meinen Vorgaben.</span>
+                        </span>
+                    </label>
                 </div>
-                <p class="price-calc">10 Gramm Druck Volumen = <br> <strong>70 ct Grundpreis</strong></p>
-            </div>
-
-            <div class="scroll-arrow">
-                <i class="fa-solid fa-arrow-down"></i>
-            </div>
-
-            <button class="material-pill" href="/materials.html"><i class="fa-solid fa-circle"></i> Materialien </button>
-
-            <div class="plus-divider">+</div>
-
-            <div class="price-item">
-                <h3>2. Preis pro Stunde Druckzeit</h3>
-                <div class="price-icon">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2784/2784459.png" alt="Clock">
+                <div class="modal-footer">
+                    <button class="apple-btn-secondary disabled" id="nextStepBtn" disabled>Weiter <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
-                <p class="price-calc">1 Stunde Druckzeit = <br> <strong>8 ct</strong></p>
             </div>
 
-            <div class="plus-divider">+</div>
+            <!-- Step 2: Details & Kontakt -->
+            <div class="modal-step hidden" id="modal-step-2">
+                <div class="form-grid-modal">
+                    <!-- Dynamische Bereiche basierend auf Step 1 -->
+                    <div id="dynamic-file" class="dynamic-zone hidden">
+                        <div class="upload-zone">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <span>ZIP-Datei hierher ziehen oder klicken</span>
+                            <p class="micro-text">Max. 50MB (STL, OBJ, 3MF gezippt)</p>
+                        </div>
+                    </div>
 
-            <div class="price-item">
-                <h3>3. Evtl. Kosten für Nachbearbeitung und Versand.</h3>
-                <p class="sub-info">Oder Modellierungskosten (ca. 30€)</p>
-                <p class="disclaimer">Hinweis: Preise können abweichen.</p>
-            </div>
+                    <div id="dynamic-link" class="dynamic-zone hidden">
+                        <div class="input-group">
+                            <input type="url" id="thingiverseLink" placeholder=" " required>
+                            <label for="thingiverseLink">Thingiverse / Makerworld URL</label>
+                        </div>
+                    </div>
 
-            <div class="example-box">
-                <h2 class="example-title">BEISPIEL:</h2>
-                <div class="example-image">
-                    <img src="https://static.wixstatic.com/media/0c0901_5b5a9450229a4212840b6eab371a71d4~mv2.png/v1/fill/w_210,h_197,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Screenshot%202024-09-16%20111924.png" alt="Beispiel">
+                    <div id="dynamic-design" class="dynamic-zone hidden">
+                        <div class="input-group">
+                            <textarea id="designDesc" rows="3" placeholder=" " required></textarea>
+                            <label for="designDesc">Beschreibe deine Idee...</label>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <!-- Kontakt Daten -->
+                    <div class="input-row">
+                        <div class="input-group">
+                            <input type="text" id="fname" placeholder=" " required>
+                            <label for="fname">Vorname</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="lname" placeholder=" " required>
+                            <label for="lname">Nachname</label>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder=" " required>
+                        <label for="email">E-Mail Adresse</label>
+                    </div>
+
+                    <div class="toggle-group">
+                        <label class="switch">
+                            <input type="checkbox" id="shippingToggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="toggle-label">Postversand gewünscht (+5,99€)</span>
+                    </div>
+
+                    <div id="shippingAddress" class="input-group hidden">
+                        <input type="text" id="address" placeholder=" ">
+                        <label for="address">Lieferadresse (Str, PLZ, Ort)</label>
+                    </div>
                 </div>
-                <p>Standard PLA 27 Gramm + <br> 3 Stunden Druckzeit = <br> <span class="final-price">3,41€</span></p>
+
+                <div class="modal-footer split">
+                    <button class="apple-btn-ghost" id="prevStepBtn"><i class="fa-solid fa-arrow-left"></i> Zurück</button>
+                    <button class="apple-btn-primary">Anfrage senden</button>
+                </div>
             </div>
+
         </div>
-    </section>
+    </div>
 </main>
-    <!-- Footer -->
+    
     <footer>
         <div class="footer-inner">
             <span>© Copyright: Bahrian Novotny & Lorenzo Bay-Müller</span>
@@ -167,9 +222,8 @@
         </div>
     </footer>
 
-    <!-- Chat Button Fixed -->
     <div class="chat-fab">
-        <i class="fa-regular fa-comment"></i> Chat with us
+        <i class="fa-regular fa-comment"></i> Chat
     </div>
 
     <script src="./js/script.js"></script>
