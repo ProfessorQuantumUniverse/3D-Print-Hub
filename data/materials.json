@@ -1,0 +1,50 @@
+[
+    {
+        "id": "pla-red",
+        "name": "Rotes PLA",
+        "category": "PLA STANDARD",
+        "pricePer100g": 2.50,
+        "pricePer10g": 0.25,
+        "temp": "200°C",
+        "featureIcon": "fa-dumbbell",
+        "featureText": "Robust",
+        "description": "Das rote PLA-Filament bietet kräftige, leuchtende Farben und eine gleichmäßige Druckqualität. Perfekt für detailreiche Modelle und visuelle Prototypen.",
+        "image": "https://static.wixstatic.com/media/0c0901_450a40f18bfb406c9588e016fe1bc801~mv2.jpg/v1/fill/w_683,h_936,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/PLA-Basic_Red_edited_edited.jpg"
+    },
+    {
+        "id": "pla-green",
+        "name": "Grünes PLA",
+        "category": "PLA STANDARD",
+        "pricePer100g": 2.50,
+        "pricePer10g": 0.25,
+        "temp": "200°C",
+        "featureIcon": "fa-leaf",
+        "featureText": "Eco",
+        "description": "Das hellgrüne PLA-Filament zeichnet sich durch einfache Druckbarkeit und eine gleichmäßige Oberfläche aus. Ideal für naturbezogene Modelle und Architektur.",
+        "image": "https://static.wixstatic.com/media/0c0901_450a40f18bfb406c9588e016fe1bc801~mv2.jpg/v1/fill/w_683,h_936,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/PLA-Basic_Red_edited_edited.jpg"
+    },
+    {
+        "id": "pla-orange",
+        "name": "Orangenes PLA",
+        "category": "PLA STANDARD",
+        "pricePer100g": 2.50,
+        "pricePer10g": 0.25,
+        "temp": "200°C",
+        "featureIcon": "fa-eye",
+        "featureText": "Vibrant",
+        "description": "Das orangefarbene PLA-Filament bietet brillante Farbe und eine glatte Oberfläche. Perfekt für auffällige Designs und Signalwirkung.",
+        "image": "https://static.wixstatic.com/media/0c0901_7abf831cb28a4c45adabfdcd4e5ab752~mv2.jpg/v1/fill/w_683,h_936,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/bambu-lab-pla-basic-orange-refill-705619-de_edited.jpg"
+    },
+    {
+        "id": "petg-trans",
+        "name": "Transparent PETG",
+        "category": "PETG ADVANCED",
+        "pricePer100g": 3.50,
+        "pricePer10g": 0.35,
+        "temp": "240°C",
+        "featureIcon": "fa-shield-halved",
+        "featureText": "Durable",
+        "description": "Hohe Transparenz und Festigkeit. Dieses PETG ist widerstandsfähiger gegen Wärme und mechanische Beanspruchung als PLA.",
+        "image": "https://static.wixstatic.com/media/0c0901_1b37ce4c93e5491bbbe5303df82c6f84~mv2.jpg/v1/fill/w_683,h_936,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/JP34971_1800x1800_edited.jpg"
+    }
+]

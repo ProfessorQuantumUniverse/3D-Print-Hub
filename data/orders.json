@@ -1,0 +1,23 @@
+[
+    {
+        "orderId": "123456",
+        "status": "In Bearbeitung",
+        "details": "3D-Hub (Lorenzo)",
+        "eta": "2 Tage",
+        "percentage": 50
+    },
+    {
+        "orderId": "654321",
+        "status": "Versendet",
+        "details": "DHL Paket",
+        "eta": "Morgen",
+        "percentage": 100
+    },
+    {
+        "orderId": "999888",
+        "status": "Warteschlange",
+        "details": "Wartet auf Prüfung",
+        "eta": "Unbekannt",
+        "percentage": 10
+    }
+]

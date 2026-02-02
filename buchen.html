@@ -100,6 +100,12 @@
                     <!-- Eingabe Bereich für Live-Rechnung -->
                     <div class="calculator-inputs">
                         <div class="cal-input-row">
+                            <label for="calc-material-select" style="display:block; margin-bottom: 5px;">Material:</label>
+                            <select id="calc-material-select" style="width: 100%; padding: 8px; border-radius: 8px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                                <option value="pla" data-price="0.70">Lade Materialien...</option>
+                            </select>
+                        </div>
+                        <div class="cal-input-row">
                             <label>Gewicht (g): <span id="weight-display">27</span>g</label>
                             <input type="range" id="calc-weight" min="1" max="500" value="27" step="1" class="calc-slider">
                         </div>
@@ -111,7 +117,7 @@
 
                     <ul class="calc-list">
                         <li>
-                            <span class="c-label">Materialkosten (PLA)</span> 
+                            <span class="c-label" id="material-label-display">Materialkosten</span> 
                             <span class="c-dots">...........................................</span>
                             <span class="c-price" id="price-material">1,89 €</span>
                         </li>
@@ -214,6 +220,16 @@
                             <i class="fa-solid fa-image"></i>
                             <span id="fileNameDisplayDesign">Skizzen/Bilder hochladen (Optional)</span>
                         </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <!-- Material Auswahl (Neu) -->
+                     <div class="input-group">
+                        <select id="modal-material-select" style="background:transparent; border:none; border-bottom: 2px solid white; color:white; padding: 10px 0; width:100%; outline:none;">
+                            <option value="" disabled selected>Wähle dein Material...</option>
+                        </select>
+                        <label for="modal-material-select" style="top:-10px; font-size:12px; color:var(--primary-orange);">Materialwunsch</label>
                     </div>
 
                     <div class="divider"></div>

@@ -258,14 +258,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.getElementById('submitBtn');
     if (submitBtn) {
         submitBtn.addEventListener('click', () => {
-            const val = document.getElementById('orderInput').value;
+            const val = document.getElementById('orderInput').value.trim();
             const tableBody = document.getElementById('tableBody');
             const resultsContainer = document.getElementById('resultsTableContainer');
             
-            if (val.length > 3) { // Simple Validierung
-                tableBody.innerHTML = `<tr><td>${val}</td><td>In Bearbeitung</td><td>3D-Hub</td><td>2 Tage</td></tr>`;
-                resultsContainer.classList.remove('hidden');
-            }
+            if (!val) {
+                alert("Bitte gib eine Bestellnummer ein.");
+                return;
+            };
+
+            // Loading State
+            if(tableBody) tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Lade Daten...</td></tr>';
+            if(resultsContainer) resultsContainer.classList.remove('hidden');
+
+            fetch('./data/orders.json')
+                .then(res => res.json())
+                .then(orders => {
+                    const order = orders.find(o => o.orderId === val);
+                    
+                    if (tableBody) {
+                        if (order) {
+                            // Order found
+                             tableBody.innerHTML = `<tr>
+                                <td>${order.orderId}</td>
+                                <td>${order.status}</td>
+                                <td>${order.details}</td>
+                                <td>${order.percentage}%</td>
+                            </tr>`;
+                        } else {
+                            // Not found
+                            tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color: #ff6b6b;">Bestellnummer ${val} nicht gefunden.</td></tr>`;
+                        }
+                    }
+                })
+                .catch(err => {
+                    console.error("Fehler beim Laden der Bestellungen:", err);
+                    if(tableBody) tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color: #ff6b6b;">Systemfehler beim Laden der Datenbank.</td></tr>`;
+                });
         });
     }
 
@@ -279,30 +308,143 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* --- 8. LIVE CALCULATOR (Neu) --- */
+    /* --- 8. LIVE CALCULATOR & DYNAMIC MATERIALS --- */
     const weightSlider = document.getElementById('calc-weight');
     const timeSlider = document.getElementById('calc-time');
+    const calcMaterialSelect = document.getElementById('calc-material-select');
     
+    const modalMaterialSelect = document.getElementById('modal-material-select');
+    const materialsGrid = document.getElementById('materials-grid');
+
+    // Konstanten für Rechner
+    const COST_PER_HOUR = 0.08;
+    const COST_SETUP = 0.10;
+
+    // Globale Daten
+    let materialsData = [];
+
+    // HILFSFUNKTION: Materialien laden
+    function loadMaterials() {
+        console.log("Loading Materials...");
+        fetch('./data/materials.json')
+            .then(res => res.json())
+            .then(data => {
+                materialsData = data;
+                
+                // 1. Materialien auf materialien.html rendern
+                if(materialsGrid) {
+                    materialsGrid.innerHTML = '';
+                    data.forEach((mat, idx) => {
+                        // Card Template
+                        const isCentered = idx === 3 ? 'centered-card' : '';
+                        const badgeClass = mat.category.includes('ADVANCED') ? 'badge-advanced' : '';
+                        
+                        const cardHTML = `
+                        <div class="material-card ${isCentered}">
+                            <div class="card-top-info">
+                                <div class="badge-container">
+                                    <span class="tech-badge ${badgeClass}">${mat.category}</span>
+                                </div>
+                                <h3>${mat.name}</h3>
+                                <div class="specs-mini-grid">
+                                     <span><i class="fa-solid fa-temperature-low"></i> ${mat.temp}</span>
+                                     <span><i class="fa-solid ${mat.featureIcon}"></i> ${mat.featureText}</span>
+                                </div>
+                                <p>${mat.description}</p>
+                                
+                                <div class="pricing-display">
+                                    <span class="p-label">PREIS PRO 100G</span>
+                                    <span class="p-value">${mat.pricePer100g.toFixed(2).replace('.', ',')} €</span>
+                                </div>
+                            </div>
+                            <div class="card-bottom-image">
+                                <img src="${mat.image}" alt="${mat.name}">
+                            </div>
+                        </div>
+                        `;
+                        materialsGrid.innerHTML += cardHTML;
+                    });
+                }
+
+                // 2. Dropdowns befüllen
+                const fillDropdown = (selectElement) => {
+                    if(!selectElement) return;
+                    // Alte Options behalten wenn erster leer ist? Nein, clear und neu.
+                    // Außer placeholder.
+                    const placeholder = selectElement.querySelector('option[disabled]');
+                    selectElement.innerHTML = '';
+                    if(placeholder) selectElement.appendChild(placeholder);
+
+                    data.forEach((mat, index) => {
+                        const opt = document.createElement('option');
+                        opt.value = mat.id;
+                        opt.textContent = `${mat.name} (${mat.pricePer100g.toFixed(2).replace('.',',')}€/100g)`;
+                        opt.dataset.price = mat.pricePer10g;
+                        
+                        // Im Calculator immer das erste wählen
+                        if(selectElement.id === 'calc-material-select' && index === 0) {
+                            opt.selected = true;
+                        }
+                        
+                        // Style für Dropdowns (schwarz auf weiß für options, da select oft transparent ist)
+                        opt.style.color = "#333"; 
+                        selectElement.appendChild(opt);
+                    });
+                };
+
+                fillDropdown(calcMaterialSelect);
+                fillDropdown(modalMaterialSelect);
+
+                // Nach dem Laden: Calculator updaten falls vorhanden
+                if(weightSlider) updateCalculator();
+            })
+            .catch(err => {
+                console.error("Fehler beim Laden der Materialien:", err);
+                if(materialsGrid) materialsGrid.innerHTML = "<p>Fehler beim Laden der Materialien.</p>";
+            });
+    }
+
+    // Direkt ausführen
+    loadMaterials();
+
+
+    // Event Listener für Rechner Dropdown
+    if(calcMaterialSelect) {
+        calcMaterialSelect.addEventListener('change', updateCalculator);
+    }
+
     if(weightSlider && timeSlider) {
         const weightDisplay = document.getElementById('weight-display');
         const timeDisplay = document.getElementById('time-display');
         const priceMaterial = document.getElementById('price-material');
         const priceTime = document.getElementById('price-time');
         const totalPriceDisplay = document.getElementById('total-price-display');
+        const materialLabelDisplay = document.getElementById('material-label-display');
         
-        // Konstanten (aus dem Design)
-        const COST_PER_10G = 0.70; // 0.07 pro g
-        const COST_PER_HOUR = 0.08;
-        const COST_SETUP = 0.10;
-
         function updateCalculator() {
             const w = parseFloat(weightSlider.value);
             const t = parseFloat(timeSlider.value);
             
+            // Preis aus Dropdown holen
+            let currentMaterialPrice = 0.25; // Default (Fallback)
+            let currentMaterialName = "Materialkosten";
+
+            if (calcMaterialSelect && calcMaterialSelect.selectedOptions.length > 0) {
+                // Check if selected option is valid (not placeholder)
+                const selected = calcMaterialSelect.selectedOptions[0];
+                if(selected && !selected.disabled) {
+                    currentMaterialPrice = parseFloat(selected.dataset.price);
+                    // Name cleanen
+                    currentMaterialName = "Material (" + selected.text.split('(')[0].trim() + ")";
+                }
+            }
+            
+            if(materialLabelDisplay) materialLabelDisplay.innerText = currentMaterialName;
+
             weightDisplay.innerText = w;
             timeDisplay.innerText = t;
 
-            const materialCost = (w / 10) * COST_PER_10G;
+            const materialCost = (w / 10) * currentMaterialPrice;
             const timeCost = t * COST_PER_HOUR;
             const total = materialCost + timeCost + COST_SETUP;
 
@@ -313,7 +455,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         weightSlider.addEventListener('input', updateCalculator);
         timeSlider.addEventListener('input', updateCalculator);
-        updateCalculator(); // Init
     }
 
     /* --- 9. UPLOAD, TOGGLE & SUBMIT LOGIC (Refined) --- */
