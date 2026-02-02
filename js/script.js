@@ -560,16 +560,86 @@ document.addEventListener('DOMContentLoaded', () => {
              }
 
              // If Valid:
-             const originalText = submitOrderBtn.innerHTML;
-             submitOrderBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Senden...';
-             submitOrderBtn.disabled = true;
              
-             setTimeout(() => {
-                 document.getElementById('modal-step-2').classList.add('hidden');
-                 if(successStep) successStep.classList.remove('hidden');
-                 submitOrderBtn.innerHTML = originalText;
-                 submitOrderBtn.disabled = false;
-             }, 1500);
+             // UI Feedback: Loading
+             const submitBtn = submitOrderBtn; 
+             const originalText = submitBtn.innerHTML;
+             submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Senden...';
+             submitBtn.disabled = true;
+
+             // 1. Gather Data object
+             const formData = {
+                 fname: fname,
+                 lname: lname,
+                 email: email,
+                 orderType: type,
+                 material: document.getElementById('modal-material-select').value || "Default",
+                 shipping: document.getElementById('shippingToggle').checked,
+                 address: document.getElementById('address').value,
+                 details: document.getElementById('designDesc').value,
+                 // Default empty, filled below if needed
+                 linkUrl: "" 
+             };
+
+             // 2. Helper to handle file and send
+             const sendData = (payload) => {
+                 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxQeJPEK55tthYEATm3yAqsLlBKU53YSRX1z_jUlG2IR9MU_BflpuMG6zpl0fzhyaWF/exec"; 
+                 
+                 fetch(SCRIPT_URL, {
+                     method: 'POST',
+                     body: JSON.stringify(payload)
+                 })
+                 .then(res => res.json())
+                 .then(response => {
+                     if(response.result === "success") {
+                         // Success! Show generated ID
+                         console.log("Order ID:", response.orderId);
+                         
+                         // Show Success Modal Step
+                         document.getElementById('modal-step-2').classList.add('hidden');
+                         if(successStep) {
+                             successStep.classList.remove('hidden');
+                             // Optional: Display the ID to the user in the success message
+                             const p = successStep.querySelector('p');
+                             if(p) p.innerHTML += `<br><br>Deine Bestellnummer: <strong>${response.orderId}</strong>`;
+                         }
+                     } else {
+                         alert("Fehler: " + (response.error || "Unbekannt"));
+                     }
+                 })
+                 .catch(err => {
+                     console.error(err);
+                     alert("Netzwerkfehler! Bitte versuche es erneut.");
+                 })
+                 .finally(() => {
+                     submitBtn.innerHTML = originalText;
+                     submitBtn.disabled = false;
+                 });
+             };
+
+             // 3. Check for file and convert if needed
+             const fileInput = document.getElementById('fileInput');
+             const designFileInput = document.getElementById('fileInputDesign');
+             let fileObj = null;
+
+             // Determine active file input based on type
+             if (type === 'file' && fileInput.files.length > 0) fileObj = fileInput.files[0];
+             else if (type === 'design' && designFileInput.files.length > 0) fileObj = designFileInput.files[0];
+
+             if (fileObj) {
+                 const reader = new FileReader();
+                 reader.onload = function(e) {
+                     formData.fileData = e.target.result.split(',')[1]; // Remove "data:application/..." prefix
+                     formData.fileName = fileObj.name;
+                     formData.fileMime = fileObj.type;
+                     sendData(formData);
+                 };
+                 reader.readAsDataURL(fileObj);
+             } else {
+                 // No file, just send text
+                 if(type === 'link') formData.linkUrl = document.getElementById('thingiverseLink').value;
+                 sendData(formData);
+             }
         });
     }
 
