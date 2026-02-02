@@ -255,6 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     /* --- 6. ORDER STATUS LOGIC --- */
+        /* --- 6. ORDER STATUS LOGIC (HYBRID: GOOGLE SHEETS) --- */
     const submitBtn = document.getElementById('submitBtn');
     if (submitBtn) {
         submitBtn.addEventListener('click', () => {
@@ -262,38 +263,66 @@ document.addEventListener('DOMContentLoaded', () => {
             const tableBody = document.getElementById('tableBody');
             const resultsContainer = document.getElementById('resultsTableContainer');
             
+            // -----------------------------------------------------------
+            // CONFIG: Paste your Google Web App URL here!
+            // -----------------------------------------------------------
+            const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyIgBnwkJcTsX6mhzFeG3QmeLxmIn_3TKsV6Mzofm2wIb9MkPPbBTYxrnOqhhCMwC72/exec"; 
+
             if (!val) {
                 alert("Bitte gib eine Bestellnummer ein.");
                 return;
             };
 
-            // Loading State
-            if(tableBody) tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Lade Daten...</td></tr>';
+            // 1. Loading State (Feedback is important for remote fetches)
+            if(tableBody) tableBody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px;"><i class="fa-solid fa-circle-notch fa-spin"></i> Suche in Datenbank...</td></tr>';
             if(resultsContainer) resultsContainer.classList.remove('hidden');
 
-            fetch('./data/orders.json')
+            // 2. Fetch from Google Script
+            fetch(`${SCRIPT_URL}?orderId=${encodeURIComponent(val)}`)
                 .then(res => res.json())
-                .then(orders => {
-                    const order = orders.find(o => o.orderId === val);
-                    
+                .then(data => {
                     if (tableBody) {
-                        if (order) {
-                            // Order found
-                             tableBody.innerHTML = `<tr>
-                                <td>${order.orderId}</td>
-                                <td>${order.status}</td>
-                                <td>${order.details}</td>
-                                <td>${order.percentage}%</td>
-                            </tr>`;
-                        } else {
+                        if (data.error) {
                             // Not found
-                            tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color: #ff6b6b;">Bestellnummer ${val} nicht gefunden.</td></tr>`;
+                            tableBody.innerHTML = `
+                                <tr>
+                                    <td colspan="4" style="text-align:center; color: #ff6b6b; padding: 20px;">
+                                        <i class="fa-solid fa-triangle-exclamation"></i> 
+                                        Bestellnummer <strong>${val}</strong> nicht gefunden.
+                                    </td>
+                                </tr>`;
+                        } else {
+                            // Order found - Render Row
+                            
+                            // Determine Color based on progress
+                            let color = "#fff";
+                            if(data.percentage >= 100) color = "#4CAF50"; // Green
+                            else if(data.percentage >= 40) color = "var(--primary-orange)"; // Orange
+                            
+                            tableBody.innerHTML = `
+                            <tr>
+                                <td style="font-family:'Orbitron', sans-serif;">#${data.orderId}</td>
+                                <td>
+                                    <span style="border:1px solid ${color}; color:${color}; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">
+                                        ${data.status}
+                                    </span>
+                                </td>
+                                <td>${data.details}</td>
+                                <td>
+                                    <div style="display:flex; align-items:center; gap:10px;">
+                                        <div style="flex-grow:1; background:rgba(255,255,255,0.1); height:6px; border-radius:3px; overflow:hidden;">
+                                            <div style="width:${data.percentage}%; background:${color}; height:100%; border-radius:3px; transition: width 0.5s ease;"></div>
+                                        </div>
+                                        <span style="min-width: 40px;">${data.percentage}%</span>
+                                    </div>
+                                </td>
+                            </tr>`;
                         }
                     }
                 })
                 .catch(err => {
-                    console.error("Fehler beim Laden der Bestellungen:", err);
-                    if(tableBody) tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color: #ff6b6b;">Systemfehler beim Laden der Datenbank.</td></tr>`;
+                    console.error("Fetch Error:", err);
+                    if(tableBody) tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color: #ff6b6b;">Verbindungsfehler. Bitte prüfe deine Internetverbindung.</td></tr>`;
                 });
         });
     }
@@ -583,7 +612,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
              // 2. Helper to handle file and send
              const sendData = (payload) => {
-                 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxQeJPEK55tthYEATm3yAqsLlBKU53YSRX1z_jUlG2IR9MU_BflpuMG6zpl0fzhyaWF/exec"; 
+                 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyIgBnwkJcTsX6mhzFeG3QmeLxmIn_3TKsV6Mzofm2wIb9MkPPbBTYxrnOqhhCMwC72/exec"; 
                  
                  fetch(SCRIPT_URL, {
                      method: 'POST',
