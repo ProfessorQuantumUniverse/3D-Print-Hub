@@ -278,6 +278,173 @@ document.addEventListener('DOMContentLoaded', () => {
             if(target) target.scrollIntoView({ behavior: 'smooth' });
         });
     }
+
+    /* --- 8. LIVE CALCULATOR (Neu) --- */
+    const weightSlider = document.getElementById('calc-weight');
+    const timeSlider = document.getElementById('calc-time');
+    
+    if(weightSlider && timeSlider) {
+        const weightDisplay = document.getElementById('weight-display');
+        const timeDisplay = document.getElementById('time-display');
+        const priceMaterial = document.getElementById('price-material');
+        const priceTime = document.getElementById('price-time');
+        const totalPriceDisplay = document.getElementById('total-price-display');
+        
+        // Konstanten (aus dem Design)
+        const COST_PER_10G = 0.70; // 0.07 pro g
+        const COST_PER_HOUR = 0.08;
+        const COST_SETUP = 0.10;
+
+        function updateCalculator() {
+            const w = parseFloat(weightSlider.value);
+            const t = parseFloat(timeSlider.value);
+            
+            weightDisplay.innerText = w;
+            timeDisplay.innerText = t;
+
+            const materialCost = (w / 10) * COST_PER_10G;
+            const timeCost = t * COST_PER_HOUR;
+            const total = materialCost + timeCost + COST_SETUP;
+
+            priceMaterial.innerText = materialCost.toFixed(2).replace('.', ',') + " €";
+            priceTime.innerText = timeCost.toFixed(2).replace('.', ',') + " €";
+            totalPriceDisplay.innerText = total.toFixed(2).replace('.', ',') + " €";
+        }
+
+        weightSlider.addEventListener('input', updateCalculator);
+        timeSlider.addEventListener('input', updateCalculator);
+        updateCalculator(); // Init
+    }
+
+    /* --- 9. UPLOAD, TOGGLE & SUBMIT LOGIC (Refined) --- */
+    
+    // --- A. File Upload (Standard & Design) ---
+    function setupUpload(dropId, inputId, displayId) {
+        const drop = document.getElementById(dropId);
+        const inp = document.getElementById(inputId);
+        const disp = document.getElementById(displayId);
+
+        if(drop && inp) {
+            drop.addEventListener('click', () => inp.click());
+            inp.addEventListener('change', () => {
+                if(inp.files.length > 0) {
+                    disp.innerText = inp.files[0].name;
+                    drop.style.borderColor = "#4CAF50";
+                    drop.querySelector('i').classList.replace('fa-cloud-arrow-up', 'fa-check');
+                    drop.querySelector('i').classList.replace('fa-image', 'fa-check');
+                }
+            });
+            // Drag & Drop
+            drop.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                drop.style.borderColor = "var(--primary-orange)";
+                drop.style.background = "rgba(233, 142, 104, 0.1)";
+            });
+            drop.addEventListener('dragleave', (e) => {
+                 e.preventDefault();
+                 drop.style.borderColor = "";
+                 drop.style.background = "";
+            });
+            drop.addEventListener('drop', (e) => {
+                e.preventDefault();
+                drop.style.borderColor = "#4CAF50";
+                drop.style.background = "";
+                if(e.dataTransfer.files.length > 0) {
+                    disp.innerText = e.dataTransfer.files[0].name;
+                    drop.querySelector('i').classList.replace('fa-cloud-arrow-up', 'fa-check');
+                    drop.querySelector('i').classList.replace('fa-image', 'fa-check');
+                }
+            });
+        }
+    }
+
+    setupUpload('dropZone', 'fileInput', 'fileNameDisplay');
+    setupUpload('dropZoneDesign', 'fileInputDesign', 'fileNameDisplayDesign');
+
+
+    // --- B. Shipping Toggle Logic ---
+    const shippingToggle = document.getElementById('shippingToggle');
+    const shippingAddress = document.getElementById('shippingAddress');
+    
+    if(shippingToggle && shippingAddress) {
+        shippingToggle.addEventListener('change', () => {
+            if(shippingToggle.checked) {
+                shippingAddress.classList.remove('hidden');
+                // Optional: Smooth expand
+                shippingAddress.style.opacity = 0;
+                shippingAddress.style.transform = "translateY(-10px)";
+                requestAnimationFrame(() => {
+                    shippingAddress.style.transition = "all 0.3s";
+                    shippingAddress.style.opacity = 1;
+                    shippingAddress.style.transform = "translateY(0)";
+                });
+            } else {
+                shippingAddress.classList.add('hidden');
+            }
+        });
+    }
+
+
+    // --- C. Submit & Validation Logic ---
+    const submitOrderBtn = document.getElementById('submitOrderBtn');
+    const successStep = document.getElementById('modal-step-3');
+    const closeSuccessBtn = document.getElementById('closeSuccessBtn');
+    
+    if(submitOrderBtn) {
+        submitOrderBtn.addEventListener('click', (e) => {
+             e.preventDefault(); // Stop form submit
+
+             // 1. Validation
+             const fname = document.getElementById('fname').value.trim();
+             const lname = document.getElementById('lname').value.trim();
+             const email = document.getElementById('email').value.trim();
+             const agb = document.getElementById('agbCheck').checked;
+             
+             // Check Order Type specifics
+             const type = document.querySelector('input[name="order-type"]:checked').value;
+             let typeValid = true;
+
+             if(type === 'link') {
+                 if(document.getElementById('thingiverseLink').value.length < 5) typeValid = false;
+             } else if(type === 'design') {
+                 if(document.getElementById('designDesc').value.length < 10) typeValid = false;
+             }
+             // File upload is usually optional or hard to check without file obj persistence in pure frontend mock
+             
+             if(!fname || !lname || !email || !agb || !typeValid) {
+                 alert("Bitte fülle alle Pflichtfelder aus und akzeptiere die AGB.");
+                 // Highlight Error (Basic)
+                 if(!agb) document.querySelector('.custom-checkbox .checkmark').style.borderColor = "red";
+                 return;
+             }
+
+             // If Valid:
+             const originalText = submitOrderBtn.innerHTML;
+             submitOrderBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Senden...';
+             submitOrderBtn.disabled = true;
+             
+             setTimeout(() => {
+                 document.getElementById('modal-step-2').classList.add('hidden');
+                 if(successStep) successStep.classList.remove('hidden');
+                 submitOrderBtn.innerHTML = originalText;
+                 submitOrderBtn.disabled = false;
+             }, 1500);
+        });
+    }
+
+    if(closeSuccessBtn) {
+        closeSuccessBtn.addEventListener('click', () => {
+             const modalOverlay = document.getElementById('bookingModalOverlay');
+             if(modalOverlay) modalOverlay.classList.remove('active');
+             
+             // Reset Form logic for next opening
+             setTimeout(() => {
+                 if(successStep) successStep.classList.add('hidden');
+                 document.getElementById('modal-step-1').classList.remove('hidden');
+                 document.getElementById('modal-step-2').classList.add('hidden');
+             }, 500);
+        });
+    }
 });
 
 

@@ -91,31 +91,44 @@
                 <div class="math-equals-icon"><i class="fa-solid fa-equals"></i></div>
             </div>
 
-            <!-- Kalkulations-Beispiel -->
+            <!-- Kalkulations-Beispiel / Live Rechner -->
             <div class="example-calculation-card">
                 <div class="example-content">
-                    <span class="tag">BEISPIEL-RECHNUNG</span>
-                    <h4>Standard PLA Benchy</h4>
+                    <span class="tag">LIVE-RECHNER</span>
+                    <h4>Deine Preis Schätzung</h4>
+                    
+                    <!-- Eingabe Bereich für Live-Rechnung -->
+                    <div class="calculator-inputs">
+                        <div class="cal-input-row">
+                            <label>Gewicht (g): <span id="weight-display">27</span>g</label>
+                            <input type="range" id="calc-weight" min="1" max="500" value="27" step="1" class="calc-slider">
+                        </div>
+                        <div class="cal-input-row">
+                            <label>Druckzeit (h): <span id="time-display">3</span>h</label>
+                            <input type="range" id="calc-time" min="0.5" max="50" value="3" step="0.5" class="calc-slider">
+                        </div>
+                    </div>
+
                     <ul class="calc-list">
                         <li>
-                            <span class="c-label">27g Material</span> 
+                            <span class="c-label">Materialkosten (PLA)</span> 
                             <span class="c-dots">...........................................</span>
-                            <span class="c-price">1,89 €</span>
+                            <span class="c-price" id="price-material">1,89 €</span>
                         </li>
                         <li>
-                            <span class="c-label">3 Std. Druckzeit</span> 
+                            <span class="c-label">Maschinenzeit</span> 
                             <span class="c-dots">...........................................</span>
-                            <span class="c-price">0,24 €</span>
+                            <span class="c-price" id="price-time">0,24 €</span>
                         </li>
                         <li>
                             <span class="c-label">Setup & Finishing</span> 
                             <span class="c-dots">...........................................</span>
-                            <span class="c-price">1,28 €</span>
+                            <span class="c-price">ab 0,10 €</span>
                         </li>
                     </ul>
                     <div class="total-price">
-                        <span>Gesamtpreis</span>
-                        <span class="total-value">3,41 €</span>
+                        <span>Geschätzter Preis</span>
+                        <span class="total-value" id="total-price-display">2,13 €</span>
                     </div>
                 </div>
                 <div class="example-image-wrapper">
@@ -176,10 +189,11 @@
                 <div class="form-grid-modal">
                     <!-- Dynamische Bereiche basierend auf Step 1 -->
                     <div id="dynamic-file" class="dynamic-zone hidden">
-                        <div class="upload-zone">
+                        <div class="upload-zone" id="dropZone">
+                            <input type="file" id="fileInput" hidden accept=".stl,.obj,.3mf,.step,.zip">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
-                            <span>ZIP-Datei hierher ziehen oder klicken</span>
-                            <p class="micro-text">Max. 50MB (STL, OBJ, 3MF, STEP (wenn zu groß, dann bitte in ZIP-Datei packen.))</p>
+                            <span id="fileNameDisplay">Datei hierher ziehen oder klicken</span>
+                            <p class="micro-text">Max. 50MB (STL, OBJ, 3MF, STEP)</p>
                         </div>
                     </div>
 
@@ -194,6 +208,11 @@
                         <div class="input-group">
                             <textarea id="designDesc" rows="3" placeholder=" " required></textarea>
                             <label for="designDesc">Beschreibe deine Idee...</label>
+                        </div>
+                        <div class="upload-zone inner-upload" id="dropZoneDesign">
+                            <input type="file" id="fileInputDesign" hidden accept=".jpg,.png,.pdf,.zip">
+                            <i class="fa-solid fa-image"></i>
+                            <span id="fileNameDisplayDesign">Skizzen/Bilder hochladen (Optional)</span>
                         </div>
                     </div>
 
@@ -227,11 +246,40 @@
                         <input type="text" id="address" placeholder=" ">
                         <label for="address">Lieferadresse (Str, PLZ, Ort)</label>
                     </div>
+
+                    <div class="divider"></div>
+
+                    <!-- Legal & Newsletter -->
+                    <div class="checkbox-group">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="agbCheck" required>
+                            <span class="checkmark"></span>
+                            <span class="label-text">Ich akzeptiere die <a href="#">AGB</a> & <a href="#">Datenschutz</a>.</span>
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="newsletterCheck">
+                            <span class="checkmark"></span>
+                            <span class="label-text">Newsletter abonnieren (Updates & Angebote).</span>
+                        </label>
+                    </div>
+
                 </div>
 
                 <div class="modal-footer split">
                     <button class="apple-btn-ghost" id="prevStepBtn"><i class="fa-solid fa-arrow-left"></i> Zurück</button>
-                    <button class="apple-btn-primary">Anfrage senden</button>
+                    <button class="apple-btn-primary" id="submitOrderBtn">Anfrage senden</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Success -->
+            <div class="modal-step hidden" id="modal-step-3">
+                <div class="success-message" style="text-align: center; padding: 40px 20px;">
+                    <div class="success-icon" style="font-size: 4rem; color: #4CAF50; margin-bottom: 20px;">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 15px;">Anfrage gesendet!</h3>
+                    <p style="opacity: 0.8; margin-bottom: 30px;">Wir haben deine Daten erhalten und melden uns in Kürze mit einem Angebot bei dir.</p>
+                    <button class="apple-btn-secondary" id="closeSuccessBtn">Fertig</button>
                 </div>
             </div>
 
