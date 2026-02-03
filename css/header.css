@@ -1,32 +1,4 @@
-:root {
-    --primary-orange: #E98E68;
-    --primary-bg: #f0b197;
-    --text-color: #000000;
-    --card-text: #000000;
-    --pill-bg: #ffffff;
-    --pill-text: #000000;
-    --font-main: 'Montserrat', sans-serif;
-    --font-title: 'Orbitron', sans-serif; /* Für den 3D Titel */
-    --dark-orange: #d7230f;
 
-        /* Deine existierenden Variablen ... */
-    
-    /* NEU: Die Farbe für die leuchtenden Punkte im hellen Modus */
-    --dot-glow-color: #b81414cb; /* Standard: Dein Orange */
-    --mild-orange: #bb691161;
-
-}
-
-body.darkmode {
-    --primary-orange: #0c1b7e;
-    --primary-bg: #121212;
-    --text-color: #ffffff;
-    --card-text: #ffffff;
-    --pill-bg: #2a2a2a;
-    --pill-text: #ffffff;
-    --dot-glow-color: #00f3ff; 
-    --mild-orange: #bba4112d;
-}
 
 /* =========================================
    HEADER & NAVIGATION (FIXED & ALIGNED)
