@@ -42,26 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* --- 2. DARK MODE --- */
-    const darkModeCheckbox = document.getElementById('darkModeCheckbox');
+    // Note: Bear toggle (bear.js) handles the toggle animation and interaction
+    // This section only initializes the theme state on page load
     const body = document.body;
 
     // Gespeichertes Theme laden
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        body.classList.add('darkmode');
-        if(darkModeCheckbox) darkModeCheckbox.checked = true;
-    }
-
-    if(darkModeCheckbox) {
-        darkModeCheckbox.addEventListener('change', function() {
-            if (this.checked) {
-                body.classList.add('darkmode');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                body.classList.remove('darkmode');
-                localStorage.setItem('theme', 'light');
-            }
-        });
+    // Default is dark (no class), so only check for light
+    if (savedTheme === 'light') {
+        body.classList.add('lightmode');
     }
 
     /* --- 3. 3D TEXT & BACKGROUND EFFECT --- */

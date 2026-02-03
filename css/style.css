@@ -1,27 +1,9 @@
 :root {
-    --primary-orange: #E98E68;
-    --primary-bg: #f0b197;
-    --text-color: #000000;
-    --card-text: #000000;
-    --pill-bg: #ffffff;
-    --pill-text: #000000;
     --font-main: 'Montserrat', sans-serif;
     --font-title: 'Orbitron', sans-serif; /* Für den 3D Titel */
     --dark-orange: #d7230f;
-    --anti_bg: #f7896db3;
 
-
-        /* Deine existierenden Variablen ... */
-    
-    /* NEU: Die Farbe für die leuchtenden Punkte im hellen Modus */
-    --dot-glow-color: #b81414cb; /* Standard: Dein Orange */
-    --mild-orange: #bb691161;
-    --item_in_menu: #f0b197;
-
-
-}
-
-body.darkmode {
+    /* Dark Mode (Standard) */
     --primary-orange: #6176fd;
     --primary-bg: #121212;
     --text-color: #ffffff;
@@ -32,6 +14,19 @@ body.darkmode {
     --mild-orange: #bba4112d;
     --item_in_menu: #b1abd6;
     --anti_bg: #000000b3;
+}
+
+body.lightmode {
+    --primary-orange: #E98E68;
+    --primary-bg: #f0b197;
+    --text-color: #000000;
+    --card-text: #000000;
+    --pill-bg: #ffffff;
+    --pill-text: #000000;
+    --dot-glow-color: #b81414cb;
+    --mild-orange: #bb691161;
+    --item_in_menu: #f0b197;
+    --anti_bg: #f7896db3;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -281,13 +276,13 @@ footer {
 
 /* EBENE 1: Die statischen, dunklen Punkte (immer sichtbar, aber dezent) */
 .dots-base {
-    /* Ein grauer Punkt auf transparentem Grund */
-    background-image: radial-gradient(circle, rgba(0,0,0,0.1) 2px, transparent 2px);
+    /* Ein grauer Punkt auf transparentem Grund (Dark Mode Default) */
+    background-image: radial-gradient(circle, rgba(255,255,255,0.1) 2px, transparent 2px);
 }
 
-/* Im Darkmode müssen die Basispunkte etwas heller sein, damit man sie sieht */
-body.darkmode .dots-base {
-    background-image: radial-gradient(circle, rgba(255,255,255,0.1) 2px, transparent 2px);
+/* Im Lightmode (Umgekehrt) */
+body.lightmode .dots-base {
+    background-image: radial-gradient(circle, rgba(0,0,0,0.1) 2px, transparent 2px);
 }
 
 /* EBENE 2: Die leuchtenden Punkte (High-End Effekt) */
@@ -440,25 +435,22 @@ body.darkmode .dots-base {
     max-width: 650px;
     padding: 50px;
     
-    /* Das neue Material: Amber Glass */
-    background: linear-gradient(135deg, rgba(237, 150, 113, 0.489) 0%, rgba(242, 236, 234, 0.75) 100%);
-    backdrop-filter: blur(20px) saturate(120%); /* Macht den Hintergrund unscharf */
+    /* Das neue Material: Dark Glass */
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.85) 0%, rgba(40, 40, 40, 0.85) 100%);
+    backdrop-filter: blur(20px) saturate(120%);
     -webkit-backdrop-filter: blur(20px) saturate(120%);
     
     border-radius: 40px;
     text-align: center;
-    color: #000; /* Text bleibt schwarz für Kontrast auf Orange */
+    color: #fff; 
     
-    /* Edle Ränder */
-    border: 1px solid rgba(255,255,255,0.4);
-    border-top: 1px solid rgba(255,255,255,0.6); /* Oben heller für Lichtkante */
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1);
     
-    /* 3D Schatten: Wirft einen farbigen Glow nach unten */
+    /* Neon Border Effekt */
     box-shadow: 
-        0 20px 40px rgba(0,0,0,0.2),
-        0 0 0 1px rgba(255,255,255,0.1),
-        0 30px 60px rgba(233, 142, 104, 0.3); /* Orange Ambient Glow */
+        0 20px 40px rgba(0,0,0,0.5),
+        inset 0 0 20px rgba(233, 142, 104, 0.1), 
+        0 0 20px rgba(233, 142, 104, 0.2);
         
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     overflow: hidden; /* Wichtig für den Glanz-Effekt */
@@ -503,8 +495,8 @@ body.darkmode .dots-base {
     font-weight: 800;
     margin-bottom: 15px;
     line-height: 1.2;
-    /* Leichter Text-Schatten für Lesbarkeit */
-    text-shadow: 0 2px 5px rgba(255,255,255,0.3);
+    /* Leichter Text-Schatten für Lesbarkeit (Default Dark: None) */
+    text-shadow: none;
 }
 
 .sub-text {
@@ -517,7 +509,8 @@ body.darkmode .dots-base {
 .tip-text {
     font-size: 0.95rem;
     font-weight: 700;
-    background: rgba(255,255,255,0.3);
+    background: rgba(233, 142, 104, 0.2);
+    color: var(--primary-orange);
     display: inline-block;
     padding: 5px 15px;
     border-radius: 20px;
@@ -539,39 +532,34 @@ body.darkmode .dots-base {
     opacity: 1;
 }
 
-/* --- DARKMODE ANPASSUNG DER KARTE --- */
-body.darkmode .main-card {
-    /* Im Darkmode: Dunkles Glas mit orangem Rand */
-    background: linear-gradient(135deg, rgba(20, 20, 20, 0.85) 0%, rgba(40, 40, 40, 0.85) 100%);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.1);
-    /* Neon Border Effekt */
+/* --- LIGHTMODE ANPASSUNG DER KARTE --- */
+body.lightmode .main-card {
+    background: linear-gradient(135deg, rgba(237, 150, 113, 0.489) 0%, rgba(242, 236, 234, 0.75) 100%);
+    color: #000;
+    border: 1px solid rgba(255,255,255,0.4);
     box-shadow: 
-        0 20px 40px rgba(0,0,0,0.5),
-        inset 0 0 20px rgba(233, 142, 104, 0.1), /* Innerer oranger Schein */
-        0 0 20px rgba(233, 142, 104, 0.2); /* Äußerer oranger Schein */
+        0 20px 40px rgba(0,0,0,0.2),
+        0 0 0 1px rgba(255,255,255,0.1),
+        0 30px 60px rgba(233, 142, 104, 0.3);
 }
 
-body.darkmode .welcome-text {
-    text-shadow: none;
+body.lightmode .welcome-text {
+    text-shadow: 0 2px 5px rgba(255,255,255,0.3);
 }
 
-body.darkmode .tip-text {
-    background: rgba(233, 142, 104, 0.2); /* Orange transparent */
-    color: var(--primary-orange);
+body.lightmode .tip-text {
+    background: rgba(255,255,255,0.3);
+    color: var(--text-color);
 }
 
-body.darkmode .btn-pill {
-    /* Buttons im Darkmode anpassen */
-    background: var(--primary-orange);
-    color: #fff;
-    border: none;
-}
-
-body.darkmode .btn-pill:hover {
+body.lightmode .btn-pill {
     background: #fff;
-    color: var(--primary-orange);
-    box-shadow: 0 0 20px var(--primary-orange);
+    color: #000;
+}
+
+body.lightmode .btn-pill:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 .card-arrow-top-left { position: absolute; top: 30px; left: 30px; transform: rotate(180deg); }
@@ -588,8 +576,8 @@ input:checked + .slider { background-color: #333; }
 input:checked + .slider:before { transform: translateX(22px); background-color: #fff; }
 
 .card-buttons { display: flex; flex-direction: column; gap: 12px; align-items: center; margin-top: 20px; }
-.btn-pill { background: #fff; color: #000; border: none; padding: 15px; width: 80%; border-radius: 50px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-.btn-pill:hover { transform: scale(1.03); }
+.btn-pill { background: var(--primary-orange); color: #fff; border: none; padding: 15px; width: 80%; border-radius: 50px; font-size: 1.2rem; font-weight: 600; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.btn-pill:hover { background: #fff; color: var(--primary-orange); box-shadow: 0 0 20px var(--primary-orange); transform: scale(1.03); }
 
 /* --- MATRIX SECTION (Videos) --- */
 .matrix-section { padding: 10px; background: var(--primary-bg); }
@@ -1082,13 +1070,13 @@ body.darkmode .text-gradient {
 
 .premium-subtext {
     font-size: 1.4rem;
-    color: #666;
+    color: #ccc; /* Default Dark Text */
     max-width: 700px;
     margin: 0 auto 50px;
     line-height: 1.6;
     font-weight: 400;
 }
-body.darkmode .premium-subtext { color: #ccc; }
+body.lightmode .premium-subtext { color: #666; }
 
 /* Enhanced Button */
 .apple-btn-primary {
@@ -1161,14 +1149,14 @@ body.darkmode .premium-subtext { color: #ccc; }
 .pricing-card {
     flex: 1;
     min-width: 280px;
-    background: rgba(255, 255, 255, 0.16);
+    background: rgba(20, 20, 20, 0.6);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Dark default border */
     border-radius: 30px;
     padding: 40px 30px;
     text-align: center;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3); /* Dark default shadow */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1177,10 +1165,10 @@ body.darkmode .premium-subtext { color: #ccc; }
     overflow: hidden;
 }
 
-body.darkmode .pricing-card {
-    background: rgba(20, 20, 20, 0.6);
-    border-color: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+body.lightmode .pricing-card {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
 }
 
 /* Top Glow Line */
@@ -1406,13 +1394,13 @@ body.darkmode .pricing-card {
 
 .modal-container {
     width: 95%; max-width: 700px;
-    background: #111;
+    background: #0a0a0a;
     border-radius: 30px; padding: 50px;
     box-shadow: 0 50px 100px rgba(0,0,0,0.6);
     transform: scale(0.9) translateY(40px);
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
     color: #fff;
     overflow: hidden;
 }
@@ -1425,7 +1413,7 @@ body.darkmode .pricing-card {
     z-index: 0;
 }
 
-body.darkmode .modal-container { background: #0a0a0a; border-color: rgba(255,255,255,0.15); }
+body.lightmode .modal-container { background: #111; border-color: rgba(255,255,255,0.1); }
 .modal-overlay.active .modal-container { transform: scale(1) translateY(0); }
 
 .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; position: relative; z-index: 2; }
@@ -1934,7 +1922,7 @@ input:checked + .slider:before { transform: translateX(26px); background-color: 
 .card-glass-bg {
     position: absolute;
     inset: 3px; /* Innerhalb des Borders */
-    background: rgba(20, 20, 20, 0.288); /* Fast komplett transparent */
+    background: rgba(0, 0, 0, 0.4); /* Dark Default */
     backdrop-filter: blur(12px); /* Blurt die Dots im Hintergrund */
     border-radius: 28px;
     z-index: 0;
@@ -2109,9 +2097,9 @@ input:checked + .slider:before { transform: translateX(26px); background-color: 
     border-color: #FF0000;
 }
 
-/* Darkmode spezifische Anpassungen (Optional, da das Design schon dunkel ist) */
-body.darkmode .card-glass-bg {
-    background: rgba(0, 0, 0, 0.4); /* Etwas dunkler im Darkmode */
+/* Lightmode specific adjustments */
+body.lightmode .card-glass-bg {
+    background: rgba(20, 20, 20, 0.288);
 }
 
 /* --- REKONSTRUKTION MODELLE SEITE --- */

@@ -1,0 +1,228 @@
+/* --- BEAR TOGGLE STYLES (Embedded in Card) --- */
+
+.bear-toggle-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
+  height: 80px;
+}
+
+.darkmode-label {
+  font-weight: 600;
+  color: var(--card-text, #000);
+}
+
+.bear-toggle-container .bear-mask {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 120px;
+  height: 40px;
+  background: transparent;
+  z-index: 1;
+}
+
+.bear-toggle-container .bear {
+  width: 100%;
+  background: transparent;
+  transform: translate(0, 100%);
+}
+
+.bear-toggle-container .bear__swear {
+  display: none;
+  position: absolute;
+  left: 105%;
+  top: 0;
+  background: #fff;
+  color: #000;
+  font-weight: bolder;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  white-space: nowrap;
+  z-index: 20;
+}
+
+.bear-toggle-container .bear__swear:before {
+  content: '';
+  background: #fff;
+  position: absolute;
+  top: 90%;
+  right: 70%;
+  height: 15px;
+  width: 15px;
+  clip-path: polygon(0 100%, 100% 0, 50% 0);
+  -webkit-clip-path: polygon(0 100%, 100% 0, 50% 0);
+}
+
+.bear-toggle-container .bear__wrap {
+  width: 50px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-15%, -50%) rotate(5deg) translate(0, -45%);
+  background: transparent;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bear-toggle-container .bear__arm-wrap {
+  background: transparent;
+  position: absolute;
+  height: 15px;
+  width: 45px;
+  z-index: 2;
+  top: 55%;
+  left: 50%;
+  transform: translate(0, -50%) rotate(0deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bear-toggle-container .bear__paw {
+  opacity: 0;
+}
+
+.bear-toggle-container .bear__arm {
+  background: transparent;
+  transform-origin: left;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-35%, -50%) scaleX(1);
+}
+
+.bear-toggle-container .bear__paw {
+  background: #784421;
+  border-radius: 100%;
+  position: absolute;
+  height: 15px;
+  width: 15px;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform-origin: right;
+  transform: translate(40px, -7.5px) scaleX(0);
+}
+
+.bear-toggle-container .bear-checkbox {
+  border-radius: 25px;
+  height: 50px;
+  position: relative;
+  width: 100px;
+  z-index: 5;
+}
+
+.bear-toggle-container .bear-checkbox [type='checkbox'] {
+  cursor: pointer;
+  border-radius: 25px;
+  position: absolute;
+  outline: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  z-index: 10;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.bear-toggle-container .checkbox__bg {
+  background: #aaa;
+  border-radius: 25px;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  position: relative;
+}
+
+.bear-toggle-container .checkbox__indicator {
+  background: transparent;
+  height: 100%;
+  width: 50%;
+  border-radius: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.bear-toggle-container .checkbox__indicator:after {
+  content: '';
+  border-radius: 100%;
+  height: 85%;
+  width: 85%;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bear-floating-swear {
+  position: absolute;
+  background: #fff;
+  color: #000;
+  font-weight: bolder;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 1rem;
+  white-space: nowrap;
+  z-index: 99999;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(0, 0) scale(0);
+  transform-origin: bottom left;
+}
+
+.bear-floating-swear:before {
+  content: '';
+  background: #fff;
+  position: absolute;
+  top: 90%;
+  right: calc(100% - 15px); /* Arrow pointing left-ish? No, bear is usually left of bubble */
+  /* Replicate original arrow which was bottom left-ish */ 
+  /* Original: right: 70% clipping polygon... */
+  
+  /* Let's align arrow to bottom left */
+  left: 10px;
+  top: 100%;
+  height: 15px;
+  width: 15px;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 50% 100%);
+  /* Wait, original was top: 90%, right: 70%. Polygon 0 100, 100 0, 50 0. */
+  /* Triangle pointing DOWN? */
+  
+  /* Original Logic: */
+  /* top: 90% -> bottom of bubble */
+  /* right: 70% -> left side */
+  /* clip-path: polygon(0 100%, 100% 0, 50% 0); */
+  /* 0 100% is bottom-left. 100% 0 is top-right. 50% 0 is top-center. */
+  /* This creates a triangle pointing down-left. */
+}
+
+/* Redoing arrow to be simpler and consistent */
+.bear-floating-swear:after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 15px;
+  width: 0; 
+  height: 0; 
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 10px solid #fff;
+}
+
