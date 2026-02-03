@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Druckfehler | 3D-Print-Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --font-main: 'Montserrat', sans-serif;
+            --font-title: 'Orbitron', sans-serif;
+            --font-size: xx-large;
+            --primary-orange: #6176fd;
+            --primary-bg: #121212;
+            --text-color: #ffffff;
+            --dot-glow-color: #00f3ff;
+            --error-red: #ff3366;
+            --neon-blue: #00f3ff;
+            --neon-purple: #a855f7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        /* === THREE.JS CANVAS === */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* === ANIMATED DOTS BACKGROUND === */
+        .dots-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
+
+        /* === GLITCH OVERLAY === */
+        .glitch-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 243, 255, 0.015) 2px,
+                rgba(0, 243, 255, 0.015) 4px
+            );
+            animation: scanlines 8s linear infinite;
+        }
+
+        @keyframes scanlines {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(4px); }
+        }
+
+        /* === CONTENT CONTAINER === */
+        .error-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
+            pointer-events: none;
+        }
+
+        /* === GLITCH 404 TEXT === */
+        .error-code {
+            font-family: var(--font-title);
+            font-size: clamp(80px, 20vw, 200px);
+            font-weight: 900;
+            color: transparent;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--error-red));
+            background-clip: text;
+            -webkit-background-clip: text;
+            position: relative;
+            animation: float 4s ease-in-out infinite;
+            text-shadow: 
+                0 0 20px rgba(255, 38, 0, 0.5),
+                0 0 40px rgba(153, 255, 0, 0.3),
+                0 0 60px rgba(0, 243, 255, 0.2);
+        }
+
+        .error-code::before,
+        .error-code::after {
+            content: '404';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--error-red), var(--neon-purple));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .error-code::before {
+            animation: glitch-1 2s infinite linear alternate-reverse;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+        }
+
+        .error-code::after {
+            animation: glitch-2 3s infinite linear alternate-reverse;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+        }
+
+        @keyframes glitch-1 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+        }
+
+        @keyframes glitch-2 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(3px, -3px); }
+            40% { transform: translate(3px, 3px); }
+            60% { transform: translate(-3px, -3px); }
+            80% { transform: translate(-3px, 3px); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* === ERROR MESSAGE === */
+        .error-message {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            font-weight: 300;
+            margin-top: 20px;
+            opacity: 0.9;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .error-subtitle {
+            font-size: clamp(0.8rem, 2vw, 1.1rem);
+            margin-top: 10px;
+            opacity: 0.6;
+            font-weight: 400;
+        }
+
+        .error-subtitle span {
+            color: var(--error-red);
+            font-weight: 700;
+        }
+
+        /* === PRINTER STATUS === */
+        .printer-status {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--error-red);
+            animation: blink 1s infinite;
+            box-shadow: 0 0 10px var(--error-red), 0 0 20px var(--error-red);
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.3; }
+        }
+
+        /* === BACK BUTTON === */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 50px;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, rgba(97, 118, 253, 0.2), rgba(168, 85, 247, 0.2));
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: white;
+            font-family: var(--font-main);
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            pointer-events: auto;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .back-button:hover::before {
+            left: 100%;
+        }
+
+        .back-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: var(--neon-blue);
+            box-shadow: 
+                0 10px 40px rgba(0, 243, 255, 0.3),
+                0 0 30px rgba(97, 118, 253, 0.4);
+        }
+
+        .back-button i {
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .back-button:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* === FLOATING PARTICLES === */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+            animation: rise 8s infinite;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* === FILAMENT SPAGHETTI (Failed Print Effect) === */
+        .spaghetti {
+            position: fixed;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200px;
+            z-index: 3;
+            pointer-events: none;
+            opacity: 0.4;
+        }
+
+        .spaghetti-strand {
+            position: absolute;
+            width: 3px;
+            background: linear-gradient(to top, var(--primary-orange), transparent);
+            border-radius: 50%;
+            animation: spaghetti-wave 3s ease-in-out infinite;
+        }
+
+        @keyframes spaghetti-wave {
+            0%, 100% { transform: scaleY(1) rotate(0deg); }
+            50% { transform: scaleY(1.2) rotate(5deg); }
+        }
+
+        /* === INTERACTIVE HINT === */
+        .interact-hint {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            opacity: 0.5;
+            animation: pulse-hint 2s infinite;
+        }
+
+        .interact-hint i {
+            animation: wiggle 1s infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        @keyframes pulse-hint {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .error-content {
+                padding: 20px;
+            }
+
+            .back-button {
+                padding: 15px 30px;
+                font-size: 0.9rem;
+            }
+
+            .interact-hint {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- DOTS BACKGROUND -->
+    <div class="dots-background"></div>
+
+    <!-- THREE.JS CANVAS -->
+    <div id="canvas-container"></div>
+
+    <!-- GLITCH OVERLAY -->
+    <div class="glitch-overlay"></div>
+
+    <!-- FLOATING PARTICLES -->
+    <script>
+        // Generate floating particles
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDelay = Math.random() * 8 + 's';
+            particle.style.animationDuration = (5 + Math.random() * 5) + 's';
+            particle.style.background = Math.random() > 0.5 ? '#00f3ff' : '#a855f7';
+            particle.style.boxShadow = `0 0 10px ${particle.style.background}`;
+            document.body.appendChild(particle);
+        }
+    </script>
+
+    <!-- ERROR CONTENT -->
+    <div class="error-content">
+        <div class="error-code">404</div>
+        <p class="error-message">🖨️ Druckfehler erkannt!</p>
+        <p class="error-subtitle">Die Seite wurde <span>nicht gefunden</span> – wie ein misslungener Print</p>
+        
+        <div class="printer-status">
+            <div class="status-dot"></div>
+            <span>DRUCKER STATUS: SPAGHETTI-ALARM</span>
+        </div>
+
+        <a href="index.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Zurück zum Hub
+        </a>
+    </div>
+
+    <!-- INTERACTION HINT -->
+    <div class="interact-hint">
+        <i class="fas fa-hand-pointer"></i>
+        <span>Bewege die Maus, um den "Misprint" zu drehen</span>
+    </div>
+
+    <!-- THREE.JS MAGIC ✨ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // === THREE.JS SCENE SETUP ===
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        camera.position.z = 5;
+
+        // === LIGHTING ===
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+        scene.add(ambientLight);
+
+        const pointLight1 = new THREE.PointLight(0x00f3ff, 2, 50);
+        pointLight1.position.set(5, 5, 5);
+        scene.add(pointLight1);
+
+        const pointLight2 = new THREE.PointLight(0xa855f7, 2, 50);
+        pointLight2.position.set(-5, -5, 5);
+        scene.add(pointLight2);
+
+        const pointLight3 = new THREE.PointLight(0xff3366, 1.5, 50);
+        pointLight3.position.set(0, 5, -5);
+        scene.add(pointLight3);
+
+        // === CREATE "FAILED PRINT" 3D OBJECT ===
+        // Main geometry - a distorted torus (like tangled filament)
+        const group = new THREE.Group();
+
+        // Material with wireframe and glow effect
+        const material = new THREE.MeshPhongMaterial({
+            color: 0x00f3ff,
+            emissive: 0x00f3ff,
+            emissiveIntensity: 0.2,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.8
+        });
+
+        // Create multiple distorted geometries
+        const geometries = [];
+
+        // Main torus knot (tangled filament)
+        const torusKnot = new THREE.TorusKnotGeometry(1.5, 0.3, 128, 16, 2, 3);
+        const torusKnotMesh = new THREE.Mesh(torusKnot, material);
+        group.add(torusKnotMesh);
+
+        // Small spheres (blobs of melted filament)
+        for (let i = 0; i < 20; i++) {
+            const sphereGeo = new THREE.SphereGeometry(0.1 + Math.random() * 0.2, 8, 8);
+            const sphereMat = new THREE.MeshPhongMaterial({
+                color: Math.random() > 0.5 ? 0xa855f7 : 0xff3366,
+                emissive: Math.random() > 0.5 ? 0xa855f7 : 0xff3366,
+                emissiveIntensity: 0.3,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.6
+            });
+            const sphere = new THREE.Mesh(sphereGeo, sphereMat);
+            sphere.position.set(
+                (Math.random() - 0.5) * 4,
+                (Math.random() - 0.5) * 4,
+                (Math.random() - 0.5) * 4
+            );
+            group.add(sphere);
+        }
+
+        // Add some random lines (extruded filament strands)
+        for (let i = 0; i < 15; i++) {
+            const points = [];
+            const startPoint = new THREE.Vector3(
+                (Math.random() - 0.5) * 3,
+                (Math.random() - 0.5) * 3,
+                (Math.random() - 0.5) * 3
+            );
+            
+            for (let j = 0; j < 10; j++) {
+                points.push(new THREE.Vector3(
+                    startPoint.x + (Math.random() - 0.5) * 2,
+                    startPoint.y + j * 0.3,
+                    startPoint.z + (Math.random() - 0.5) * 2
+                ));
+            }
+
+            const curve = new THREE.CatmullRomCurve3(points);
+            const tubeGeo = new THREE.TubeGeometry(curve, 20, 0.03, 8, false);
+            const tubeMat = new THREE.MeshPhongMaterial({
+                color: 0x6176fd,
+                emissive: 0x6176fd,
+                emissiveIntensity: 0.4,
+                transparent: true,
+                opacity: 0.7
+            });
+            const tube = new THREE.Mesh(tubeGeo, tubeMat);
+            group.add(tube);
+        }
+
+        scene.add(group);
+
+        // === MOUSE INTERACTION ===
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        // === VERTEX DISTORTION (Simulating failed print warping) ===
+        const positions = torusKnot.attributes.position;
+        const originalPositions = positions.array.slice();
+
+        function distortGeometry(time) {
+            for (let i = 0; i < positions.count; i++) {
+                const x = originalPositions[i * 3];
+                const y = originalPositions[i * 3 + 1];
+                const z = originalPositions[i * 3 + 2];
+
+                const noise = Math.sin(x * 3 + time) * Math.cos(y * 3 + time) * 0.15;
+                
+                positions.array[i * 3] = x + noise;
+                positions.array[i * 3 + 1] = y + noise * 0.5;
+                positions.array[i * 3 + 2] = z + noise;
+            }
+            positions.needsUpdate = true;
+        }
+
+        // === ANIMATION LOOP ===
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const time = Date.now() * 0.001;
+
+            // Smooth mouse following
+            targetX += (mouseX - targetX) * 0.05;
+            targetY += (mouseY - targetY) * 0.05;
+
+            // Rotate the group based on mouse position
+            group.rotation.y = targetX * Math.PI * 0.5;
+            group.rotation.x = targetY * Math.PI * 0.3;
+
+            // Auto rotation
+            group.rotation.z += 0.002;
+
+            // Distort the main geometry
+            distortGeometry(time);
+
+            // Animate individual elements
+            group.children.forEach((child, i) => {
+                if (child !== torusKnotMesh) {
+                    child.rotation.x += 0.01 * (i % 2 === 0 ? 1 : -1);
+                    child.rotation.y += 0.01 * (i % 3 === 0 ? 1 : -1);
+                    
+                    // Floating effect
+                    child.position.y += Math.sin(time + i) * 0.002;
+                }
+            });
+
+            // Animate lights
+            pointLight1.position.x = Math.sin(time * 0.7) * 5;
+            pointLight1.position.y = Math.cos(time * 0.5) * 5;
+            pointLight2.position.x = Math.cos(time * 0.3) * 5;
+            pointLight2.position.z = Math.sin(time * 0.5) * 5;
+
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // === WINDOW RESIZE ===
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // === EASTER EGG: Click to "try to fix" the print ===
+        let clickCount = 0;
+        document.addEventListener('click', () => {
+            clickCount++;
+            
+            // Shake effect
+            group.position.x = (Math.random() - 0.5) * 0.5;
+            group.position.y = (Math.random() - 0.5) * 0.5;
+            
+            setTimeout(() => {
+                group.position.x = 0;
+                group.position.y = 0;
+            }, 100);
+
+            // After 5 clicks, change message
+            if (clickCount === 5) {
+                document.querySelector('.error-subtitle').innerHTML = 
+                    'Klicken hilft auch nicht... 😅 <span>Geh zurück zur Startseite!</span>';
+            }
+            
+            // After 10 clicks, "fix" the print temporarily
+            if (clickCount === 10) {
+                material.wireframe = false;
+                document.querySelector('.printer-status span').textContent = 
+                    'STATUS: Wird das jetzt ein WÜRFEL?! 🤔';
+                
+                setTimeout(() => {
+                    material.wireframe = true;
+                    document.querySelector('.printer-status span').textContent = 
+                        'DRUCKER STATUS: SPAGHETTI-ALARM';
+                }, 2000);
+            }
+        });
+    </script>
+
+</body>
+</html>
