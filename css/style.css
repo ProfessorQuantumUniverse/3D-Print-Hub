@@ -2468,3 +2468,41 @@ body.lightmode .card-glass-bg {
 .label-text a { color: var(--primary-orange); text-decoration: none; }
 .label-text a:hover { text-decoration: underline; }
 
+
+/* ============================================================
+   LAYOUT STABILITY FOR MULTILINGUAL TEXT
+   ============================================================ */
+
+/* 1. Prevent Navigation Wrap */
+.nav-item {
+    white-space: nowrap;
+}
+
+/* 2. Prevent Button Layout Breaking */
+.apple-btn-primary, 
+.btn-pill, 
+.hud-btn {
+    white-space: nowrap;
+}
+
+/* 3. Stabilize Pricing Cards (Align Prices) */
+/* Reserve space for 2 lines of text in description to keep prices aligned */
+.pricing-card p {
+    min-height: 3em; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 4. Stabilize Tech/Features Grid */
+.tech-item p {
+    min-height: 3em; /* Ensure uniform height for descriptions */
+}
+
+/* 5. Hero Headline Responsive Font Size for longer text */
+@media (max-width: 768px) {
+    .premium-headline {
+        font-size: 3.5rem; /* Slightly smaller on mobile to fit long words */
+        word-wrap: break-word;
+    }
+}
