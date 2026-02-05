@@ -25,16 +25,16 @@
         
         <!-- Intro & Call to Action (Öffnet das Modal) -->
         <div class="booking-intro">
-            <h1 class="premium-headline">Erschaffe die <span class="text-gradient">Zukunft</span>.</h1>
-            <p class="premium-subtext">Transparente Preise. Höchste Präzision. Dein 3D-Modell in wenigen Klicks realisiert.</p>
+            <h1 class="premium-headline" data-i18n="buchen_headline">Erschaffe die <span class="text-gradient">Zukunft</span>.</h1>
+            <p class="premium-subtext" data-i18n="buchen_subtext">Transparente Preise. Höchste Präzision. Dein 3D-Modell in wenigen Klicks realisiert.</p>
             <button id="openBookingModalBtn" class="apple-btn-primary">
-                <i class="fa-solid fa-cube"></i> Jetzt Auftrag starten
+                <i class="fa-solid fa-cube"></i> <span data-i18n="buchen_btn_start">Jetzt Auftrag starten</span>
             </button>
         </div>
 
         <!-- High-End Pricing Grid -->
         <div class="pricing-ecosystem">
-            <h2 class="section-tag">PREIS-KALKULATION</h2>
+            <h2 class="section-tag" data-i18n="pricing_tag">PREIS-KALKULATION</h2>
             
             <div class="pricing-formula-row">
                 <!-- Card 1: Material -->
@@ -42,14 +42,14 @@
                     <div class="card-glow"></div>
                     <span class="card-step">01</span>
                     <i class="fa-solid fa-weight-hanging icon-feature"></i>
-                    <h3>Material</h3>
-                    <p>Volumen in Gramm</p>
+                    <h3 data-i18n="pricing_card_mat_title">Material</h3>
+                    <p data-i18n="pricing_card_mat_desc">Volumen in Gramm</p>
                     <div class="price-metric">
                         <span class="metric-value">0,70€</span>
                         <span class="metric-unit">/ 10g</span>
                     </div>
                
-                    <a href="/materials.html" class="btn-pill"><i class="fa-solid fa-layer-group"></i> Material</a>
+                    <a href="/materials.html" class="btn-pill"><i class="fa-solid fa-layer-group"></i> <span data-i18n="pricing_card_mat_btn">Material</span></a>
                     
                 </div>
 
@@ -61,8 +61,8 @@
                     <div class="card-glow"></div>
                     <span class="card-step">02</span>
                     <i class="fa-solid fa-clock icon-feature"></i>
-                    <h3>Druckzeit</h3>
-                    <p>Maschinenlaufzeit</p>
+                    <h3 data-i18n="pricing_card_time_title">Druckzeit</h3>
+                    <p data-i18n="pricing_card_time_desc">Maschinenlaufzeit</p>
                     <div class="price-metric">
                         <span class="metric-value">0,08€</span>
                         <span class="metric-unit">/ Std.</span>
@@ -77,8 +77,8 @@
                     <div class="card-glow"></div>
                     <span class="card-step">03</span>
                     <i class="fa-solid fa-wand-magic-sparkles icon-feature"></i>
-                    <h3>Service</h3>
-                    <p>Setup & Finishing</p>
+                    <h3 data-i18n="pricing_card_service_title">Service</h3>
+                    <p data-i18n="pricing_card_service_desc">Setup & Finishing</p>
                     <div class="price-metric">
                         <span class="metric-value">Start</span>
                         <span class="metric-unit">ab 0,10€</span>
@@ -94,46 +94,46 @@
             <!-- Kalkulations-Beispiel / Live Rechner -->
             <div class="example-calculation-card">
                 <div class="example-content">
-                    <span class="tag">LIVE-RECHNER</span>
-                    <h4>Deine Preis Schätzung</h4>
+                    <span class="tag" data-i18n="calc_tag">LIVE-RECHNER</span>
+                    <h4 data-i18n="calc_headline">Deine Preis Schätzung</h4>
                     
                     <!-- Eingabe Bereich für Live-Rechnung -->
                     <div class="calculator-inputs">
                         <div class="cal-input-row">
-                            <label for="calc-material-select" style="display:block; margin-bottom: 5px;">Material:</label>
+                            <label for="calc-material-select" style="display:block; margin-bottom: 5px;" data-i18n="calc_mat_select_label">Material:</label>
                             <select id="calc-material-select" style="width: 100%; padding: 8px; border-radius: 8px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
                                 <option value="pla" data-price="0.70">Lade Materialien...</option>
                             </select>
                         </div>
                         <div class="cal-input-row">
-                            <label>Gewicht (g): <span id="weight-display">27</span>g</label>
+                            <label><span data-i18n="calc_weight_label">Gewicht (g):</span> <span id="weight-display">27</span>g</label>
                             <input type="range" id="calc-weight" min="1" max="500" value="27" step="1" class="calc-slider">
                         </div>
                         <div class="cal-input-row">
-                            <label>Druckzeit (h): <span id="time-display">3</span>h</label>
+                            <label><span data-i18n="calc_time_label">Druckzeit (h):</span> <span id="time-display">3</span>h</label>
                             <input type="range" id="calc-time" min="0.5" max="50" value="3" step="0.5" class="calc-slider">
                         </div>
                     </div>
 
                     <ul class="calc-list">
                         <li>
-                            <span class="c-label" id="material-label-display">Materialkosten</span> 
+                            <span class="c-label" id="material-label-display" data-i18n="calc_list_mat">Materialkosten</span> 
                             <span class="c-dots">...........................................</span>
                             <span class="c-price" id="price-material">1,89 €</span>
                         </li>
                         <li>
-                            <span class="c-label">Maschinenzeit</span> 
+                            <span class="c-label" data-i18n="calc_list_time">Maschinenzeit</span> 
                             <span class="c-dots">...........................................</span>
                             <span class="c-price" id="price-time">0,24 €</span>
                         </li>
                         <li>
-                            <span class="c-label">Setup & Finishing</span> 
+                            <span class="c-label" data-i18n="calc_list_setup">Setup & Finishing</span> 
                             <span class="c-dots">...........................................</span>
                             <span class="c-price">ab 0,10 €</span>
                         </li>
                     </ul>
                     <div class="total-price">
-                        <span>Geschätzter Preis</span>
+                        <span data-i18n="calc_total_label">Geschätzter Preis</span>
                         <span class="total-value" id="total-price-display">2,13 €</span>
                     </div>
                 </div>
@@ -150,20 +150,20 @@
         <div class="modal-container">
             <!-- Modal Header -->
             <div class="modal-header">
-                <h2>Neuer Auftrag</h2>
+                <h2 data-i18n="modal_title">Neuer Auftrag</h2>
                 <button id="closeModalBtn" class="close-modal"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
             <!-- Step 1: Auswahl -->
             <div class="modal-step" id="modal-step-1">
-                <p class="step-desc">Was möchtest du drucken?</p>
+                <p class="step-desc" data-i18n="modal_step1_desc">Was möchtest du drucken?</p>
                 <div class="selection-group">
                     <label class="radio-card">
                         <input type="radio" name="order-type" value="file">
                         <span class="radio-content">
                             <i class="fa-solid fa-file-arrow-up"></i>
-                            <span class="r-title">Eigene Datei (STL/OBJ)</span>
-                            <span class="r-desc">Ich habe fertige 3D-Daten.</span>
+                            <span class="r-title" data-i18n="modal_opt_file_title">Eigene Datei (STL/OBJ)</span>
+                            <span class="r-desc" data-i18n="modal_opt_file_desc">Ich habe fertige 3D-Daten.</span>
                         </span>
                     </label>
 
@@ -171,8 +171,8 @@
                         <input type="radio" name="order-type" value="link">
                         <span class="radio-content">
                             <i class="fa-solid fa-link"></i>
-                            <span class="r-title">Web-Link (Thingiverse)</span>
-                            <span class="r-desc">Link zu einer Online-Plattform.</span>
+                            <span class="r-title" data-i18n="modal_opt_link_title">Web-Link (Thingiverse)</span>
+                            <span class="r-desc" data-i18n="modal_opt_link_desc">Link zu einer Online-Plattform.</span>
                         </span>
                     </label>
 
@@ -180,13 +180,13 @@
                         <input type="radio" name="order-type" value="design">
                         <span class="radio-content">
                             <i class="fa-solid fa-pen-nib"></i>
-                            <span class="r-title">Design Auftrag</span>
-                            <span class="r-desc">Erstellt ein Modell nach meinen Vorgaben.</span>
+                            <span class="r-title" data-i18n="modal_opt_design_title">Design Auftrag</span>
+                            <span class="r-desc" data-i18n="modal_opt_design_desc">Erstellt ein Modell nach meinen Vorgaben.</span>
                         </span>
                     </label>
                 </div>
                 <div class="modal-footer">
-                    <button class="apple-btn-secondary disabled" id="nextStepBtn" disabled>Weiter <i class="fa-solid fa-arrow-right"></i></button>
+                    <button class="apple-btn-secondary disabled" id="nextStepBtn" disabled><span data-i18n="btn_next">Weiter</span> <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
             </div>
 
@@ -198,27 +198,27 @@
                         <div class="upload-zone" id="dropZone">
                             <input type="file" id="fileInput" hidden accept=".stl,.obj,.3mf,.step,.zip">
                             <i class="fa-solid fa-cloud-arrow-up"></i>
-                            <span id="fileNameDisplay">Datei hierher ziehen oder klicken</span>
-                            <p class="micro-text">Max. 50MB (STL, OBJ, 3MF, STEP)</p>
+                            <span id="fileNameDisplay" data-i18n="dropzone_file">Datei hierher ziehen oder klicken</span>
+                            <p class="micro-text" data-i18n="dropzone_file_hint">Max. 50MB (STL, OBJ, 3MF, STEP)</p>
                         </div>
                     </div>
 
                     <div id="dynamic-link" class="dynamic-zone hidden">
                         <div class="input-group">
                             <input type="url" id="thingiverseLink" placeholder=" " required>
-                            <label for="thingiverseLink">Thingiverse / Makerworld URL</label>
+                            <label for="thingiverseLink" data-i18n="input_link_label">Thingiverse / Makerworld URL</label>
                         </div>
                     </div>
 
                     <div id="dynamic-design" class="dynamic-zone hidden">
                         <div class="input-group">
                             <textarea id="designDesc" rows="3" placeholder=" " required></textarea>
-                            <label for="designDesc">Beschreibe deine Idee...</label>
+                            <label for="designDesc" data-i18n="input_design_label">Beschreibe deine Idee...</label>
                         </div>
                         <div class="upload-zone inner-upload" id="dropZoneDesign">
                             <input type="file" id="fileInputDesign" hidden accept=".jpg,.png,.pdf,.zip">
                             <i class="fa-solid fa-image"></i>
-                            <span id="fileNameDisplayDesign">Skizzen/Bilder hochladen (Optional)</span>
+                            <span id="fileNameDisplayDesign" data-i18n="dropzone_design">Skizzen/Bilder hochladen (Optional)</span>
                         </div>
                     </div>
 
@@ -227,9 +227,9 @@
                     <!-- Material Auswahl (Neu) -->
                      <div class="input-group">
                         <select id="modal-material-select" style="background:transparent; border:none; border-bottom: 2px solid white; color:white; padding: 10px 0; width:100%; outline:none;">
-                            <option value="" disabled selected>Wähle dein Material...</option>
+                            <option value="" disabled selected data-i18n="modal_mat_select_default">Wähle dein Material...</option>
                         </select>
-                        <label for="modal-material-select" style="top:-10px; font-size:12px; color:var(--primary-orange);">Materialwunsch</label>
+                        <label for="modal-material-select" style="top:-10px; font-size:12px; color:var(--primary-orange);" data-i18n="modal_mat_label">Materialwunsch</label>
                     </div>
 
                     <div class="divider"></div>
@@ -238,16 +238,16 @@
                     <div class="input-row">
                         <div class="input-group">
                             <input type="text" id="fname" placeholder=" " required>
-                            <label for="fname">Vorname</label>
+                            <label for="fname" data-i18n="input_fname">Vorname</label>
                         </div>
                         <div class="input-group">
                             <input type="text" id="lname" placeholder=" " required>
-                            <label for="lname">Nachname</label>
+                            <label for="lname" data-i18n="input_lname">Nachname</label>
                         </div>
                     </div>
                     <div class="input-group">
                         <input type="email" id="email" placeholder=" " required>
-                        <label for="email">E-Mail Adresse</label>
+                        <label for="email" data-i18n="input_email">E-Mail Adresse</label>
                     </div>
 
                     <div class="toggle-group">
@@ -255,12 +255,12 @@
                             <input type="checkbox" id="shippingToggle">
                             <span class="slider round"></span>
                         </label>
-                        <span class="toggle-label">Postversand gewünscht (+Versandkosten)</span>
+                        <span class="toggle-label" data-i18n="toggle_shipping">Postversand gewünscht (+Versandkosten)</span>
                     </div>
 
                     <div id="shippingAddress" class="input-group hidden">
                         <input type="text" id="address" placeholder=" ">
-                        <label for="address">Lieferadresse (Str, PLZ, Ort)</label>
+                        <label for="address" data-i18n="input_address">Lieferadresse (Str, PLZ, Ort)</label>
                     </div>
 
                     <div class="divider"></div>
@@ -270,20 +270,20 @@
                         <label class="custom-checkbox">
                             <input type="checkbox" id="agbCheck" required>
                             <span class="checkmark"></span>
-                            <span class="label-text">Ich akzeptiere die <a href="#">AGB</a> & <a href="#">Datenschutz</a>.</span>
+                            <span class="label-text" data-i18n="checkbox_agb">Ich akzeptiere die <a href="#">AGB</a> & <a href="#">Datenschutz</a>.</span>
                         </label>
                         <label class="custom-checkbox">
                             <input type="checkbox" id="newsletterCheck">
                             <span class="checkmark"></span>
-                            <span class="label-text">Newsletter abonnieren (Updates & Angebote).</span>
+                            <span class="label-text" data-i18n="checkbox_newsletter">Newsletter abonnieren (Updates & Angebote).</span>
                         </label>
                     </div>
 
                 </div>
 
                 <div class="modal-footer split">
-                    <button class="apple-btn-ghost" id="prevStepBtn"><i class="fa-solid fa-arrow-left"></i> Zurück</button>
-                    <button class="apple-btn-primary" id="submitOrderBtn">Anfrage senden</button>
+                    <button class="apple-btn-ghost" id="prevStepBtn"><i class="fa-solid fa-arrow-left"></i> <span data-i18n="btn_back">Zurück</span></button>
+                    <button class="apple-btn-primary" id="submitOrderBtn" data-i18n="btn_submit_order">Anfrage senden</button>
                 </div>
             </div>
 
@@ -293,9 +293,9 @@
                     <div class="success-icon" style="font-size: 4rem; color: #4CAF50; margin-bottom: 20px;">
                         <i class="fa-solid fa-circle-check"></i>
                     </div>
-                    <h3 style="font-size: 1.8rem; margin-bottom: 15px;">Anfrage gesendet!</h3>
-                    <p style="opacity: 0.8; margin-bottom: 30px;">Wir haben deine Daten erhalten und melden uns in Kürze mit einem Angebot bei dir.</p>
-                    <button class="apple-btn-secondary" id="closeSuccessBtn">Fertig</button>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 15px;" data-i18n="msg_success_title">Anfrage gesendet!</h3>
+                    <p style="opacity: 0.8; margin-bottom: 30px;" data-i18n="msg_success_text">Wir haben deine Daten erhalten und melden uns in Kürze mit einem Angebot bei dir.</p>
+                    <button class="apple-btn-secondary" id="closeSuccessBtn" data-i18n="btn_finish">Fertig</button>
                 </div>
             </div>
 
@@ -313,9 +313,10 @@
     </footer>
 
     <div class="chat-fab">
-        <i class="fa-regular fa-comment"></i> Chat
+        <i class="fa-regular fa-comment"></i> <span data-i18n="chat_label_short">Chat</span>
     </div>
 
+    <script src="./js/translations.js"></script>
     <script src="./js/script.js"></script>
 </body>
 </html>

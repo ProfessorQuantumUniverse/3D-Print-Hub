@@ -22,21 +22,21 @@
 <main class="status-page-content">
     <div class="status-hero">
         <div class="search-form-container">
-            <label for="orderInput" class="input-label">Deine Bestellnummer *</label>
+            <label for="orderInput" class="input-label" data-i18n="status_label_order">Deine Bestellnummer *</label>
             <div class="input-wrapper">
                 <input type="number" id="orderInput" placeholder="z.B 123456" class="status-input">
             </div>
-            <button id="submitBtn" class="btn-pill filled">Submit</button>
+            <button id="submitBtn" class="btn-pill filled" data-i18n="status_btn_submit">Submit</button>
         </div>
 
         <div id="resultsTableContainer" class="results-container hidden">
             <table class="status-table">
                 <thead>
                     <tr>
-                        <th>Code</th>
-                        <th>Status</th>
-                        <th>Deteils&Name</th> <!-- Tippfehler aus Video übernommen -->
-                        <th>Prozent</th>
+                        <th data-i18n="status_th_code">Code</th>
+                        <th data-i18n="status_th_status">Status</th>
+                        <th data-i18n="status_th_details">Deteils&Name</th> <!-- Tippfehler aus Video übernommen -->
+                        <th data-i18n="status_th_percent">Prozent</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
@@ -58,9 +58,10 @@
 
     <!-- Chat Button Fixed -->
     <div class="chat-fab">
-        <i class="fa-regular fa-comment"></i> Chat with us
+        <i class="fa-regular fa-comment"></i> <span data-i18n="chat_label_short">Chat</span>
     </div>
 
+    <script src="./js/translations.js"></script>
     <script src="./js/script.js"></script>
 </body>
 </html>
