@@ -85,7 +85,7 @@ body.darkmode .header-pill {
 /* --- MITTLERER BEREICH (Scrollbar) --- */
 .header-center { 
     position: absolute; 
-    left: 50%; 
+    left: 35%; 
     transform: translateX(-50%);
     pointer-events: none;
     z-index: 10;

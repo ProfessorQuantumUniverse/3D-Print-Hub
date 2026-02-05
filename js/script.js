@@ -27,6 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Nach dem Laden: Active State setzen
                 setActiveMenuItem();
+
+                // Init Language
+                if (typeof initLanguage === 'function') {
+                    initLanguage();
+                }
                 
                 // Debugging: Prüfen ob Button da ist
                 console.log("Header geladen via Fetch.");
@@ -771,3 +776,62 @@ document.addEventListener('click', function(e) {
         closeMenu();
     }
 });
+/* ============================================================
+   MULTILINGUAL SUPPORT
+   ============================================================ */
+function updateLanguage(lang) {
+    if (!window.translations) {
+        console.warn("Translations file not loaded.");
+        return;
+    }
+
+    const t = window.translations[lang];
+    if (!t) return;
+
+    // 1. Save Preference
+    localStorage.setItem('language', lang);
+    document.documentElement.lang = lang; 
+
+    // Update Title
+    if(t.page_title) document.title = t.page_title;
+
+    // 2. Update Content (data-i18n)
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) {
+            el.innerHTML = t[key];
+        }
+    });
+
+    // 3. Update Flag Icon
+    const flagImg = document.querySelector('.lang-pill .flag-icon');
+    if (flagImg) {
+        if (lang === 'de') {
+            flagImg.src = "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/de.svg";
+            flagImg.alt = "DE";
+        } else {
+            flagImg.src = "https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/gb.svg";
+            flagImg.alt = "EN";
+        }
+    }
+}
+
+function initLanguage() {
+    const langBtn = document.querySelector('.lang-pill');
+    if (langBtn) {
+        langBtn.style.cursor = 'pointer';
+        
+        // Remove old listeners to avoid duplicates if called multiple times
+        // (Not easily possible with anonymous functions, but initLanguage is usually called once per page load/header load)
+        
+        langBtn.onclick = () => {
+            const currentLang = localStorage.getItem('language') || 'de';
+            const newLang = currentLang === 'de' ? 'en' : 'de';
+            updateLanguage(newLang);
+        };
+    }
+
+    const savedLang = localStorage.getItem('language') || 'de';
+    updateLanguage(savedLang);
+}
